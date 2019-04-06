@@ -1,7 +1,8 @@
 # LIGTA
 This is a LoL API Based module that aim to gather data on LoL Players
 ## Install
-Paste this code in a init.php placed in parts folder
+- Add a ddragon folder and put the desired patch content in it with the following link https://ddragon.leagueoflegends.com/cdn/dragontail-9.6.1.tgz where 9.6.1 can be replaced by the desired version
+- Paste this code in a init.php placed in parts folder
 ```PHP
 <?php
 	$key = "YOUR_API_KEY";
