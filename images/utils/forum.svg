@@ -1,0 +1,10 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 950" xml:space="preserve">
+	<g>
+		<rect stroke-dasharray="1900,250" x="70" y="100" rx="50" ry="50" width="860" height="610" style="fill:transparent;stroke:black;stroke-width:30;" />
+		<line x1="142" y1="695" x2="142" y2="850" style="stroke:black;stroke-width:30" />
+		<line x1="150" y1="836" x2="413" y2="709" style="stroke:black;stroke-width:30" />
+		<circle cx="280" cy="410" r="70" stroke="black" stroke-width="1" fill="black" />
+		<circle cx="500" cy="410" r="70" stroke="black" stroke-width="1" fill="black" />
+		<circle cx="720" cy="410" r="70" stroke="black" stroke-width="1" fill="black" />
+	</g>
+</svg>

@@ -1,0 +1,12 @@
+/* Champions */
+.goldchamp path{
+	fill:#DAA520;
+}
+
+.silverchamp path{
+	fill:#A9A9A9;
+}
+
+.bronzechamp path{
+	fill:#cd7f32;
+}
