@@ -12,4 +12,4 @@ This is a LoL API Based module that aim to gather data on LoL Players
 ?>
 ```
 ## Run
-You juste have to run an Apache server with that project
+You just have to run an Apache server with that project
