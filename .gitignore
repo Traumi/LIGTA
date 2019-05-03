@@ -1,2 +1,4 @@
 ddragon/
 parts/init.php
+data/games/*
+data/players/*
