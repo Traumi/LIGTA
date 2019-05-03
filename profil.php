@@ -279,7 +279,6 @@
 				.infotb{
 					margin-left:5px;
 					margin-right:5px;
-					height:375px;
 					border-radius:5px;
 					background:#dfdfdf;
 					border:solid darkgrey 2px;
@@ -327,11 +326,19 @@
 				}
 
 				.silverborder{
-					border:solid #7F7F7F 5px;
+					stroke:#7F7F7F;
 				}
 
 				body.dark .silverborder{
-					border:solid #A9A9A9 5px;
+					stroke:#A9A9A9;
+				}
+
+				.silvertext{
+					fill:#7F7F7F;
+				}
+
+				body.dark .silvertext{
+					fill:#A9A9A9;
 				}
 
 				.bronzechamp path{
@@ -566,7 +573,7 @@
 					$percent = $lvlmastery / $lvlmasterymax * 100;
 				?>
 
-				<svg height="350px" viewBox="0 0 42 50" class="donut">
+				<svg style="max-height:350px;" viewBox="0 0 42 50" class="donut">
 				  
 				  	<circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#aaa" stroke-width="3"/>
 
@@ -581,7 +588,55 @@
 				echo '</div>';
 				echo '</div>';
 				echo '<div id="mastery_podium" class="col-md-6 col-xs-12" style="text-align:center;margin-bottom:5px;position:relative;margin-bottom:25px;">';
-				echo '<div class="infotb">';
+				?>
+				<div class="infotb">
+				<svg viewbox="0 0 500 225" style="max-height:350px;">
+					<defs>
+						<rect id="rect1" x="210" y="10" width="80px" height="80px" rx="80"/>
+						<clipPath id="clip1">
+							<use xlink:href="#rect1"/>
+						</clipPath>
+						<rect id="rect2" x="60" y="20" width="70px" height="70px" rx="70"/>
+						<clipPath id="clip2">
+							<use xlink:href="#rect2"/>
+						</clipPath>
+						<rect id="rect3" x="370" y="20" width="70px" height="70px" rx="70"/>
+						<clipPath id="clip3">
+							<use xlink:href="#rect3"/>
+						</clipPath>
+					</defs>
+					<!--N°1-->
+					<use xlink:href="#rect1" stroke-width="4" stroke="#DAA520"/>
+					<image xlink:href="<?php echo 'ddragon/'.$version.'/img/champion/'.$podiumArray[1]["name"].'.png' ?>" x="210" y="10" height="80" width="80" clip-path="url(#clip1)"/>
+					<image xlink:href="<?php echo 'images/mastery/cm'.$podiumArray[1]["level"].'.png' ?>" x="225" y="65" height="50" width="50"/>
+					<g class="goldchamp" transform="translate(210,112.5) scale(0.8)"><!--128 125.8-->
+						<?php require("parts/laurier.svg"); ?>
+						<text x="50" y="63" font-size="40" font-weight="600" fill="#DAA520" font-family="Verdana" text-anchor="middle">1</text>
+						<text x="50" y="122" font-size="18" fill="#DAA520" font-family="Verdana" text-anchor="middle"><?php echo $podiumArray[1]["points"] ?></text>
+					</g>
+					
+					<!--N°2-->
+					<use xlink:href="#rect2" stroke-width="4" class="silverborder"/>
+					<image xlink:href="<?php echo 'ddragon/'.$version.'/img/champion/'.$podiumArray[2]["name"].'.png' ?>" x="60" y="20" height="70" width="70" clip-path="url(#clip2)"/>
+					<image xlink:href="<?php echo 'images/mastery/cm'.$podiumArray[2]["level"].'.png' ?>" x="75" y="70" height="40" width="40"/>
+					<g class="silverchamp" transform="translate(60,122.5) scale(0.7)">
+						<?php require("parts/laurier.svg"); ?>
+						<text x="50" y="63" font-size="40" font-weight="600" class="silvertext" font-family="Verdana" text-anchor="middle">2</text>
+						<text x="50" y="125" font-size="18" class="silvertext" font-family="Verdana" text-anchor="middle"><?php echo $podiumArray[2]["points"] ?></text>
+					</g>
+					<!--N°3-->
+					<use xlink:href="#rect3" stroke-width="4" stroke="#cd7f32"/>
+					<image xlink:href="<?php echo 'ddragon/'.$version.'/img/champion/'.$podiumArray[3]["name"].'.png' ?>" x="370" y="20" height="70" width="70" clip-path="url(#clip3)"/>
+					<image xlink:href="<?php echo 'images/mastery/cm'.$podiumArray[3]["level"].'.png' ?>" x="385" y="70" height="40" width="40"/>
+					<g class="bronzechamp" transform="translate(370,122.5) scale(0.7)">
+						<?php require("parts/laurier.svg"); ?>
+						<text x="50" y="63" font-size="40" font-weight="600" fill="#cd7f32" font-family="Verdana" text-anchor="middle">3</text>
+						<text x="50" y="125" font-size="18" fill="#cd7f32" font-family="Verdana" text-anchor="middle"><?php echo $podiumArray[3]["points"] ?></text>
+					</g>
+				</svg>
+				</div>
+				<?php
+				/*echo '<div class="infotb">';
 
 					echo '<div style="position:absolute;top:15px;left:30%;width:40%;">';
 						echo '<div style="position:relative;">';
@@ -592,7 +647,7 @@
 					echo '<div style="position:absolute;bottom:0px;left:calc(50% - 100px);width:200px;font-size:28px;color:#DAA520;">'.$podiumArray[1]["points"].'</div>';
 					echo '<div style="position:absolute;bottom:50px;left:calc(50% - 100px);width:200px;font-size:50px;color:#DAA520;">1</div>';
 					echo '<div class="goldchamp" style="position:absolute;bottom:35px;left:calc(50% - 100px);width:200px;color:white">';
-					require("parts/laurier.svg");
+					
 					echo '</div>';
 
 					echo '<div style="position:absolute;top:50px;left:0%;width:30%;">';
@@ -619,7 +674,7 @@
 					require("parts/laurier.svg");
 					echo '</div>';
 
-				echo '</div>';
+				echo '</div>';*/
 				echo '</div>';
 
 
@@ -641,7 +696,7 @@
 					echo '<div style="text-align:center;">';
 					foreach($masteriesArray as $index => $content){
 						if($content["level"] == $i){
-							echo '<div class="col-md-1 col-xs-2">';
+							echo '<div class="col-lg-1 col-md-2 col-xs-3">';
 							echo '<img style="width:80%;border-radius:100%;margin-top:15px;" src="http://ddragon.leagueoflegends.com/cdn/'.$version.'/img/champion/'.$content["name"].'.png" />';
 							echo '<div style="width:100%;font-size:16px;margin-top:5px;font-weight:bold;">'.$content["points"].'</div>';
 							echo '</div>';
@@ -783,7 +838,7 @@
 					</div><div style="display:inline-block;width:calc(100% - 150px);vertical-align:top;">
 						<?php 
 							for($j = 0 ; $j <= 6 ; $j++){
-								if($gamer_items[$j] == 0) echo '<img style="width:64px;" src="./ddragon/'.$version.'/img/spell/SummonerSiegeChampSelect1.png"/>';
+								if($gamer_items[$j] == 0) echo '<img style="width:64px;" src="./images/no_item.svg"/>';
 								else echo '<img style="width:64px;" src="./ddragon/'.$version.'/img/item/'.$gamer_items[$j].'.png"/>';
 							}
 						?>

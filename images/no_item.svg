@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" xml:space="preserve" width="4096" height="4096">
+	<g>
+		<path d="M 0.25,0.25 L 99.75,0.25 L 99.75,99.75 L 0.25,99.75 Z" fill="#333" stroke="black" stroke-width="0.5"/>
+		<path d="M 50,25 50,50 25,50 Z" fill="#222"/>
+		<path d="M 50,25 50,50 75,50 Z" fill="#111"/>
+		<path d="M 50,75 50,50 25,50 Z" fill="#111"/>
+		<path d="M 50,75 50,50 75,50 Z"/>
+		
+		<path d="M20,50 L 50,20 L 80,50 L 50,80 Z" stroke="#111" fill="transparent" />
+		
+		<path d="M 10,10 L 10,30 L 30,10" fill="#111"/>
+		<path d="M 90,10 L 90,30 L 70,10" fill="#111"/>
+		<path d="M 10,90 L 10,70 L 30,90" fill="#111"/>
+		<path d="M 90,90 L 90,70 L 70,90" fill="#111"/>
+		
+		<path d="M 5,35 L 5,5 L 35,5 L 50,15 L 65,5 L 95,5 L 95,35 L 85,50 L 95,65 L 95,95 L 65,95 L 50,85 L 35,95 L 5,95 L 5,65 L 15,50 Z" stroke="#111" stroke-width="0.75" fill="transparent"/>
+		
+		<path d="M 25,25 L 25,20 L 20,25" fill="#111"/>
+		<path d="M 25,75 L 25,80 L 20,75" fill="#111"/>
+		<path d="M 75,25 L 75,20 L 80,25" fill="#111"/>
+		<path d="M 75,75 L 75,80 L 80,75" fill="#111"/>
+		
+		<path d="M 30,22.5 L 30,30 L 22.5,30" fill="transparent" stroke="#111" stroke-width="0.75"/>
+		<path d="M 70,22.5 L 70,30 L 77.5,30" fill="transparent" stroke="#111" stroke-width="0.75"/>
+		<path d="M 30,77.5 L 30,70 L 22.5,70" fill="transparent" stroke="#111" stroke-width="0.75"/>
+		<path d="M 70,77.5 L 70,70 L 77.5,70" fill="transparent" stroke="#111" stroke-width="0.75"/>
+		
+	</g>
+</svg>
