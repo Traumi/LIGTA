@@ -37,6 +37,7 @@
           <select onchange="change_lang(this)" class="form-control" name="lang" id="lang">
             <option value="fr_FR">FR</option>
             <option value="en_US">EN</option>
+            <option value="es_ES">ES</option>
             <option value="de_DE" disabled>DE</option>
           </select>
         </div></li>

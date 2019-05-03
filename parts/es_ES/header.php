@@ -17,7 +17,7 @@
         <!--<li><a href="index.php?c=C_Vitrine&a=afficher">Vitrine</a></li>-->
         <li><form class="navbar-form navbar-right" action="profil.php" method="get">
           <div class="input-group">
-            <input placeholder="Search a player" name="pseudo" class="form-control" type="text">
+            <input placeholder="Rechercher un joueur" name="pseudo" class="form-control" type="text">
             <div class="input-group-btn">
               <button class="btn btn-default" type="submit" style="">
                 &nbsp;<i class="glyphicon glyphicon-search"></i>&nbsp;
@@ -49,8 +49,8 @@
           <ul class="dropdown-menu">
             <li class="dropdown-header">Data Patch : <?php echo json_decode(file_get_contents('data/version.json'))->version; ?></li>
             <li role="separator" class="divider"></li>
-            <li class="dropdown-header">Options</li>
-            <li><a href="index.php">Index</a></li>
+            <li class="dropdown-header">Opciones</li>
+            <li><a href="index.php">Bienvenida</a></li>
             <li><a href="icon_builder.php">Icon Builder</a></li>
           </ul>
         </li>
