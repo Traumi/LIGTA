@@ -54,7 +54,7 @@
             <li class="dropdown-header">Outils d'administration</li>
             <li><a href="index.php?c=C_Produit&a=admin">Modif produit</a></li>
             <li><a href="index.php?c=C_Accueil&a=gest">Gestion des clients</a></li>-->
-            <li class="dropdown-header">Patch : <?php echo json_decode(file_get_contents('data/version.json'))->version; ?></li>
+            <li class="dropdown-header">Data Patch : <?php echo json_decode(file_get_contents('data/version.json'))->version; ?></li>
             <li role="separator" class="divider"></li>
             <li class="dropdown-header">Options</li>
             <li><a href="index.php">Index</a></li>

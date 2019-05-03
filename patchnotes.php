@@ -24,6 +24,15 @@
 	<div>
 		<p>Ce module est développé par Traumination, pour toute suggestion merci de passer par le discord de la VCT : <a href="https://discord.gg/cqPUDC7">https://discord.gg/cqPUDC7</a></p>
 	</div>
+	<h4>0.9.2</h4>
+	<ul>
+		<li>
+			Mise à jour : Patch 9.9
+		</li>
+		<li>
+			Responsive design maîtrises
+		</li>
+	</ul>
 	<h4>0.9.1</h4>
 	<ul>
 		<li>
