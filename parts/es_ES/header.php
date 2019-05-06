@@ -35,10 +35,10 @@
       <ul class="nav navbar-nav navbar-right">
         <li><div class="navbar-form navbar-right">
           <select onchange="change_lang(this)" class="form-control" name="lang" id="lang">
-            <option value="fr_FR">FR</option>
-            <option value="en_US">EN</option>
-            <option value="es_ES">ES</option>
-            <option value="de_DE" disabled>DE</option>
+            <option value="fr_FR">Français</option>
+            <option value="en_US">English</option>
+            <option value="es_ES">Español</option>
+            <option value="de_DE" disabled>Deutsch</option>
           </select>
         </div></li>
         <li class="dropdown">
