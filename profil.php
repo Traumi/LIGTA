@@ -1144,12 +1144,39 @@
 						echo '<text font-size="16" text-anchor="middle" x="680" y="202" fill="#DDD">'.$nameQ.'</text>';
 
 					?>
-					
-					
-					
-					
 				</svg>
-				
+
+				<?php
+					$my_file = 'images/svgrecap/file.svg';
+					$handle = fopen($my_file, 'w') or die('Cannot open file:  '.$my_file);
+					$data = "";
+					$data .= '<svg viewBox="0 0 800 400" width="75%" style="border:solid #C9C9C9 1px;" id="resumeSVG">';
+					$data .= '<defs>
+						<rect id="rect" x="39.375" y="39.375" width="96.25" height="96.25" rx="100"/>
+						<clipPath id="clip">
+							<use xlink:href="#rect"/>
+						</clipPath>
+						<rect id="rect1b" x="210" y="10" width="80px" height="80px" rx="80"/>
+						<clipPath id="clip1b">
+							<use xlink:href="#rect1b"/>
+						</clipPath>
+						<rect id="rect2b" x="60" y="20" width="70px" height="70px" rx="70"/>
+						<clipPath id="clip2b">
+							<use xlink:href="#rect2b"/>
+						</clipPath>
+						<rect id="rect3b" x="370" y="20" width="70px" height="70px" rx="70"/>
+						<clipPath id="clip3b">
+							<use xlink:href="#rect3b"/>
+						</clipPath>
+						<filter id="f3" x="0" y="0" width="100%" height="100%">
+							<feOffset result="offOut" in="SourceAlpha" dx="0" dy="0" />
+							<feGaussianBlur result="blurOut" in="offOut" stdDeviation="5" />
+							<feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+						</filter>
+					</defs>';
+					$data .= '</svg>';
+					fwrite($handle, $data);
+				?>
 			</div>
 			<script>
 				function currentGame(){
