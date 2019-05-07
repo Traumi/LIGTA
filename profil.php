@@ -275,7 +275,7 @@
 					color:#0d0d0d;
 				}
 
-				#mastery, #games, #inprogress, #base{ /*, #resume*/
+				#mastery, #games, #inprogress, #resume{ /*, #base*/
 					display:none;
 				}
 
@@ -960,7 +960,7 @@
 				<?php //echo date('l jS \of F Y h:i:s A', (1546270479481/1000)); ?>
 			</div>
 			<div id="resume" style="width:100%;text-align: center;">
-				<svg viewBox="0 0 800 400" width="75%" style="border:solid #C9C9C9 1px;">
+				<svg viewBox="0 0 800 400" width="75%" style="border:solid #C9C9C9 1px;" id="resumeSVG">
 					<defs>
 						<rect id="rect" x="39.375" y="39.375" width="96.25" height="96.25" rx="100"/>
 						<clipPath id="clip">
@@ -1149,7 +1149,6 @@
 					
 					
 				</svg>
-				
 				
 			</div>
 			<script>
