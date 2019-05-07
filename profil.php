@@ -11,6 +11,9 @@
 	$result = file_get_contents('./ddragon/'.$version.'/data/'.$lang.'/summoner.json');
 	$spells = json_decode($result);
 
+	$result = file_get_contents('./data/champroles.json');
+	$champroles = json_decode($result,true);
+
 	$sale_hop = true;
 
 	if(isset($_GET['pseudo'])){
@@ -272,7 +275,7 @@
 					color:#0d0d0d;
 				}
 
-				#mastery, #games, #inprogress, #resume{
+				#mastery, #games, #inprogress, #base{ /*, #resume*/
 					display:none;
 				}
 
@@ -957,7 +960,197 @@
 				<?php //echo date('l jS \of F Y h:i:s A', (1546270479481/1000)); ?>
 			</div>
 			<div id="resume" style="width:100%;text-align: center;">
-				En cours...
+				<svg viewBox="0 0 800 400" width="75%" style="border:solid #C9C9C9 1px;">
+					<defs>
+						<rect id="rect" x="39.375" y="39.375" width="96.25" height="96.25" rx="100"/>
+						<clipPath id="clip">
+							<use xlink:href="#rect"/>
+						</clipPath>
+						<rect id="rect1b" x="210" y="10" width="80px" height="80px" rx="80"/>
+						<clipPath id="clip1b">
+							<use xlink:href="#rect1b"/>
+						</clipPath>
+						<rect id="rect2b" x="60" y="20" width="70px" height="70px" rx="70"/>
+						<clipPath id="clip2b">
+							<use xlink:href="#rect2b"/>
+						</clipPath>
+						<rect id="rect3b" x="370" y="20" width="70px" height="70px" rx="70"/>
+						<clipPath id="clip3b">
+							<use xlink:href="#rect3b"/>
+						</clipPath>
+						<filter id="f3" x="0" y="0" width="100%" height="100%">
+							<feOffset result="offOut" in="SourceAlpha" dx="0" dy="0" />
+							<feGaussianBlur result="blurOut" in="offOut" stdDeviation="5" />
+							<feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+						</filter>
+					</defs>
+					<use xlink:href="#rect" stroke-width="2" stroke="black"/>
+					<?php
+						require_once("parts/utils.php");
+						create_banner($podiumArray[1]["name"]);
+					?>
+					<rect x="0" y="0" height="400" width="800" fill="#333333BC" />
+					<image xlink:href="ddragon/<?php echo $version; ?>/img/profileicon/<?php echo $profil->profileIconId; ?>.png" clip-path="url(#clip)" y="39.375" x="39.375" height="96.25"/> 
+					<image xlink:href="images/border/Level_<?php echo $index_lvl ?>_Summoner_Icon_Border.png" x="0" y="0" height="175"/>
+					<text text-anchor="middle" font-size="10" fill="white" x="87.5" y="143.5" font-weight="600"><?php echo $profil->summonerLevel; ?></text>
+					
+					<g transform="translate(200 60) scale(4 4)">
+						<circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#1D7A91" stroke-width="3"/>
+						<circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#7FEFFF" stroke-width="2.25" stroke-dasharray="<?php echo $percent." ".(100-$percent); ?>" stroke-dashoffset="25" stroke-linecap="round"/>
+						<text x="21" y="20" text-anchor="middle" style="font-size: 6px" fill="#7FEFFF"><?php echo round($percent,1) ?>%</text>
+						<text x="21" y="27" text-anchor="middle" style="font-size: 4px" fill="#7FEFFF"><?php echo $lvlmastery ?></text>
+						<line x1="16" y1="28" x2="26" y2="28" style="stroke:#7FEFFF;stroke-width:0.5"/>
+						<text x="21" y="32" text-anchor="middle" style="font-size: 4px" fill="#7FEFFF"><?php echo $lvlmasterymax ?></text>
+						<text x="21" y="44" text-anchor="middle" style="font-size: 3.5px" fill="#7FEFFF"><?php echo $ptsmastery ?> points</text>
+					</g>
+					
+					<text text-anchor="middle" alignment-baseline="middle" font-size="30" fill="#e5e5e5" x="487.5" y="25"><?php echo $profil->name; ?></text>
+					<?php
+						$rank_values = array("IRON" => 0 , "BRONZE" => 4 , "SILVER" => 8 , "GOLD" => 12 , "PLATINUM" => 16 , "DIAMOND" => 20 , "MASTER" => 24 , "GRANDMASTER" => 28 , "CHALLENGER" => 32);
+						$division_values = array("IV" => 1 , "III" => 2 , "II" => 3 , "I" => 4);
+						$rank_trad = ["UNRANKED" => "Non Classé", "IRON" => "Fer", "BRONZE" => "Bronze", "SILVER" => "Argent", "GOLD" => "Or", "PLATINUM" => "Platine", "DIAMOND" => "Diamant", "MASTER" => "Maître", "GRANDMASTER" => "Grand Maître", "CHALLENGER" => "Challenger"]; 
+						$roman_trade = ["V" => "_5", "IV" => "_4", "III" => "_3", "II" => "_2", "I" => "_1", "" => ""];
+						$highest = "UNRANKED";
+						$palier = "";
+						$val = 0;
+						foreach($ranks as $cle => $value){
+							$tmp_val = $rank_values[$value->tier] + $division_values[$value->rank];
+							if($tmp_val > $val){
+								$val = $tmp_val;
+								$highest = $value->tier;
+								$palier = $value->rank;
+							}
+						}
+						$url = $highest.$roman_trade[$palier];
+						if($url == "UNRANKED_") $url = "unranked";
+						echo '<image xlink:href="images/rank/ranks_glow/'.$url.'.png" x="12.5" y="200" width="150" filter="url(#f3)"/>';
+						echo '<text text-anchor="middle" font-size="16" fill="white" x="87.5" y="390">'.$rank_trad[$highest].' '.$palier.'</text>';
+					?>
+					<line x1="175" y1="0" x2="175" y2="400" stroke="#C9C9C9"/>
+					<line x1="175" y1="305" x2="290" y2="305" stroke="#C9C9C9"/>
+					<line x1="375" y1="305" x2="440" y2="305" stroke="#C9C9C9"/>
+					<line x1="600" y1="305" x2="535" y2="305" stroke="#C9C9C9"/>
+					<line x1="800" y1="305" x2="685" y2="305" stroke="#C9C9C9"/>
+					<g transform="scale(1 1) translate(237.5 250)">
+						<!--N°1-->
+						<use xlink:href="#rect1b" stroke-width="4" stroke="#DAA520"/>
+						<image xlink:href="<?php echo 'ddragon/img/champion/tiles/'.$podiumArray[1]["name"].'_0.jpg' ?>" x="210" y="10" height="80" width="80" clip-path="url(#clip1b)"/>
+						<image xlink:href="<?php echo 'images/mastery/cm'.$podiumArray[1]["level"].'.png' ?>" x="225" y="65" height="50" width="50"/>
+						<text x="250" y="130" font-size="18" font-weight="600" fill="#DAA520" font-family="Verdana" text-anchor="middle"><?php echo $podiumArray[1]["points"] ?></text>
+						
+						<!--N°2-->
+						<use xlink:href="#rect2b" stroke-width="4" class="silverborder"/>
+						<image xlink:href="<?php echo 'ddragon/img/champion/tiles/'.$podiumArray[2]["name"].'_0.jpg' ?>" x="60" y="20" height="70" width="70" clip-path="url(#clip2b)"/>
+						<image xlink:href="<?php echo 'images/mastery/cm'.$podiumArray[2]["level"].'.png' ?>" x="75" y="70" height="40" width="40"/>
+						<text x="95" y="130" font-size="18" font-weight="600" class="silvertext" font-family="Verdana" text-anchor="middle"><?php echo $podiumArray[2]["points"] ?></text>
+						<!--N°3-->
+						<use xlink:href="#rect3b" stroke-width="4" stroke="#d6854C"/>
+						<image xlink:href="<?php echo 'ddragon/img/champion/tiles/'.$podiumArray[3]["name"].'_0.jpg' ?>" x="370" y="20" height="70" width="70" clip-path="url(#clip3b)"/>
+						<image xlink:href="<?php echo 'images/mastery/cm'.$podiumArray[3]["level"].'.png' ?>" x="385" y="70" height="40" width="40"/>
+						<text x="405" y="130" font-size="18" font-weight="600" fill="#d6854C" font-family="Verdana" text-anchor="middle"><?php echo $podiumArray[3]["points"] ?></text>
+					</g>
+					<?php
+						$mainroles = [];
+						$mainqueue = [];
+						$mainroles["Top"] = 0;
+						$mainroles["Jun"] = 0;
+						$mainroles["Mid"] = 0;
+						$mainroles["Adc"] = 0;
+						$mainroles["Sup"] = 0;
+
+						$mainqueue["SR"] = 0;
+						$mainqueue["TT"] = 0;
+						$mainqueue["HA"] = 0;
+						$mainqueue["RO"] = 0;
+						foreach($matches->matches as $key => $match){
+							switch(getQueueType($match->queue)){
+								case "SR":
+								$mainqueue["SR"]++;
+								break;
+								case "TT":
+								$mainqueue["TT"]++;
+								break;
+								case "HA":
+								$mainqueue["HA"]++;
+								break;
+								case "RO":
+								$mainqueue["RO"]++;
+								break;
+							}
+							if(isSRGame($match->queue)){
+								foreach($champions->data as $aa => $champion){
+									if($champion->key == $match->champion){
+										foreach($champroles[$aa] as $aaa => $lane){
+											switch($lane){
+												case "Top" :
+												$mainroles["Top"]++;
+												break;
+												case "Jun" :
+												$mainroles["Jun"]++;
+												break;
+												case "Mid" :
+												$mainroles["Mid"]++;
+												break;
+												case "Adc" :
+												$mainroles["Adc"]++;
+												break;
+												case "Sup" :
+												$mainroles["Sup"]++;
+												break;
+											}
+										}
+									}
+								}
+							}
+						}
+
+						//var_dump($mainroles);
+						$highest = "Top";
+						$second = "";
+						$val = $mainroles["Top"];
+						$sval = 0;
+						if($mainroles["Jun"]>$val){$highest = "Jungle";$val = $mainroles["Jun"];}
+						if($mainroles["Mid"]>$val){$highest = "Mid";$val = $mainroles["Mid"];}
+						if($mainroles["Adc"]>$val){$highest = "Bot";$val = $mainroles["Adc"];}
+						if($mainroles["Sup"]>$val){$highest = "Support";$val = $mainroles["Sup"];}
+						$min = $val*60/100;
+						if($mainroles["Top"]>$sval && $mainroles["Top"] > $min && $highest != "Top"){$second = "Top";$sval = $mainroles["Top"];}
+						if($mainroles["Jun"]>$sval && $mainroles["Jun"] > $min && $highest != "Jungle"){$second = "Jungle";$sval = $mainroles["Jun"];}
+						if($mainroles["Mid"]>$sval && $mainroles["Mid"] > $min && $highest != "Mid"){$second = "Mid";$sval = $mainroles["Mid"];}
+						if($mainroles["Adc"]>$sval && $mainroles["Adc"] > $min && $highest != "Bot"){$second = "Bot";$sval = $mainroles["Adc"];}
+						if($mainroles["Sup"]>$sval && $mainroles["Sup"] > $min && $highest != "Support"){$second = "Support";$sval = $mainroles["Sup"];}
+
+						if($second != ""){
+							echo '<text font-size="20" text-anchor="middle" x="487.5" y="110" fill="#DDD">Roles principaux</text>';
+							echo '<image xlink:href="./images/lanes/Position_Grandmaster-'.$highest.'.png" x="437.5" y="125" height="50"/>';
+							echo '<image xlink:href="./images/lanes/Position_Grandmaster-'.$second.'.png" x="487.5" y="125" height="50"/>';
+							echo '<text font-size="16" text-anchor="middle" x="487.5" y="202" fill="#DDD">'.$highest.'/'.$second.'</text>';
+						}else{
+							echo '<text font-size="20" text-anchor="middle" x="487.5" y="110" fill="#DDD">Role principal</text>';
+							echo '<image xlink:href="./images/lanes/Position_Grandmaster-'.$highest.'.png" x="462.5" y="125" height="50"/>';
+							echo '<text font-size="16" text-anchor="middle" x="487.5" y="202" fill="#DDD">'.$highest.'</text>';
+						}
+
+						$highestQ = "";
+						$nameQ = "";
+						$qval = 0;
+						if($mainqueue["SR"]>$qval){$highestQ = "sr";$qval = $mainqueue["SR"];$nameQ="Normal";}
+						if($mainqueue["TT"]>$qval){$highestQ = "tt";$qval = $mainqueue["TT"];$nameQ="3v3";}
+						if($mainqueue["HA"]>$qval){$highestQ = "aram";$qval = $mainqueue["HA"];$nameQ="ARAM";}
+						if($mainqueue["RO"]>$qval){$highestQ = "rgm";$qval = $mainqueue["RO"];$nameQ="Rotation";}
+
+						echo '<text font-size="20" text-anchor="middle" x="680" y="110" fill="#DDD">Mode de jeu préféré</text>';
+						echo '<image xlink:href="./images/queuetype/'.$highestQ.'.png" x="655" y="125" height="50"/>';
+						echo '<text font-size="16" text-anchor="middle" x="680" y="202" fill="#DDD">'.$nameQ.'</text>';
+
+					?>
+					
+					
+					
+					
+				</svg>
+				
+				
 			</div>
 			<script>
 				function currentGame(){

@@ -13,4 +13,4 @@ This is a LoL API Based module that aim to gather data on LoL Players
 ```
 ## Run
 You just have to run an Apache server with that project
-PHP Version : 7.3.3 (some functionnalities may not work with previous versions)
+- PHP Version : 7.3.3 (some functionnalities may not work with previous versions)
