@@ -7,8 +7,6 @@
                 echo '<image xlink:href="ddragon/img/champion/splash/'.$champion.'_0.jpg" x="0" y="-10%" width="100%"/>';
                 break;
         }
-        
-        //echo $champion;
     }
     
     function getQueueType($number){
@@ -29,6 +27,12 @@
     function isSRGame($number){
         $true = [2,4,6,14,42,61,400,410,420,430,440,700];
         return in_array($number,$true);
+    }
+
+    function imgToBase64($path){
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $imgdata = file_get_contents($path);
+        return 'data:image/' . $type . ';base64,' . base64_encode($imgdata);
     }
 
 ?>

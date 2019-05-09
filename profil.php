@@ -960,96 +960,26 @@
 				<?php //echo date('l jS \of F Y h:i:s A', (1546270479481/1000)); ?>
 			</div>
 			<div id="resume" style="width:100%;text-align: center;">
-				<svg viewBox="0 0 800 400" width="75%" style="border:solid #C9C9C9 1px;" id="resumeSVG">
-					<defs>
-						<rect id="rect" x="39.375" y="39.375" width="96.25" height="96.25" rx="100"/>
-						<clipPath id="clip">
-							<use xlink:href="#rect"/>
-						</clipPath>
-						<rect id="rect1b" x="210" y="10" width="80px" height="80px" rx="80"/>
-						<clipPath id="clip1b">
-							<use xlink:href="#rect1b"/>
-						</clipPath>
-						<rect id="rect2b" x="60" y="20" width="70px" height="70px" rx="70"/>
-						<clipPath id="clip2b">
-							<use xlink:href="#rect2b"/>
-						</clipPath>
-						<rect id="rect3b" x="370" y="20" width="70px" height="70px" rx="70"/>
-						<clipPath id="clip3b">
-							<use xlink:href="#rect3b"/>
-						</clipPath>
-						<filter id="f3" x="0" y="0" width="100%" height="100%">
-							<feOffset result="offOut" in="SourceAlpha" dx="0" dy="0" />
-							<feGaussianBlur result="blurOut" in="offOut" stdDeviation="5" />
-							<feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-						</filter>
-					</defs>
-					<use xlink:href="#rect" stroke-width="2" stroke="black"/>
 					<?php
 						require_once("parts/utils.php");
-						create_banner($podiumArray[1]["name"]);
-					?>
-					<rect x="0" y="0" height="400" width="800" fill="#333333BC" />
-					<image xlink:href="ddragon/<?php echo $version; ?>/img/profileicon/<?php echo $profil->profileIconId; ?>.png" clip-path="url(#clip)" y="39.375" x="39.375" height="96.25"/> 
-					<image xlink:href="images/border/Level_<?php echo $index_lvl ?>_Summoner_Icon_Border.png" x="0" y="0" height="175"/>
-					<text text-anchor="middle" font-size="10" fill="white" x="87.5" y="143.5" font-weight="600"><?php echo $profil->summonerLevel; ?></text>
-					
-					<g transform="translate(200 60) scale(4 4)">
-						<circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#1D7A91" stroke-width="3"/>
-						<circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#7FEFFF" stroke-width="2.25" stroke-dasharray="<?php echo $percent." ".(100-$percent); ?>" stroke-dashoffset="25" stroke-linecap="round"/>
-						<text x="21" y="20" text-anchor="middle" style="font-size: 6px" fill="#7FEFFF"><?php echo round($percent,1) ?>%</text>
-						<text x="21" y="27" text-anchor="middle" style="font-size: 4px" fill="#7FEFFF"><?php echo $lvlmastery ?></text>
-						<line x1="16" y1="28" x2="26" y2="28" style="stroke:#7FEFFF;stroke-width:0.5"/>
-						<text x="21" y="32" text-anchor="middle" style="font-size: 4px" fill="#7FEFFF"><?php echo $lvlmasterymax ?></text>
-						<text x="21" y="44" text-anchor="middle" style="font-size: 3.5px" fill="#7FEFFF"><?php echo $ptsmastery ?> points</text>
-					</g>
-					
-					<text text-anchor="middle" alignment-baseline="middle" font-size="30" fill="#e5e5e5" x="487.5" y="25"><?php echo $profil->name; ?></text>
-					<?php
 						$rank_values = array("IRON" => 0 , "BRONZE" => 4 , "SILVER" => 8 , "GOLD" => 12 , "PLATINUM" => 16 , "DIAMOND" => 20 , "MASTER" => 24 , "GRANDMASTER" => 28 , "CHALLENGER" => 32);
 						$division_values = array("IV" => 1 , "III" => 2 , "II" => 3 , "I" => 4);
 						$rank_trad = ["UNRANKED" => "Non Classé", "IRON" => "Fer", "BRONZE" => "Bronze", "SILVER" => "Argent", "GOLD" => "Or", "PLATINUM" => "Platine", "DIAMOND" => "Diamant", "MASTER" => "Maître", "GRANDMASTER" => "Grand Maître", "CHALLENGER" => "Challenger"]; 
 						$roman_trade = ["V" => "_5", "IV" => "_4", "III" => "_3", "II" => "_2", "I" => "_1", "" => ""];
-						$highest = "UNRANKED";
+						$highestR = "UNRANKED";
 						$palier = "";
 						$val = 0;
 						foreach($ranks as $cle => $value){
 							$tmp_val = $rank_values[$value->tier] + $division_values[$value->rank];
 							if($tmp_val > $val){
 								$val = $tmp_val;
-								$highest = $value->tier;
+								$highestR = $value->tier;
 								$palier = $value->rank;
 							}
 						}
-						$url = $highest.$roman_trade[$palier];
+						$url = $highestR.$roman_trade[$palier];
 						if($url == "UNRANKED_") $url = "unranked";
-						echo '<image xlink:href="images/rank/ranks_glow/'.$url.'.png" x="12.5" y="200" width="150" filter="url(#f3)"/>';
-						echo '<text text-anchor="middle" font-size="16" fill="white" x="87.5" y="390">'.$rank_trad[$highest].' '.$palier.'</text>';
-					?>
-					<line x1="175" y1="0" x2="175" y2="400" stroke="#C9C9C9"/>
-					<line x1="175" y1="305" x2="290" y2="305" stroke="#C9C9C9"/>
-					<line x1="375" y1="305" x2="440" y2="305" stroke="#C9C9C9"/>
-					<line x1="600" y1="305" x2="535" y2="305" stroke="#C9C9C9"/>
-					<line x1="800" y1="305" x2="685" y2="305" stroke="#C9C9C9"/>
-					<g transform="scale(1 1) translate(237.5 250)">
-						<!--N°1-->
-						<use xlink:href="#rect1b" stroke-width="4" stroke="#DAA520"/>
-						<image xlink:href="<?php echo 'ddragon/img/champion/tiles/'.$podiumArray[1]["name"].'_0.jpg' ?>" x="210" y="10" height="80" width="80" clip-path="url(#clip1b)"/>
-						<image xlink:href="<?php echo 'images/mastery/cm'.$podiumArray[1]["level"].'.png' ?>" x="225" y="65" height="50" width="50"/>
-						<text x="250" y="130" font-size="18" font-weight="600" fill="#DAA520" font-family="Verdana" text-anchor="middle"><?php echo $podiumArray[1]["points"] ?></text>
-						
-						<!--N°2-->
-						<use xlink:href="#rect2b" stroke-width="4" class="silverborder"/>
-						<image xlink:href="<?php echo 'ddragon/img/champion/tiles/'.$podiumArray[2]["name"].'_0.jpg' ?>" x="60" y="20" height="70" width="70" clip-path="url(#clip2b)"/>
-						<image xlink:href="<?php echo 'images/mastery/cm'.$podiumArray[2]["level"].'.png' ?>" x="75" y="70" height="40" width="40"/>
-						<text x="95" y="130" font-size="18" font-weight="600" class="silvertext" font-family="Verdana" text-anchor="middle"><?php echo $podiumArray[2]["points"] ?></text>
-						<!--N°3-->
-						<use xlink:href="#rect3b" stroke-width="4" stroke="#d6854C"/>
-						<image xlink:href="<?php echo 'ddragon/img/champion/tiles/'.$podiumArray[3]["name"].'_0.jpg' ?>" x="370" y="20" height="70" width="70" clip-path="url(#clip3b)"/>
-						<image xlink:href="<?php echo 'images/mastery/cm'.$podiumArray[3]["level"].'.png' ?>" x="385" y="70" height="40" width="40"/>
-						<text x="405" y="130" font-size="18" font-weight="600" fill="#d6854C" font-family="Verdana" text-anchor="middle"><?php echo $podiumArray[3]["points"] ?></text>
-					</g>
-					<?php
+
 						$mainroles = [];
 						$mainqueue = [];
 						$mainroles["Top"] = 0;
@@ -1120,17 +1050,6 @@
 						if($mainroles["Adc"]>$sval && $mainroles["Adc"] > $min && $highest != "Bot"){$second = "Bot";$sval = $mainroles["Adc"];}
 						if($mainroles["Sup"]>$sval && $mainroles["Sup"] > $min && $highest != "Support"){$second = "Support";$sval = $mainroles["Sup"];}
 
-						if($second != ""){
-							echo '<text font-size="20" text-anchor="middle" x="487.5" y="110" fill="#DDD">Roles principaux</text>';
-							echo '<image xlink:href="./images/lanes/Position_Grandmaster-'.$highest.'.png" x="437.5" y="125" height="50"/>';
-							echo '<image xlink:href="./images/lanes/Position_Grandmaster-'.$second.'.png" x="487.5" y="125" height="50"/>';
-							echo '<text font-size="16" text-anchor="middle" x="487.5" y="202" fill="#DDD">'.$highest.'/'.$second.'</text>';
-						}else{
-							echo '<text font-size="20" text-anchor="middle" x="487.5" y="110" fill="#DDD">Role principal</text>';
-							echo '<image xlink:href="./images/lanes/Position_Grandmaster-'.$highest.'.png" x="462.5" y="125" height="50"/>';
-							echo '<text font-size="16" text-anchor="middle" x="487.5" y="202" fill="#DDD">'.$highest.'</text>';
-						}
-
 						$highestQ = "";
 						$nameQ = "";
 						$qval = 0;
@@ -1139,18 +1058,16 @@
 						if($mainqueue["HA"]>$qval){$highestQ = "aram";$qval = $mainqueue["HA"];$nameQ="ARAM";}
 						if($mainqueue["RO"]>$qval){$highestQ = "rgm";$qval = $mainqueue["RO"];$nameQ="Rotation";}
 
-						echo '<text font-size="20" text-anchor="middle" x="680" y="110" fill="#DDD">Mode de jeu préféré</text>';
-						echo '<image xlink:href="./images/queuetype/'.$highestQ.'.png" x="655" y="125" height="50"/>';
-						echo '<text font-size="16" text-anchor="middle" x="680" y="202" fill="#DDD">'.$nameQ.'</text>';
-
 					?>
-				</svg>
 
 				<?php
-					$my_file = 'images/svgrecap/file.svg';
+					$my_file = 'images/svgrecap/'.$profil->name.'.svg';
 					$handle = fopen($my_file, 'w') or die('Cannot open file:  '.$my_file);
 					$data = "";
-					$data .= '<svg viewBox="0 0 800 400" width="75%" style="border:solid #C9C9C9 1px;" id="resumeSVG">';
+					$data .= '<?xml version="1.0" encoding="UTF-8"?>';
+					$data .= '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
+					$data .= '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" xmlns:xlink="http://www.w3.org/1999/xlink">';
+					$data .= '<style>text{font-family : "Helvetica Neue", Helvetica, Arial, sans-serif;}</style>';
 					$data .= '<defs>
 						<rect id="rect" x="39.375" y="39.375" width="96.25" height="96.25" rx="100"/>
 						<clipPath id="clip">
@@ -1174,9 +1091,86 @@
 							<feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
 						</filter>
 					</defs>';
+					//Base icon
+					$data .= '<use xlink:href="#rect" stroke-width="2" stroke="black"/>';
+					$data .= '<image href="'.imgToBase64('./ddragon/img/champion/splash/'.$podiumArray[1]["name"].'_0.jpg').'" x="0" y="-10%" width="100%"/>';
+					$data .= '<rect x="0" y="0" height="400" width="800" fill="#333333BC" />';
+					$data .= '<image href="'.imgToBase64('./ddragon/'.$version.'/img/profileicon/'.$profil->profileIconId.'.png').'" clip-path="url(#clip)" y="39.375" x="39.375" height="96.25"/>';
+					$data .= '<image href="'.imgToBase64('./images/border/Level_'.$index_lvl.'_Summoner_Icon_Border.png').'" x="0" y="0" height="175"/>';
+					$data .= '<text text-anchor="middle" font-size="10" fill="white" x="87.5" y="143.5" font-weight="600">'.$profil->summonerLevel.'</text>';
+
+					//Pseudo
+					$data .= '<text text-anchor="middle" alignment-baseline="middle" font-size="30" fill="#e5e5e5" x="487.5" y="25">'.$profil->name.'</text>';
+
+					//Rank
+					$data .= '<image href="'.imgToBase64('./images/rank/ranks_glow/'.$url.'.png').'" x="12.5" y="200" width="150" filter="url(#f3)"/>';
+					$data .= '<text text-anchor="middle" font-size="16" fill="white" x="87.5" y="390">'.$rank_trad[$highestR].' '.$palier.'</text>';
+
+					//Lineup
+					$data .= '<line x1="0" y1="0" x2="800" y2="0" stroke-width="2" stroke="#C9C9C9"/>';
+					$data .= '<line x1="0" y1="0" x2="0" y2="400" stroke-width="2" stroke="#C9C9C9"/>';
+					$data .= '<line x1="800" y1="400" x2="0" y2="400" stroke-width="2" stroke="#C9C9C9"/>';
+					$data .= '<line x1="800" y1="400" x2="800" y2="0" stroke-width="2" stroke="#C9C9C9"/>';
+					$data .= '<line x1="175" y1="0" x2="175" y2="400" stroke="#C9C9C9"/>';
+					$data .= '<line x1="175" y1="305" x2="290" y2="305" stroke="#C9C9C9"/>';
+					$data .= '<line x1="375" y1="305" x2="440" y2="305" stroke="#C9C9C9"/>';
+					$data .= '<line x1="600" y1="305" x2="535" y2="305" stroke="#C9C9C9"/>';
+					$data .= '<line x1="800" y1="305" x2="685" y2="305" stroke="#C9C9C9"/>';
+
+					//Podium
+					$data .= '<g transform="scale(1 1) translate(237.5 250)">';
+
+					$data .= '<use xlink:href="#rect1b" stroke-width="4" stroke="#DAA520"/>';
+					$data .= '<image href="'.imgToBase64('./ddragon/img/champion/tiles/'.$podiumArray[1]["name"].'_0.jpg').'" x="210" y="10" height="80" width="80" clip-path="url(#clip1b)"/>';
+					$data .= '<image href="'.imgToBase64('./images/mastery/cm'.$podiumArray[1]["level"].'.png').'" x="225" y="65" height="50" width="50"/>';
+					$data .= '<text x="250" y="130" font-size="18" font-weight="600" fill="#DAA520" font-family="Verdana" text-anchor="middle">'.$podiumArray[1]["points"].'</text>';
+
+					$data .= '<use xlink:href="#rect2b" stroke-width="4" stroke="#A9A9A9"/>';
+					$data .= '<image href="'.imgToBase64('./ddragon/img/champion/tiles/'.$podiumArray[2]["name"].'_0.jpg').'" x="60" y="20" height="70" width="70" clip-path="url(#clip2b)"/>';
+					$data .= '<image href="'.imgToBase64('./images/mastery/cm'.$podiumArray[2]["level"].'.png').'" x="75" y="70" height="40" width="40"/>';
+					$data .= '<text x="95" y="130" font-size="18" font-weight="600" fill="#A9A9A9" font-family="Verdana" text-anchor="middle">'.$podiumArray[2]["points"].'</text>';
+
+					$data .= '<use xlink:href="#rect3b" stroke-width="4" stroke="#d6854C"/>';
+					$data .= '<image href="'.imgToBase64('./ddragon/img/champion/tiles/'.$podiumArray[3]["name"].'_0.jpg').'" x="370" y="20" height="70" width="70" clip-path="url(#clip3b)"/>';
+					$data .= '<image href="'.imgToBase64('./images/mastery/cm'.$podiumArray[3]["level"].'.png').'" x="385" y="70" height="40" width="40"/>';
+					$data .= '<text x="405" y="130" font-size="18" font-weight="600" fill="#d6854C" font-family="Verdana" text-anchor="middle">'.$podiumArray[3]["points"].'</text>';
+					$data .= '</g>';
+					
+					//Graph
+					$data .= '<g transform="translate(200 60) scale(4 4)">';
+						$data .= '<circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#1D7A91" stroke-width="3"/>';
+						$data .= '<circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#7FEFFF" stroke-width="2.25" stroke-dasharray="'.$percent.' '.(100-$percent).'" stroke-dashoffset="25" stroke-linecap="round"/>';
+						$data .= '<text x="21" y="20" text-anchor="middle" style="font-size: 6px" fill="#7FEFFF">'.round($percent,1).'%</text>';
+						$data .= '<text x="21" y="27" text-anchor="middle" style="font-size: 4px" fill="#7FEFFF">'.$lvlmastery.'</text>';
+						$data .= '<line x1="16" y1="28" x2="26" y2="28" style="stroke:#7FEFFF;stroke-width:0.5"/>';
+						$data .= '<text x="21" y="32" text-anchor="middle" style="font-size: 4px" fill="#7FEFFF">'.$lvlmasterymax.'</text>';
+						$data .= '<text x="21" y="44" text-anchor="middle" style="font-size: 3.5px" fill="#7FEFFF">'.$ptsmastery.' points</text>';
+					$data .= '</g>';
+
+					//Role
+					if($second != ""){
+						$data .= '<text font-size="20" text-anchor="middle" x="487.5" y="110" fill="#DDD">Roles principaux</text>';
+						$data .= '<image href="'.imgToBase64('./images/lanes/Position_Grandmaster-'.$highest.'.png').'" x="437.5" y="125" height="50"/>';
+						$data .= '<image href="'.imgToBase64('./images/lanes/Position_Grandmaster-'.$second.'.png').'" x="487.5" y="125" height="50"/>';
+						$data .= '<text font-size="16" text-anchor="middle" x="487.5" y="202" fill="#DDD">'.$highest.'/'.$second.'</text>';
+					}else{
+						$data .= '<text font-size="20" text-anchor="middle" x="487.5" y="110" fill="#DDD">Role principal</text>';
+						$data .= '<image href="'.imgToBase64('./images/lanes/Position_Grandmaster-'.$highest.'.png').'" x="462.5" y="125" height="50"/>';
+						$data .= '<text font-size="16" text-anchor="middle" x="487.5" y="202" fill="#DDD">'.$highest.'</text>';
+					}
+
+					//Gamemode
+					$data .= '<text font-size="20" text-anchor="middle" x="680" y="110" fill="#DDD">Mode de jeu préféré</text>';
+					$data .= '<image href="'.imgToBase64('./images/queuetype/'.$highestQ.'.png').'" x="655" y="125" height="50"/>';
+					$data .= '<text font-size="16" text-anchor="middle" x="680" y="202" fill="#DDD">'.$nameQ.'</text>';
+
 					$data .= '</svg>';
 					fwrite($handle, $data);
 				?>
+				<canvas width="2400" height="1200" style="display:none;"></canvas>
+				<img id="imgSVG" style="width:90%;"/>
+				
+				<div style="margin-top:20px;">Pour télécharger l'image : clic droit puis enregistrer l'image sous</div>
 			</div>
 			<script>
 				function currentGame(){
@@ -1191,7 +1185,16 @@
 				
 			</script>
 			<script>
-				document.getElementById("loading").style.display = "none";
+				var canvas = document.querySelector("canvas"),
+					context = canvas.getContext("2d");
+
+				var image = new Image;
+				image.src = "images/svgrecap/<?php echo $profil->name; ?>.svg";
+				image.onload = function() {
+					context.drawImage(image, 0, 0);
+					document.getElementById("imgSVG").src = canvas.toDataURL("image/png");
+					document.getElementById("loading").style.display = "none";
+				};
 			</script>
 		<?php }else{ echo '<h1 style="width:100%;text-align:center;">Ce joueur n\'existe pas...</h1>'; } ?>
 		</div>
