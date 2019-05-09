@@ -203,7 +203,7 @@
 			?>
 			<div style="text-align: center;position:relative;padding:0;width:300px;margin-left:calc(50% - 150px);margin-top:20px;">
 				<img style="position:absolute;bottom:22%;width:56%;left:22%;border-radius:100%;" src="ddragon/<?php echo $version; ?>/img/profileicon/<?php echo $profil->profileIconId; ?>.png "/>
-				<img style="position:absolute;width:100%;left:0;" src="images/border/Level_<?php echo $index_lvl ?>_Summoner_Icon_Border.png"/>
+				<img style="position:absolute;width:100%;left:0;" src="images/border/Level_<?php echo $index_lvl ?>.png"/>
 				<div style="width:100%;height:300px;"></div>
 				<div style="position:absolute;bottom:15%;width:100%;color:white;font-size:20px;"><?php echo $profil->summonerLevel; ?></div>
 			</div>
@@ -1034,7 +1034,6 @@
 							}
 						}
 
-						//var_dump($mainroles);
 						$highest = "Top";
 						$second = "";
 						$val = $mainroles["Top"];
@@ -1067,37 +1066,42 @@
 					$data .= '<?xml version="1.0" encoding="UTF-8"?>';
 					$data .= '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
 					$data .= '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" xmlns:xlink="http://www.w3.org/1999/xlink">';
+
+					//Style
 					$data .= '<style>text{font-family : "Helvetica Neue", Helvetica, Arial, sans-serif;}</style>';
-					$data .= '<defs>
-						<rect id="rect" x="39.375" y="39.375" width="96.25" height="96.25" rx="100"/>
-						<clipPath id="clip">
-							<use xlink:href="#rect"/>
-						</clipPath>
-						<rect id="rect1b" x="210" y="10" width="80px" height="80px" rx="80"/>
-						<clipPath id="clip1b">
-							<use xlink:href="#rect1b"/>
-						</clipPath>
-						<rect id="rect2b" x="60" y="20" width="70px" height="70px" rx="70"/>
-						<clipPath id="clip2b">
-							<use xlink:href="#rect2b"/>
-						</clipPath>
-						<rect id="rect3b" x="370" y="20" width="70px" height="70px" rx="70"/>
-						<clipPath id="clip3b">
-							<use xlink:href="#rect3b"/>
-						</clipPath>
-						<filter id="f3" x="0" y="0" width="100%" height="100%">
-							<feOffset result="offOut" in="SourceAlpha" dx="0" dy="0" />
-							<feGaussianBlur result="blurOut" in="offOut" stdDeviation="5" />
-							<feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-						</filter>
-					</defs>';
+
+					//Constantes
+					$data .= '<defs>';
+					$data .= '<rect id="rect" x="39.375" y="39.375" width="96.25" height="96.25" rx="100"/>';
+					$data .= '<clipPath id="clip">';
+						$data .= '<use xlink:href="#rect"/>';
+					$data .= '</clipPath>';
+					$data .= '<rect id="rect1b" x="210" y="10" width="80px" height="80px" rx="80"/>';
+					$data .= '<clipPath id="clip1b">';
+						$data .= '<use xlink:href="#rect1b"/>';
+					$data .= '</clipPath>';
+					$data .= '<rect id="rect2b" x="60" y="20" width="70px" height="70px" rx="70"/>';
+					$data .= '<clipPath id="clip2b">';
+						$data .= '<use xlink:href="#rect2b"/>';
+					$data .= '</clipPath>';
+					$data .= '<rect id="rect3b" x="370" y="20" width="70px" height="70px" rx="70"/>';
+					$data .= '<clipPath id="clip3b">';
+						$data .= '<use xlink:href="#rect3b"/>';
+					$data .= '</clipPath>';
+					$data .= '<filter id="f3" x="0" y="0" width="100%" height="100%">';
+						$data .= '<feOffset result="offOut" in="SourceAlpha" dx="0" dy="0" />';
+						$data .= '<feGaussianBlur result="blurOut" in="offOut" stdDeviation="5" />';
+						$data .= '<feBlend in="SourceGraphic" in2="blurOut" mode="normal" />';
+					$data .= '</filter>';
+					$data .= '</defs>';
+
 					//Base icon
 					$data .= '<use xlink:href="#rect" stroke-width="2" stroke="black"/>';
 					$data .= '<image href="'.imgToBase64('./ddragon/img/champion/splash/'.$podiumArray[1]["name"].'_0.jpg').'" x="0" y="-10%" width="100%"/>';
 					$data .= '<rect x="0" y="0" height="400" width="800" fill="#333333BC" />';
 					$data .= '<image href="'.imgToBase64('./ddragon/'.$version.'/img/profileicon/'.$profil->profileIconId.'.png').'" clip-path="url(#clip)" y="39.375" x="39.375" height="96.25"/>';
-					$data .= '<image href="'.imgToBase64('./images/border/Level_'.$index_lvl.'_Summoner_Icon_Border.png').'" x="0" y="0" height="175"/>';
-					$data .= '<text text-anchor="middle" font-size="10" fill="white" x="87.5" y="143.5" font-weight="600">'.$profil->summonerLevel.'</text>';
+					$data .= '<image href="'.imgToBase64('./images/border/Level_'.$index_lvl.'.png').'" x="0" y="0" height="175"/>';
+					$data .= '<text text-anchor="middle" font-size="12" fill="white" x="87.5" y="144" font-weight="600">'.$profil->summonerLevel.'</text>';
 
 					//Pseudo
 					$data .= '<text text-anchor="middle" alignment-baseline="middle" font-size="30" fill="#e5e5e5" x="487.5" y="25">'.$profil->name.'</text>';
@@ -1136,8 +1140,9 @@
 					$data .= '<text x="405" y="130" font-size="18" font-weight="600" fill="#d6854C" font-family="Verdana" text-anchor="middle">'.$podiumArray[3]["points"].'</text>';
 					$data .= '</g>';
 					
-					//Graph
-					$data .= '<g transform="translate(200 60) scale(4 4)">';
+					//Maitrise
+					$data .= '<text font-size="20" text-anchor="middle" x="285" y="110" fill="#DDD">Maîtrises</text>';
+					$data .= '<g transform="translate(225 110) scale(3 3)">';
 						$data .= '<circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#1D7A91" stroke-width="3"/>';
 						$data .= '<circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#7FEFFF" stroke-width="2.25" stroke-dasharray="'.$percent.' '.(100-$percent).'" stroke-dashoffset="25" stroke-linecap="round"/>';
 						$data .= '<text x="21" y="20" text-anchor="middle" style="font-size: 6px" fill="#7FEFFF">'.round($percent,1).'%</text>';
