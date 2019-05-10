@@ -154,7 +154,6 @@
 		<div class="container" style="width:100%;margin-bottom:25px;">
 			<?php if($sale_hop){ ?>
 			<?php 
-
 				$level = $profil->summonerLevel;
 				if($level < 30){
 					$index_lvl = 1;
@@ -659,9 +658,6 @@
 							?>
 							
 						</div>
-						
-						
-						
 					</div><div style="display:inline-block;width:256px;vertical-align:top;padding-top:30px;">
 						<div style="display:inline-block;vertical-align:top;">
 							<div>
@@ -1077,119 +1073,140 @@
 					?>
 
 				<?php
-					$my_file = 'images/svgrecap/'.$profil->name.'.svg';
-					$handle = fopen($my_file, 'w') or die('Cannot open file:  '.$my_file);
-					$data = "";
-					$data .= '<?xml version="1.0" encoding="UTF-8"?>';
-					$data .= '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
-					$data .= '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" xmlns:xlink="http://www.w3.org/1999/xlink">';
+					if(file_exists('images/svgrecap/'.$profil->name.'.svg')){
 
-					//Style
-					$data .= '<style>text{font-family : "Helvetica Neue", Helvetica, Arial, sans-serif;}</style>';
-
-					//Constantes
-					$data .= '<defs>';
-					$data .= '<rect id="rect" x="39.375" y="39.375" width="96.25" height="96.25" rx="100"/>';
-					$data .= '<clipPath id="clip">';
-						$data .= '<use xlink:href="#rect"/>';
-					$data .= '</clipPath>';
-					$data .= '<rect id="rect1b" x="210" y="10" width="80px" height="80px" rx="80"/>';
-					$data .= '<clipPath id="clip1b">';
-						$data .= '<use xlink:href="#rect1b"/>';
-					$data .= '</clipPath>';
-					$data .= '<rect id="rect2b" x="60" y="20" width="70px" height="70px" rx="70"/>';
-					$data .= '<clipPath id="clip2b">';
-						$data .= '<use xlink:href="#rect2b"/>';
-					$data .= '</clipPath>';
-					$data .= '<rect id="rect3b" x="370" y="20" width="70px" height="70px" rx="70"/>';
-					$data .= '<clipPath id="clip3b">';
-						$data .= '<use xlink:href="#rect3b"/>';
-					$data .= '</clipPath>';
-					$data .= '<filter id="f3" x="0" y="0" width="100%" height="100%">';
-						$data .= '<feOffset result="offOut" in="SourceAlpha" dx="0" dy="0" />';
-						$data .= '<feGaussianBlur result="blurOut" in="offOut" stdDeviation="5" />';
-						$data .= '<feBlend in="SourceGraphic" in2="blurOut" mode="normal" />';
-					$data .= '</filter>';
-					$data .= '</defs>';
-
-					//Base icon
-					$data .= '<use xlink:href="#rect" stroke-width="2" stroke="black"/>';
-					$data .= '<image href="'.imgToBase64('./ddragon/img/champion/splash/'.$podiumArray[1]["name"].'_0.jpg').'" x="0" y="-10%" width="100%"/>';
-					$data .= '<rect x="0" y="0" height="400" width="800" fill="#333333BC" />';
-					$data .= '<image href="'.imgToBase64('./ddragon/'.$version.'/img/profileicon/'.$profil->profileIconId.'.png').'" clip-path="url(#clip)" y="39.375" x="39.375" height="96.25"/>';
-					$data .= '<image href="'.imgToBase64('./images/border/Level_'.$index_lvl.'.png').'" x="0" y="0" height="175"/>';
-					$data .= '<text text-anchor="middle" font-size="12" fill="white" x="87.5" y="144" font-weight="600">'.$profil->summonerLevel.'</text>';
-
-					//Pseudo
-					$data .= '<text text-anchor="middle" alignment-baseline="middle" font-size="30" fill="#e5e5e5" x="487.5" y="25">'.$profil->name.'</text>';
-					$data .= '<image href="'.imgToBase64('./images/queuetype/underline_gold.png').'" x="400" y="35" width="175"/>';
-
-					//Rank
-					$data .= '<image href="'.imgToBase64('./images/rank/ranks_glow/'.$url.'.png').'" x="12.5" y="200" width="150" filter="url(#f3)"/>';
-					$data .= '<text text-anchor="middle" font-size="16" fill="white" x="87.5" y="390">'.$rank_trad[$highestR].' '.$palier.'</text>';
-
-					//Lineup
-					$data .= '<line x1="0" y1="0" x2="800" y2="0" stroke-width="2" stroke="#C9C9C9"/>';
-					$data .= '<line x1="0" y1="0" x2="0" y2="400" stroke-width="2" stroke="#C9C9C9"/>';
-					$data .= '<line x1="800" y1="400" x2="0" y2="400" stroke-width="2" stroke="#C9C9C9"/>';
-					$data .= '<line x1="800" y1="400" x2="800" y2="0" stroke-width="2" stroke="#C9C9C9"/>';
-					$data .= '<line x1="175" y1="0" x2="175" y2="400" stroke="#C9C9C9"/>';
-					$data .= '<line x1="175" y1="305" x2="290" y2="305" stroke="#C9C9C9"/>';
-					$data .= '<line x1="375" y1="305" x2="440" y2="305" stroke="#C9C9C9"/>';
-					$data .= '<line x1="600" y1="305" x2="535" y2="305" stroke="#C9C9C9"/>';
-					$data .= '<line x1="800" y1="305" x2="685" y2="305" stroke="#C9C9C9"/>';
-
-					//Podium
-					$data .= '<g transform="scale(1 1) translate(237.5 250)">';
-
-					$data .= '<use xlink:href="#rect1b" stroke-width="4" stroke="#DAA520"/>';
-					$data .= '<image href="'.imgToBase64('./ddragon/img/champion/tiles/'.$podiumArray[1]["name"].'_0.jpg').'" x="210" y="10" height="80" width="80" clip-path="url(#clip1b)"/>';
-					$data .= '<image href="'.imgToBase64('./images/mastery/cm'.$podiumArray[1]["level"].'.png').'" x="225" y="65" height="50" width="50"/>';
-					$data .= '<text x="250" y="130" font-size="18" font-weight="600" fill="#DAA520" font-family="Verdana" text-anchor="middle">'.$podiumArray[1]["points"].'</text>';
-
-					$data .= '<use xlink:href="#rect2b" stroke-width="4" stroke="#A9A9A9"/>';
-					$data .= '<image href="'.imgToBase64('./ddragon/img/champion/tiles/'.$podiumArray[2]["name"].'_0.jpg').'" x="60" y="20" height="70" width="70" clip-path="url(#clip2b)"/>';
-					$data .= '<image href="'.imgToBase64('./images/mastery/cm'.$podiumArray[2]["level"].'.png').'" x="75" y="70" height="40" width="40"/>';
-					$data .= '<text x="95" y="130" font-size="18" font-weight="600" fill="#A9A9A9" font-family="Verdana" text-anchor="middle">'.$podiumArray[2]["points"].'</text>';
-
-					$data .= '<use xlink:href="#rect3b" stroke-width="4" stroke="#d6854C"/>';
-					$data .= '<image href="'.imgToBase64('./ddragon/img/champion/tiles/'.$podiumArray[3]["name"].'_0.jpg').'" x="370" y="20" height="70" width="70" clip-path="url(#clip3b)"/>';
-					$data .= '<image href="'.imgToBase64('./images/mastery/cm'.$podiumArray[3]["level"].'.png').'" x="385" y="70" height="40" width="40"/>';
-					$data .= '<text x="405" y="130" font-size="18" font-weight="600" fill="#d6854C" font-family="Verdana" text-anchor="middle">'.$podiumArray[3]["points"].'</text>';
-					$data .= '</g>';
-					
-					//Maitrise
-					$data .= '<text font-size="20" text-anchor="middle" x="285" y="110" fill="#DDD">Maîtrises</text>';
-					$data .= '<g transform="translate(225 110) scale(3 3)">';
-						$data .= '<circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#1D7A91" stroke-width="3"/>';
-						$data .= '<circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#7FEFFF" stroke-width="2.25" stroke-dasharray="'.$percent.' '.(100-$percent).'" stroke-dashoffset="25" stroke-linecap="round"/>';
-						$data .= '<text x="21" y="20" text-anchor="middle" style="font-size: 6px" fill="#7FEFFF">'.round($percent,1).'%</text>';
-						$data .= '<text x="21" y="27" text-anchor="middle" style="font-size: 4px" fill="#7FEFFF">'.$lvlmastery.'</text>';
-						$data .= '<line x1="16" y1="28" x2="26" y2="28" style="stroke:#7FEFFF;stroke-width:0.5"/>';
-						$data .= '<text x="21" y="32" text-anchor="middle" style="font-size: 4px" fill="#7FEFFF">'.$lvlmasterymax.'</text>';
-						$data .= '<text x="21" y="44" text-anchor="middle" style="font-size: 3.5px" fill="#7FEFFF">'.$ptsmastery.' points</text>';
-					$data .= '</g>';
-
-					//Role
-					if($second != ""){
-						$data .= '<text font-size="20" text-anchor="middle" x="487.5" y="110" fill="#DDD">Roles principaux</text>';
-						$data .= '<image href="'.imgToBase64('./images/lanes/Position_Grandmaster-'.$highest.'.png').'" x="437.5" y="125" height="50"/>';
-						$data .= '<image href="'.imgToBase64('./images/lanes/Position_Grandmaster-'.$second.'.png').'" x="487.5" y="125" height="50"/>';
-						$data .= '<text font-size="16" text-anchor="middle" x="487.5" y="202" fill="#DDD">'.$highest.'/'.$second.'</text>';
 					}else{
-						$data .= '<text font-size="20" text-anchor="middle" x="487.5" y="110" fill="#DDD">Role principal</text>';
-						$data .= '<image href="'.imgToBase64('./images/lanes/Position_Grandmaster-'.$highest.'.png').'" x="462.5" y="125" height="50"/>';
-						$data .= '<text font-size="16" text-anchor="middle" x="487.5" y="202" fill="#DDD">'.$highest.'</text>';
+						$my_file = 'images/svgrecap/'.$profil->name.'.svg';
+						$handle = fopen($my_file, 'w') or die('Cannot open file:  '.$my_file);
+						$data = "";
+						$data .= '<?xml version="1.0" encoding="UTF-8"?>';
+						$data .= '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
+						$data .= '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" xmlns:xlink="http://www.w3.org/1999/xlink">';
+
+						//Style
+						$data .= '<style>text{font-family : "Helvetica Neue", Helvetica, Arial, sans-serif;}</style>';
+
+						//Constantes
+						$data .= '<defs>';
+						$data .= '<rect id="rect" x="39.375" y="39.375" width="96.25" height="96.25" rx="100"/>';
+						$data .= '<clipPath id="clip">';
+							$data .= '<use xlink:href="#rect"/>';
+						$data .= '</clipPath>';
+						$data .= '<rect id="rect1b" x="210" y="10" width="80px" height="80px" rx="80"/>';
+						$data .= '<clipPath id="clip1b">';
+							$data .= '<use xlink:href="#rect1b"/>';
+						$data .= '</clipPath>';
+						$data .= '<rect id="rect2b" x="60" y="20" width="70px" height="70px" rx="70"/>';
+						$data .= '<clipPath id="clip2b">';
+							$data .= '<use xlink:href="#rect2b"/>';
+						$data .= '</clipPath>';
+						$data .= '<rect id="rect3b" x="370" y="20" width="70px" height="70px" rx="70"/>';
+						$data .= '<clipPath id="clip3b">';
+							$data .= '<use xlink:href="#rect3b"/>';
+						$data .= '</clipPath>';
+						$data .= '<filter id="f3" x="0" y="0" width="100%" height="100%">';
+							$data .= '<feOffset result="offOut" in="SourceAlpha" dx="0" dy="0" />';
+							$data .= '<feGaussianBlur result="blurOut" in="offOut" stdDeviation="5" />';
+							$data .= '<feBlend in="SourceGraphic" in2="blurOut" mode="normal" />';
+						$data .= '</filter>';
+						$data .= '</defs>';
+
+						//Base icon
+						$data .= '<use xlink:href="#rect" stroke-width="2" stroke="black"/>';
+						$data .= '<image href="'.imgToBase64('./ddragon/img/champion/splash/'.$podiumArray[1]["name"].'_0.jpg').'" x="0" y="-10%" width="100%"/>';
+						$data .= '<rect x="0" y="0" height="400" width="800" fill="#333333BC" />';
+						$data .= '<image href="'.imgToBase64('./ddragon/'.$version.'/img/profileicon/'.$profil->profileIconId.'.png').'" clip-path="url(#clip)" y="39.375" x="39.375" height="96.25"/>';
+						$data .= '<image href="'.imgToBase64('./images/border/Level_'.$index_lvl.'.png').'" x="0" y="0" height="175"/>';
+						$data .= '<text text-anchor="middle" font-size="12" fill="white" x="87.5" y="144" font-weight="600">'.$profil->summonerLevel.'</text>';
+
+						//Pseudo
+						$data .= '<text text-anchor="middle" alignment-baseline="middle" font-size="30" fill="#e5e5e5" x="487.5" y="25">'.$profil->name.'</text>';
+						$data .= '<image href="'.imgToBase64('./images/queuetype/underline_gold.png').'" x="400" y="35" width="175"/>';
+
+						//Rank
+						$data .= '<image href="'.imgToBase64('./images/rank/ranks_glow/'.$url.'.png').'" x="12.5" y="200" width="150" filter="url(#f3)"/>';
+						$data .= '<text text-anchor="middle" font-size="16" fill="white" x="87.5" y="390">'.$rank_trad[$highestR].' '.$palier.'</text>';
+
+						//Lineup
+						$data .= '<line x1="0" y1="0" x2="800" y2="0" stroke-width="2" stroke="#C9C9C9"/>';
+						$data .= '<line x1="0" y1="0" x2="0" y2="400" stroke-width="2" stroke="#C9C9C9"/>';
+						$data .= '<line x1="800" y1="400" x2="0" y2="400" stroke-width="2" stroke="#C9C9C9"/>';
+						$data .= '<line x1="800" y1="400" x2="800" y2="0" stroke-width="2" stroke="#C9C9C9"/>';
+						$data .= '<line x1="175" y1="0" x2="175" y2="400" stroke="#C9C9C9"/>';
+						$data .= '<line x1="175" y1="305" x2="290" y2="305" stroke="#C9C9C9"/>';
+						$data .= '<line x1="375" y1="305" x2="440" y2="305" stroke="#C9C9C9"/>';
+						$data .= '<line x1="600" y1="305" x2="535" y2="305" stroke="#C9C9C9"/>';
+						$data .= '<line x1="800" y1="305" x2="685" y2="305" stroke="#C9C9C9"/>';
+
+						//Podium
+						$data .= '<g transform="scale(1 1) translate(237.5 250)">';
+
+						$data .= '<use xlink:href="#rect1b" stroke-width="4" stroke="#DAA520"/>';
+						$data .= '<image href="'.imgToBase64('./ddragon/img/champion/tiles/'.$podiumArray[1]["name"].'_0.jpg').'" x="210" y="10" height="80" width="80" clip-path="url(#clip1b)"/>';
+						$data .= '<image href="'.imgToBase64('./images/mastery/cm'.$podiumArray[1]["level"].'.png').'" x="225" y="65" height="50" width="50"/>';
+						$data .= '<text x="250" y="130" font-size="18" font-weight="600" fill="#DAA520" font-family="Verdana" text-anchor="middle">'.$podiumArray[1]["points"].'</text>';
+
+						$data .= '<use xlink:href="#rect2b" stroke-width="4" stroke="#A9A9A9"/>';
+						$data .= '<image href="'.imgToBase64('./ddragon/img/champion/tiles/'.$podiumArray[2]["name"].'_0.jpg').'" x="60" y="20" height="70" width="70" clip-path="url(#clip2b)"/>';
+						$data .= '<image href="'.imgToBase64('./images/mastery/cm'.$podiumArray[2]["level"].'.png').'" x="75" y="70" height="40" width="40"/>';
+						$data .= '<text x="95" y="130" font-size="18" font-weight="600" fill="#A9A9A9" font-family="Verdana" text-anchor="middle">'.$podiumArray[2]["points"].'</text>';
+
+						$data .= '<use xlink:href="#rect3b" stroke-width="4" stroke="#d6854C"/>';
+						$data .= '<image href="'.imgToBase64('./ddragon/img/champion/tiles/'.$podiumArray[3]["name"].'_0.jpg').'" x="370" y="20" height="70" width="70" clip-path="url(#clip3b)"/>';
+						$data .= '<image href="'.imgToBase64('./images/mastery/cm'.$podiumArray[3]["level"].'.png').'" x="385" y="70" height="40" width="40"/>';
+						$data .= '<text x="405" y="130" font-size="18" font-weight="600" fill="#d6854C" font-family="Verdana" text-anchor="middle">'.$podiumArray[3]["points"].'</text>';
+						$data .= '</g>';
+						
+						//Maitrise
+						$data .= '<text font-size="20" text-anchor="middle" x="285" y="110" fill="#DDD">Maîtrises</text>';
+						$data .= '<g transform="translate(225 110) scale(3 3)">';
+							$data .= '<circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#1D7A91" stroke-width="3"/>';
+							$data .= '<circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#7FEFFF" stroke-width="2.25" stroke-dasharray="'.$percent.' '.(100-$percent).'" stroke-dashoffset="25" stroke-linecap="round"/>';
+							$data .= '<text x="21" y="20" text-anchor="middle" style="font-size: 6px" fill="#7FEFFF">'.round($percent,1).'%</text>';
+							$data .= '<text x="21" y="27" text-anchor="middle" style="font-size: 4px" fill="#7FEFFF">'.$lvlmastery.'</text>';
+							$data .= '<line x1="16" y1="28" x2="26" y2="28" style="stroke:#7FEFFF;stroke-width:0.5"/>';
+							$data .= '<text x="21" y="32" text-anchor="middle" style="font-size: 4px" fill="#7FEFFF">'.$lvlmasterymax.'</text>';
+							$data .= '<text x="21" y="44" text-anchor="middle" style="font-size: 3.5px" fill="#7FEFFF">'.$ptsmastery.' points</text>';
+						$data .= '</g>';
+
+						//Role
+						if($second != ""){
+							$data .= '<text font-size="20" text-anchor="middle" x="487.5" y="110" fill="#DDD">Roles principaux</text>';
+							$data .= '<image href="'.imgToBase64('./images/lanes/Position_Grandmaster-'.$highest.'.png').'" x="437.5" y="125" height="50"/>';
+							$data .= '<image href="'.imgToBase64('./images/lanes/Position_Grandmaster-'.$second.'.png').'" x="487.5" y="125" height="50"/>';
+							$data .= '<text font-size="16" text-anchor="middle" x="487.5" y="202" fill="#DDD">'.$highest.'/'.$second.'</text>';
+						}else{
+							$data .= '<text font-size="20" text-anchor="middle" x="487.5" y="110" fill="#DDD">Role principal</text>';
+							$data .= '<image href="'.imgToBase64('./images/lanes/Position_Grandmaster-'.$highest.'.png').'" x="462.5" y="125" height="50"/>';
+							$data .= '<text font-size="16" text-anchor="middle" x="487.5" y="202" fill="#DDD">'.$highest.'</text>';
+						}
+
+						//Gamemode
+						$data .= '<text font-size="20" text-anchor="middle" x="680" y="110" fill="#DDD">Mode de jeu préféré</text>';
+						$data .= '<image href="'.imgToBase64('./images/queuetype/'.$highestQ.'.png').'" x="655" y="125" height="50"/>';
+						$data .= '<text font-size="16" text-anchor="middle" x="680" y="202" fill="#DDD">'.$nameQ.'</text>';
+
+						$data .= '</svg>';
+						fwrite($handle, $data);
 					}
-
-					//Gamemode
-					$data .= '<text font-size="20" text-anchor="middle" x="680" y="110" fill="#DDD">Mode de jeu préféré</text>';
-					$data .= '<image href="'.imgToBase64('./images/queuetype/'.$highestQ.'.png').'" x="655" y="125" height="50"/>';
-					$data .= '<text font-size="16" text-anchor="middle" x="680" y="202" fill="#DDD">'.$nameQ.'</text>';
-
-					$data .= '</svg>';
-					fwrite($handle, $data);
 				?>
+
+				<div>
+					<?php  
+						$request = file_get_contents('./ddragon/'.$version.'/data/'.$lang.'/champion/'.$podiumArray[1]['name'].'.json');
+						$champ = json_decode($request, true);
+						//var_dump($champ);
+					?>
+					<select id="mainSkin">
+						<?php
+							for($i = 0 ; $i < sizeof($champ["data"][$podiumArray[1]['name']]["skins"]) ; ++$i){
+								echo '<option value="'.$champ["data"][$podiumArray[1]['name']]["skins"][$i]["num"].'">'.$champ["data"][$podiumArray[1]['name']]["skins"][$i]["name"].'</option>';
+							}
+						?>
+					</select>
+					<button onclick="updateSVG()">Valider</button>
+				</div>
+
 				<canvas width="2400" height="1200" style="display:none;"></canvas>
 				<img id="imgSVG" style="width:90%;"/>
 				
@@ -1197,11 +1214,31 @@
 			</div>
 			<script>
 				function currentGame(){
-					document.getElementById("inprogress").innerHTML = '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">Chargement en cours...</div></div>';
+					document.getElementById("mainSkin").innerHTML = '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">Chargement en cours...</div></div>';
 					$.ajax({
 					  url: "<?php echo 'test.php?id='.$id; ?>",
 					  success: function(data) {
 					    document.getElementById("inprogress").innerHTML = data;
+					  }
+					});
+				}
+				function updateSVG(){
+					document.getElementById("loading").style.display = "block";
+					var skin = document.getElementById("mainSkin").value;
+					$.ajax({
+					  url: "<?php echo 'updateSVG.php?id='.$pseudo.'&skin='; ?>"+skin,
+					  success: function(data) {
+					    var canvas = document.querySelector("canvas"),
+						context = canvas.getContext("2d");
+
+						var image = new Image;
+						var date = new Date();
+						image.src = "images/svgrecap/<?php echo $profil->name; ?>.svg?"+date.getTime();
+						image.onload = function() {
+							context.drawImage(image, 0, 0);
+							document.getElementById("imgSVG").src = canvas.toDataURL("image/png");
+							document.getElementById("loading").style.display = "none";
+						};
 					  }
 					});
 				}
