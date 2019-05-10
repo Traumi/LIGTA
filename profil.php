@@ -662,22 +662,39 @@
 						
 						
 						
-					</div><div style="display:inline-block;width:calc(100% - 150px);vertical-align:top;">
-						<?php 
-							for($j = 0 ; $j <= 6 ; $j++){
-								if($gamer_items[$j] == 0) echo '<img style="width:64px;" src="./images/no_item.svg"/>';
-								else echo '<img style="width:64px;" src="./ddragon/'.$version.'/img/item/'.$gamer_items[$j].'.png"/>';
-							}
-						?>
+					</div><div style="display:inline-block;width:256px;vertical-align:top;padding-top:30px;">
+						<div style="display:inline-block;vertical-align:top;">
+							<div>
+							<?php 
+								for($j = 0 ; $j <= 2 ; $j++){
+									if($gamer_items[$j] == 0) echo '<img style="width:64px;" src="./images/no_item.svg"/>';
+									else echo '<img style="width:64px;" src="./ddragon/'.$version.'/img/item/'.$gamer_items[$j].'.png"/>';
+								}
+							?>
+							</div>
+							<div>
+							<?php 
+								for($j = 3 ; $j <= 5 ; $j++){
+									if($gamer_items[$j] == 0) echo '<img style="width:64px;" src="./images/no_item.svg"/>';
+									else echo '<img style="width:64px;" src="./ddragon/'.$version.'/img/item/'.$gamer_items[$j].'.png"/>';
+								}
+							?>
+							</div>
+						</div><div style="display:inline-block;vertical-align:top;padding-top:32px;">
+							<?php 
+								if($gamer_items[6] == 0) echo '<img style="width:64px;" src="./images/no_item.svg"/>';
+								else echo '<img style="width:64px;" src="./ddragon/'.$version.'/img/item/'.$gamer_items[6].'.png"/>';
+							?>
+						</div>
+					</div><div style="display:inline-block;width:calc(100% - 406px);padding:0 10px;vertical-align:top;">
 
-					<!--<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">-->
 					<?php
 
 						$a_totaldmg = $g_totaldmg = $gamer->stats->totalDamageDealtToChampions;
 						$a_totaltank = $g_totaltank = $gamer->stats->totalDamageTaken;
 						$a_totalgold = $g_totalgold = $gamer->stats->goldEarned;
 						$a_totalpush = $g_totalpush = ($gamer->stats->turretKills + $gamer->stats->inhibitorKills);
-						$a_totalfarm = $g_totalfarm = ($gamer->stats->totalMinionsKilled + $gamer->stats->neutralMinionsKilled);//totalHeal
+						$a_totalfarm = $g_totalfarm = ($gamer->stats->totalMinionsKilled + $gamer->stats->neutralMinionsKilled);
 						$a_totalheal = $g_totalheal = $gamer->stats->totalHeal;
 						$a_totalvs = $g_totalvs = $gamer->stats->visionScore;
 						//var_dump($gamer->stats);
@@ -1105,6 +1122,7 @@
 
 					//Pseudo
 					$data .= '<text text-anchor="middle" alignment-baseline="middle" font-size="30" fill="#e5e5e5" x="487.5" y="25">'.$profil->name.'</text>';
+					$data .= '<image href="'.imgToBase64('./images/queuetype/underline_gold.png').'" x="400" y="35" width="175"/>';
 
 					//Rank
 					$data .= '<image href="'.imgToBase64('./images/rank/ranks_glow/'.$url.'.png').'" x="12.5" y="200" width="150" filter="url(#f3)"/>';
