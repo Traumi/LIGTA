@@ -1191,20 +1191,25 @@
 					}
 				?>
 
-				<div>
+				<div class="form-inline" style="margin-bottom:15px;">
 					<?php  
 						$request = file_get_contents('./ddragon/'.$version.'/data/'.$lang.'/champion/'.$podiumArray[1]['name'].'.json');
 						$champ = json_decode($request, true);
 						//var_dump($champ);
 					?>
-					<select id="mainSkin">
+					<div class="form-group">
+						<select class="form-control" id="mainSkin">
 						<?php
 							for($i = 0 ; $i < sizeof($champ["data"][$podiumArray[1]['name']]["skins"]) ; ++$i){
-								echo '<option value="'.$champ["data"][$podiumArray[1]['name']]["skins"][$i]["num"].'">'.$champ["data"][$podiumArray[1]['name']]["skins"][$i]["name"].'</option>';
+								if($champ["data"][$podiumArray[1]['name']]["skins"][$i]["name"] == "default") echo '<option value="'.$champ["data"][$podiumArray[1]['name']]["skins"][$i]["num"].'">'.$champ["data"][$podiumArray[1]['name']]["name"].'</option>';
+								else echo '<option value="'.$champ["data"][$podiumArray[1]['name']]["skins"][$i]["num"].'">'.$champ["data"][$podiumArray[1]['name']]["skins"][$i]["name"].'</option>';
 							}
 						?>
-					</select>
-					<button onclick="updateSVG()">Valider</button>
+						</select>
+					</div>
+					<button class="btn btn-success" onclick="updateSVG()">Valider</button>
+					
+					
 				</div>
 
 				<canvas width="2400" height="1200" style="display:none;"></canvas>

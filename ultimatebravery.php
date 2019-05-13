@@ -44,6 +44,44 @@
 			body.dark .game-profil a:hover{
 				color:#ccc;
 			}
+
+			/*Riot of legends ITEMS*/
+			stats{
+				color:#CFD353;
+			}
+			passive{
+				color:#3D7DDF;
+			}
+			active{
+				color:#3D7DDF;
+			}
+			unique{
+				color:#3D7DDF;
+			}
+			rules{
+				color:#EF1212;
+			}
+			groupLimit{
+				color:#FA9939;
+			}
+			mana{
+				color:#A1A1FA;
+			}
+			scaleLevel{
+				color:#BFBFBF;
+			}
+			unlockedPassive{
+				color:#41C341;
+			}
+			consumable{
+				color:#b66dff;
+			}
+			itemName{
+				color:#EFEFEF;
+			}
+			itemCost{
+				color:#ffc321;
+			}
 		</style>
 	</head>
 	<body style="margin:0;padding:0;">
@@ -56,11 +94,11 @@
 						<div class="form-group">
 							<label for="lane">Lane:</label>
 							<select class="form-control" name="lane" id="lane">
-								<option value="top" <?php if($lane == "top") echo "selected"; ?>>top</option>
-								<option value="mid" <?php if($lane == "mid") echo "selected"; ?>>mid</option>
-								<option value="jungler" <?php if($lane == "jungler") echo "selected"; ?>>jungler</option>
-								<option value="bot" <?php if($lane == "bot") echo "selected"; ?>>bot</option>
-								<option value="sup" <?php if($lane == "sup") echo "selected"; ?>>sup</option>
+								<option value="top" <?php if($lane == "top") echo "selected"; ?>>Top Lane</option>
+								<option value="mid" <?php if($lane == "mid") echo "selected"; ?>>Mid Lane</option>
+								<option value="jungler" <?php if($lane == "jungler") echo "selected"; ?>>Jungler</option>
+								<option value="bot" <?php if($lane == "bot") echo "selected"; ?>>Adc</option>
+								<option value="sup" <?php if($lane == "sup") echo "selected"; ?>>Support</option>
 							</select>
 						</div>
 						
@@ -72,11 +110,19 @@
 				$kicked_items = [3671,3672,3673,3675,2033,3007,3008,3029];
 				$jungler_items = [1400,1401,1402,1412,1413,1414,1416,1419];
 				$support_items = [3069,3092,3401];
-				//var_dump($items["data"][3040]);
+				$boots = [3006,3009,3020,3047,3111,3117,3158];
+				/*echo "<pre><code>";
+				var_dump($items["data"][3124]["description"]);
+				echo "</code></pre>";*/
+				//var_dump($items["data"][3124]);
 				$availableItems = [];
 				foreach($items["data"] as $key => $item){
+					/*echo "<pre><code>";
+					echo $item["name"]."\n";
+					var_dump($items["data"][$key]["description"]);
+					echo "</code></pre>";*/
 					if(!isset($item["into"]) && isset($item["from"]) && !isset($item["requiredAlly"]) && !isset($item["requiredChampion"]) && $item["maps"][11] 
-					&& !in_array($key, $kicked_items) && !in_array($key, $jungler_items) && !in_array($key, $support_items) && $item["gold"]["purchasable"]){
+					&& !in_array($key, $kicked_items) && !in_array($key, $jungler_items) && !in_array($key, $support_items) && !in_array($key, $boots) && $item["gold"]["purchasable"]){
 						$availableItems[] = $key;
 					}
 				}
@@ -93,23 +139,43 @@
 				
 				if($lane == "jungler"){
 					$index = rand(0, sizeof($jungler_items)-1);
-					echo $jungler_items[$index]." - ";
+					//echo $jungler_items[$index]." - ";
 					$stuff[] = $jungler_items[$index];
 					$i++;
 				}else if($lane == "sup"){
 					$index = rand(0, sizeof($support_items)-1);
-					echo $support_items[$index]." - ";
+					//echo $support_items[$index]." - ";
 					$stuff[] = $support_items[$index];
 					$i++;
 				}
 
+				$index = rand(0, sizeof($boots)-1);
+				//echo $boots[$index]." - ";
+				$stuff[] = $boots[$index];
+				$i++;
+
 				for($i ; $i < 6 ; ++$i){
 					$index = rand(0, sizeof($availableItems)-1);
-					echo $availableItems[$index]." - ";
+					//echo $availableItems[$index]." - ";
 					$stuff[] = $availableItems[$index];
 					//echo '<img src="./ddragon/9.9.1/img/item/'.$availableItems[$index].'.png"/>';
 					array_splice($availableItems, $index, 1);
 				}
+
+				echo '<div class="text-center col-lg-6 col-lg-offset-3 col-sm-12" style="border:solid lightgrey 1px;padding:0 0 15px 0;border-radius:5px;">';
+				echo '<h3 style="margin:15px 0 15px 0;">Stuff</h3>';
+				foreach($stuff as $key => $item){
+					echo '<div style="display:inline-block;margin:0 9px;">';
+					$stringbuilder = '';
+					$stringbuilder .= '<itemName>'.$items["data"][$item]["name"].'</itemName>';
+					$stringbuilder .= '<br/><br/>';
+					$stringbuilder .= $items["data"][$item]["description"];
+					$stringbuilder .= '<br/><br/>';
+					$stringbuilder .= '<itemCost>'.$items["data"][$item]["gold"]["total"].' ('.$items["data"][$item]["gold"]["base"].')</itemCost>';
+					echo '<img width="64px" src="./ddragon/9.9.1/img/item/'.$item.'.png" data-html="true" data-toggle="tooltip" data-placement="right" title="'.$stringbuilder.'"/>';
+					echo '</div>';
+				}
+				echo '</div>';
 			?>
 		</div>
 		<?php require_once("./parts/bas.html"); ?>
