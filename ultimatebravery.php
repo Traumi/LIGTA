@@ -251,9 +251,8 @@
 				}
 
 
-				echo '<div class="text-center col-md-8 col-md-offset-2" style="border:solid lightgrey 1px;padding:0 0 15px 0;border-radius:5px;">';
-				echo '<h3 style="margin:15px 0 15px 0;">Stuff</h3>';
-				echo '<img width="92px" src="./ddragon/9.9.1/img/champion/'.$champions["data"][$champ]["id"].'.png"/>';//
+				echo '<div class="text-center col-md-8 col-md-offset-2" style="border:solid lightgrey 1px;padding:10px 0 15px 0;border-radius:5px;">';
+				echo '<img width="92px" src="./ddragon/9.9.1/img/champion/'.$champions["data"][$champ]["id"].'.png"/>';
 				echo '<h4 style="margin:5px 0 15px 0;">'.$champions["data"][$champ]["name"].'</h4>';
 				echo '<div style="margin-bottom : 20px;">';
 				foreach($summoners as $key => $summoner){

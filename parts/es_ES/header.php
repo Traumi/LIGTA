@@ -52,6 +52,7 @@
             <li class="dropdown-header">Opciones</li>
             <li><a href="index.php">Bienvenida</a></li>
             <li><a href="icon_builder.php">Icon Builder</a></li>
+            <li><a href="ultimatebravery.php">Ultimate Bravery</a></li>
           </ul>
         </li>
       </ul>

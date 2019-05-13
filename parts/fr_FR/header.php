@@ -60,6 +60,7 @@
             <li class="dropdown-header">Options</li>
             <li><a href="index.php">Accueil</a></li>
             <li><a href="icon_builder.php">Icon Builder</a></li>
+            <li><a href="ultimatebravery.php">Ultimate Bravery</a></li>
           </ul>
         </li>
       </ul>
