@@ -8,6 +8,9 @@
 	$result = file_get_contents('./ddragon/'.$version.'/data/'.$lang.'/summoner.json');
 	$spells = json_decode($result, true);
 
+	$result = file_get_contents('./ddragon/'.$version.'/data/'.$lang.'/runesReforged.json');
+	$runes = json_decode($result, true);
+
 	$result = file_get_contents('./ddragon/'.$version.'/data/'.$lang.'/champion.json');
 	$champions = json_decode($result, true);
 
@@ -70,7 +73,7 @@
 				color:#3D7DDF;
 			}
 			rules{
-				color:#EF1212;
+				color:#EF5656;
 			}
 			groupLimit{
 				color:#FA9939;
@@ -93,6 +96,22 @@
 			itemCost{
 				color:#ffc321;
 			}
+			scaleAP{
+				color:#00af43;
+				font-weight:bold;
+			}
+			scaleAD{
+				color:#e28902;
+				font-weight:bold;
+			}
+			scaleLevel{
+				color:#cccccc;
+				font-weight:bold;
+			}
+			scaleHealth{
+				color:#D54525;
+				font-weight:bold;
+			}
 
 			input[type=checkbox]:not(checked) + label{
 				filter: grayscale(100%);
@@ -100,6 +119,10 @@
 
 			input[type=checkbox]:checked + label{
 				filter: grayscale(0%);
+			}
+
+			.runes img{
+				margin:0 5px;
 			}
 		</style>
 	</head>
@@ -139,8 +162,8 @@
 									}
 									echo '<label for="'.$key.'" style="margin:0;"><img width="48px" src="./ddragon/9.9.1/img/champion/'.$key.'.png"/></label>';
 								}
-
 							?>
+							
 						</div>
 						
 						<button class="btn btn-success" type="submit">Let's go</button>
@@ -169,6 +192,44 @@
 				$champ = $availableChamps[$index];
 
 				$ranged = $champions_range[$champ];
+
+				//_____________________________________________________________________________________
+
+				$availableBranches = [];
+				$branche1 = [];
+				$branche2 = [];
+				$branche2["branche"] = null;
+				foreach($runes as $key => $rune){
+					$availableBranches[] = $key;
+				}
+
+				$index = rand(0, sizeof($runes)-1);
+				$branche1["branche"] = $runes[$index];
+				$index = rand(0, sizeof($branche1["branche"]["slots"][0]["runes"])-1);
+				$branche1[0] = $branche1["branche"]["slots"][0]["runes"][$index];
+				$index = rand(0, sizeof($branche1["branche"]["slots"][1]["runes"])-1);
+				$branche1[1] = $branche1["branche"]["slots"][1]["runes"][$index];
+				$index = rand(0, sizeof($branche1["branche"]["slots"][2]["runes"])-1);
+				$branche1[2] = $branche1["branche"]["slots"][2]["runes"][$index];
+				$index = rand(0, sizeof($branche1["branche"]["slots"][3]["runes"])-1);
+				$branche1[3] = $branche1["branche"]["slots"][3]["runes"][$index];
+
+				while($branche2["branche"] == null){
+					$index = rand(0, sizeof($runes)-1);
+					if($branche1["branche"] != $runes[$index]){
+						$branche2["branche"] = $runes[$index];
+					}
+				}
+				$index1 = rand(0, 2);
+				$index2 = rand(0, 2);
+				if($index1 == $index2) $index2 = ($index2 + 1)%3;
+				$index1 += 1;
+				$index2 += 1;
+				$index = rand(0, sizeof($branche2["branche"]["slots"][$index1]["runes"])-1);
+				$branche2[0] = $branche2["branche"]["slots"][$index1]["runes"][$index];
+				$index = rand(0, sizeof($branche2["branche"]["slots"][$index2]["runes"])-1);
+				$branche2[1] = $branche2["branche"]["slots"][$index2]["runes"][$index];
+				
 
 				//_____________________________________________________________________________________
 
@@ -236,7 +297,7 @@
 				$i = 0;
 				if($lane == "jungler"){
 					for($j = 0 ; $j < sizeof($availableSummoners) ; ++$j){
-						if($availableSummoners[$j]["id"] == "SummonerSmite"){
+						if($availableSummoners[$j] == "SummonerSmite"){
 							$index = $j;
 						}
 					}
@@ -261,7 +322,7 @@
 					$stringbuilder .= '<summonerName>'.$spells["data"][$summoner]["name"].'</summonerName>';
 					$stringbuilder .= '<br/><br/>';
 					$stringbuilder .= $spells["data"][$summoner]["description"];
-					echo '<img width="64px" src="./ddragon/9.9.1/img/spell/'.$summoner.'.png" data-html="true" data-toggle="tooltip" data-placement="right" title="'.$stringbuilder.'"/>';
+					echo '<img width="64px" src="./ddragon/9.9.1/img/spell/'.$summoner.'.png" data-html="true" data-toggle="tooltip" data-placement="top" title="'.$stringbuilder.'"/>';
 					echo '</div>';
 				}
 				echo '</div>';
@@ -274,9 +335,24 @@
 					$stringbuilder .= $items["data"][$item]["description"];
 					$stringbuilder .= '<br/><br/>';
 					$stringbuilder .= '<itemCost>'.$items["data"][$item]["gold"]["total"].' ('.$items["data"][$item]["gold"]["base"].')</itemCost>';
-					echo '<img width="64px" src="./ddragon/9.9.1/img/item/'.$item.'.png" data-html="true" data-toggle="tooltip" data-placement="right" title="'.$stringbuilder.'"/>';
+					echo '<img width="64px" src="./ddragon/9.9.1/img/item/'.$item.'.png" data-html="true" data-toggle="tooltip" data-placement="top" title="'.$stringbuilder.'"/>';
 					echo '</div>';
 				}
+				echo '</div>';
+				echo '<hr width="90%" style="border-top-color:darkgrey;"/>';
+				echo '<div class="runes">';
+					echo '<div style="margin:20px 0">';
+						echo '<img width="32px" src="./ddragon/img/'.$branche1["branche"]["icon"].'"/>';
+						echo '<img width="64px" src="./ddragon/img/'.$branche1[0]["icon"].'" data-html="true" data-toggle="tooltip" data-placement="top" title="'.$branche1[0]["longDesc"].'"/>';
+						echo '<img width="64px" src="./ddragon/img/'.$branche1[1]["icon"].'" data-html="true" data-toggle="tooltip" data-placement="top" title="'.$branche1[1]["longDesc"].'"/>';
+						echo '<img width="64px" src="./ddragon/img/'.$branche1[2]["icon"].'" data-html="true" data-toggle="tooltip" data-placement="top" title="'.$branche1[2]["longDesc"].'"/>';
+						echo '<img width="64px" src="./ddragon/img/'.$branche1[3]["icon"].'" data-html="true" data-toggle="tooltip" data-placement="top" title="'.$branche1[3]["longDesc"].'"/>';
+					echo '</div>';
+					echo '<div>';
+						echo '<img width="32px" src="./ddragon/img/'.$branche2["branche"]["icon"].'"/>';
+						echo '<img width="64px" src="./ddragon/img/'.$branche2[0]["icon"].'" data-html="true" data-toggle="tooltip" data-placement="top" title="'.$branche2[0]["longDesc"].'"/>';
+						echo '<img width="64px" src="./ddragon/img/'.$branche2[1]["icon"].'" data-html="true" data-toggle="tooltip" data-placement="top" title="'.$branche2[1]["longDesc"].'"/>';
+					echo '</div>';
 				echo '</div>';
 				echo '</div>';
 			?>
