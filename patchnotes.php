@@ -24,6 +24,21 @@
 	<div>
 		<p>Ce module est développé par Traumination, pour toute suggestion merci de passer par le discord de la VCT : <a href="https://discord.gg/cqPUDC7">https://discord.gg/cqPUDC7</a></p>
 	</div>
+	<h4>0.9.4</h4>
+	<ul>
+		<li>
+			Ultimate bravery opérationnel
+		</li>
+		<li>
+			Résumé de profil opérationnel
+		</li>
+		<li>
+			Résumé de profil : choix de skin possible
+		</li>
+		<li>
+			Icone "Pas d'item" fixe
+		</li>
+	</ul>
 	<h4>0.9.3</h4>
 	<ul>
 		<li>
