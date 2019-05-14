@@ -1,5 +1,5 @@
 <?php 
-	$rank_trad = ["UNRANKED" => "Sin Clasificar", "IRON" => "Hierro", "BRONZE" => "Bronce", "SILVER" => "Plata", "GOLD" => "Oro", "PLATINUM" => "Platino", "DIAMOND" => "Diamante", "MASTER" => "Maestro", "GRANDMASTER" => "Gran Maestro", "CHALLENGER" => "Desafiador"]; 
+	$rank_trad = ["UNRANKED" => $translations["UNRANKED"], "IRON" => $translations["IRON"], "BRONZE" => $translations["BRONZE"], "SILVER" => $translations["SILVER"], "GOLD" => $translations["GOLD"], "PLATINUM" => $translations["PLATINUM"], "DIAMOND" => $translations["DIAMOND"], "MASTER" => $translations["MASTER"], "GRANDMASTER" => $translations["GRANDMASTER"], "CHALLENGER" => $translations["CHALLENGER"]]; 
 	$roman_trade = ["V" => "_5", "IV" => "_4", "III" => "_3", "II" => "_2", "I" => "_1", "" => ""];
 ?>
 <div style="text-align:center;width:33%;display:inline-block;">
@@ -62,5 +62,5 @@
 <hr style="width:100%;border:solid lightgrey 1px;"/>
 <div style="text-align:center;width:33%;margin-left:33%;">
 	<img style="width:80%;left:0;" src="images/prestige/Level_<?php echo $index_lvl ?>_Prestige_Emote.png" />
-	<div style="font-size:20px;margin-bottom:25px;">Prestigio</div>
+	<div style="font-size:20px;margin-bottom:25px;"><?php echo $translations["PRESTIGE"] ?></div>
 </div>

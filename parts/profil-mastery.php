@@ -49,7 +49,7 @@ echo '<div class="infotb">';
     <text x="21" y="27" text-anchor="middle" style="font-size: 4px" fill="#d17914"><?php echo $lvlmastery ?></text>
     <line x1="16" y1="28" x2="26" y2="28" style="stroke:#d17914;stroke-width:0.3"/>
     <text x="21" y="32" text-anchor="middle" style="font-size: 4px" fill="#d17914"><?php echo $lvlmasterymax ?></text>
-    <text x="21" y="46" text-anchor="middle" style="font-size: 3px" fill="#d17914"><?php echo $ptsmastery ?> puntos</text>
+    <text x="21" y="46" text-anchor="middle" style="font-size: 3px" fill="#d17914"><?php echo $ptsmastery ?> <?php echo $translations["POINTS"] ?></text>
 </svg>
 <?php
 echo '</div>';
@@ -120,7 +120,7 @@ foreach($masteries as $aaa => $infochamp){
 
 for($i = 7 ; $i > 0 ; $i--){
     echo '<div class="col-md-12 col-xs-12 mastery" style="padding:0;margin-bottom:20px;border-radius:10px;">';
-    echo '<div style="border-bottom:solid lightgrey 2px; text-align:center;font-size:20px;"><img src="images/mastery/cm'.$i.'.png" style="width:80px;"/>Maestría '.$i.'</div>';
+    echo '<div style="border-bottom:solid lightgrey 2px; text-align:center;font-size:20px;"><img src="images/mastery/cm'.$i.'.png" style="width:80px;"/>'.$translations["MASTERY"].' '.$i.'</div>';
     echo '<div style="text-align:center;">';
     foreach($masteriesArray as $index => $content){
         if($content["level"] == $i){

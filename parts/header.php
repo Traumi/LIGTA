@@ -17,7 +17,7 @@
         <!--<li><a href="index.php?c=C_Vitrine&a=afficher">Vitrine</a></li>-->
         <li><form class="navbar-form navbar-right" action="profil.php" method="get">
           <div class="input-group">
-            <input placeholder="Rechercher un joueur" name="pseudo" class="form-control" type="text">
+            <input placeholder="<?php echo $translations['SEARCH_PLAYER'] ?>" name="pseudo" class="form-control" type="text">
             <div class="input-group-btn">
               <button class="btn btn-default" type="submit" style="">
                 &nbsp;<i class="glyphicon glyphicon-search"></i>&nbsp;
@@ -43,14 +43,14 @@
         </div></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            Options
+            <?php echo $translations["OPTIONS"] ?>
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
             <li class="dropdown-header">Data Patch : <?php echo json_decode(file_get_contents('data/version.json'))->version; ?></li>
             <li role="separator" class="divider"></li>
-            <li class="dropdown-header">Opciones</li>
-            <li><a href="index.php">Bienvenida</a></li>
+            <li class="dropdown-header"><?php echo $translations["OPTIONS"] ?></li>
+            <li><a href="index.php"><?php echo $translations["ACCUEIL"] ?></a></li>
             <li><a href="icon_builder.php">Icon Builder</a></li>
             <li><a href="ultimatebravery.php">Ultimate Bravery</a></li>
           </ul>

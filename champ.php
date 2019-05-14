@@ -33,7 +33,7 @@
 		</style>
 	</head>
 	<body style="margin:0;padding:0;">
-		<?php require_once("parts/$lang/header.php"); ?>
+		<?php require_once("parts/header.php"); ?>
 		<?php require_once("parts/$lang/footer.php"); ?>
 		<div class="container" style="width:100%;margin-top:15px;">
 			<?php require_once("parts/$lang/champs_detail.php"); ?>

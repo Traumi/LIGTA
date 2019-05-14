@@ -170,7 +170,7 @@
 		</style>
 	</head>
 	<body>
-		<?php require_once("parts/$lang/header.php"); ?>
+		<?php require_once("parts/header.php"); ?>
 		<?php require_once("parts/$lang/footer.php"); ?>
 		<div style="width:500px;margin:auto;text-align:center;">
 			<div style="display:inline-block;width:100%;">
@@ -324,7 +324,7 @@
 		document.getElementById("percent").innerHTML = val+"%";
 	}
 	async function update(bool){
-		var sleeptime = 25;
+		var sleeptime = 20;
 		if(!bool){
 			document.getElementById("tempo").style.display = "none";
 			document.getElementById("icon").style.display = "inline-block";
@@ -335,7 +335,7 @@
 			document.getElementById("icon").style.display = "none";
 			document.getElementById("text-status").style.display = "block";
 			document.getElementById("text-status").innerHTML = "downloading images...";
-			sleeptime = 50;
+			sleeptime = 60;
 		}
 
 		clear();

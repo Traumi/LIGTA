@@ -1,0 +1,3 @@
+<ul>
+	<li class="active" id="basebtn" onclick="selectPart('base',this)"><?php echo $translations["GENERAL"] ?></li><li id="masterybtn" onclick="selectPart('mastery', this)"><?php echo $translations["MASTERIES"] ?></li><li id="gamesbtn" onclick="selectPart('games', this)"><?php echo $translations["RECENT_GAMES"] ?></li><li id="inprogressbtn" onclick="selectPart('inprogress', this)"><?php echo $translations["IN_PROGRESS"] ?></li><li id="resumebtn" onclick="selectPart('resume', this)"><?php echo $translations["SUMMARY"] ?></li>
+</ul>
