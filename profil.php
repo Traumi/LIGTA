@@ -25,91 +25,79 @@
 		}else{
 			//Init
 			if (!file_exists('data/players/'.$pseudo)) {
-	          mkdir('data/players/'.$pseudo, 0777, true);
-	          $file = fopen("data/players/$pseudo/date.txt", "w");
-		      fwrite($file, "1990-01-01");
-		      fclose($file);
-	        }
+				mkdir('data/players/'.$pseudo, 0777, true);
+				$file = fopen("data/players/$pseudo/date.txt", "w");
+				fwrite($file, "1990-01-01");
+				fclose($file);
+	    }
 
-	        $lastMaj = file_get_contents('data/players/'.$pseudo.'/date.txt');
-		    $now = date("Y-m-d H:i");
-		    $datetime1 = new DateTime($lastMaj);
-		    $datetime2 = new DateTime($now);
-		    $interval = $datetime1->diff($datetime2);
-		    
-		    //var_dump($interval);// $interval;
+	    $lastMaj = file_get_contents('data/players/'.$pseudo.'/date.txt');
+			$now = date("Y-m-d H:i");
+			$datetime1 = new DateTime($lastMaj);
+			$datetime2 = new DateTime($now);
+			$interval = $datetime1->diff($datetime2);
 
-		    $sincelastupdate = ($interval->format("%a"))*24*60 + ($interval->h)*60 + ($interval->i);
+		  $sincelastupdate = ($interval->format("%a"))*24*60 + ($interval->h)*60 + ($interval->i);
 
-		    //echo $sincelastupdate;
-
-		    if($sincelastupdate >= 30){
-
-	    		//Summoner
-	    		//$result = file_get_contents('https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.str_replace ( " " , "" , $pseudo).'?api_key='.$key);
-		        $result = file_get_contents('https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$pseudo.'?api_key='.$key);
-		        $file = fopen("data/players/$pseudo/summoner.json", "w");
-		        fwrite($file, $result);
-		        fclose($file);
-		        $result = file_get_contents('data/players/'.$pseudo.'/summoner.json');
-		        $profil = json_decode($result);
-				
+		  if($sincelastupdate >= 30){
+				//Summoner
+				$result = file_get_contents('https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$pseudo.'?api_key='.$key);
+				$file = fopen("data/players/$pseudo/summoner.json", "w");
+				fwrite($file, $result);
+				fclose($file);
+				$result = file_get_contents('data/players/'.$pseudo.'/summoner.json');
+				$profil = json_decode($result);
 				$id = $profil->id;
 				$accountId = $profil->accountId;
 
 				//Rank
 				if($result = file_get_contents('https://euw1.api.riotgames.com/lol/league/v4/positions/by-summoner/'.$id.'?api_key='.$key)){
 					$file = fopen("data/players/$pseudo/ranks.json", "w");
-			        fwrite($file, $result);
-			        fclose($file);
+					fwrite($file, $result);
+					fclose($file);
 				}
-		        
+
 				//Masteries
-		        if($result = file_get_contents('https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/'.$id.'?api_key='.$key)){
-		        	$file = fopen("data/players/$pseudo/masteries.json", "w");
-			        fwrite($file, $result);
-			        fclose($file);
-		        }
-		        
-		        //Games 
-		        if($result = file_get_contents('https://euw1.api.riotgames.com/lol/match/v4/matchlists/by-account/'.$accountId.'?api_key='.$key)){
-		        	$file = fopen("data/players/$pseudo/matches.json", "w");
-			        fwrite($file, $result);
-			        fclose($file);
-		        }
-		        
-		        $file = fopen("data/players/$pseudo/date.txt", "w");
-		        fwrite($file, $now);
-		        fclose($file);
-		    	
-
-		    }
-
-	    	//Summoner
-	        $result = file_get_contents('data/players/'.$pseudo.'/summoner.json');
-	        $profil = json_decode($result);
+				if($result = file_get_contents('https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/'.$id.'?api_key='.$key)){
+					$file = fopen("data/players/$pseudo/masteries.json", "w");
+					fwrite($file, $result);
+					fclose($file);
+				}
+				
+				//Games 
+				if($result = file_get_contents('https://euw1.api.riotgames.com/lol/match/v4/matchlists/by-account/'.$accountId.'?api_key='.$key)){
+					$file = fopen("data/players/$pseudo/matches.json", "w");
+					fwrite($file, $result);
+					fclose($file);
+				}
 			
+				$file = fopen("data/players/$pseudo/date.txt", "w");
+				fwrite($file, $now);
+				fclose($file);
+			}
+
+			//Summoner
+			$result = file_get_contents('data/players/'.$pseudo.'/summoner.json');
+			$profil = json_decode($result);
+	
 			$id = $profil->id;
 			$accountId = $profil->accountId;
 
 			//Ranks
 			$result = file_get_contents('data/players/'.$pseudo.'/ranks.json');
-	        $ranks = json_decode($result);
+			$ranks = json_decode($result);
 
 			//Masteries
-	        $result = file_get_contents('data/players/'.$pseudo.'/masteries.json');
-	        $masteries = json_decode($result);
+			$result = file_get_contents('data/players/'.$pseudo.'/masteries.json');
+			$masteries = json_decode($result);
 
-	        //Games
-	        $result = file_get_contents('data/players/'.$pseudo.'/matches.json');
-	        $matches = json_decode($result);
-
-		    //$result = file_get_contents('https://euw1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/'.$id.'?api_key='.$key);
-		    //var_dump(json_decode($result));
-
-
+			//Games
+			$result = file_get_contents('data/players/'.$pseudo.'/matches.json');
+			$matches = json_decode($result);
 		}
 		
+	}else{
+		$sale_hop = false;
 	}
 ?>
 <html>
@@ -150,7 +138,7 @@
 	</head>
 	<body style="margin:0;padding:0;">
 		<?php require_once("parts/header.php"); ?>
-		<?php require_once("parts/$lang/footer.php"); ?>
+		<?php require_once("parts/footer.php"); ?>
 		<div class="container" style="width:100%;margin-bottom:25px;">
 			<?php if($sale_hop){ ?>
 			<?php 
@@ -533,7 +521,7 @@
 				<?php require_once('./parts/base.php'); ?>
 			</div>
 			<div id="mastery">
-				<?php require_once('./parts/'.$lang.'/profil-mastery.php'); ?>
+				<?php require_once('./parts/profil-mastery.php'); ?>
 			</div>
 			<div id="games">
 				<?php 
@@ -1073,9 +1061,7 @@
 					?>
 
 				<?php
-					if(file_exists('images/svgrecap/'.$profil->name.'.svg')){
-
-					}else{
+					if(!file_exists('images/svgrecap/'.$profil->name.'.svg')){
 						$my_file = 'images/svgrecap/'.$profil->name.'.svg';
 						$handle = fopen($my_file, 'w') or die('Cannot open file:  '.$my_file);
 						$data = "";

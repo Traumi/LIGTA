@@ -12,6 +12,13 @@
     $translations["GRANDMASTER"] = "Grand Maître";
     $translations["CHALLENGER"] = "Challenger";
 
+    $translations["ATK"] = "Attaque";
+    $translations["DEF"] = "Défense";
+    $translations["MAG"] = "Magie";
+    $translations["DIF"] = "Difficulté";
+    $translations["TIPS_AS"] = "Astuce en tant que";
+    $translations["TIPS_AGAINST"] = "Astuce contre";
+
     $translations["PRESTIGE"] = "Prestige";
 
     $translations['SEARCH_PLAYER'] = "Rechercher un joueur";
@@ -26,6 +33,10 @@
     $translations["SUMMARY"] = "Résumé";
 
     $translations["POINTS"] = "Points";
+    $translations["CHAMP_LIST"] = "Liste des champions";
+
+    $translations["SITE_PATCH_NOTES"] = "Notes de patch du site";
+    $translations["COPYRIGHT"] = "© 2019 Traumination Tous droits réservés";
 
 
 ?>

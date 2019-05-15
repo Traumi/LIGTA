@@ -93,7 +93,7 @@
         }
     </style>
     <!--<div style="color:white;">Mode sombre</div>-->
-    <div id="copyright"><a href="patchnotes.php" target="_blank">Notas del parche del sitio web (Francés)</a> - © 2019 Todos los derechos reservados</div>
+    <div id="copyright"><a href="patchnotes.php" target="_blank"><?php echo $translations["SITE_PATCH_NOTES"]; ?></a> - <?php echo $translations["COPYRIGHT"]; ?></div>
     <i class="sun">☼</i>
     <label class="switch">
         <input id="darkmode" onclick="toggleswitch(this)" type="checkbox">

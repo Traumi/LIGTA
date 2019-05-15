@@ -77,7 +77,7 @@ echo '<div id="mastery_podium" class="col-md-6 col-xs-12" style="text-align:cent
     <image xlink:href="<?php echo 'ddragon/'.$version.'/img/champion/'.$podiumArray[1]["name"].'.png' ?>" x="210" y="10" height="80" width="80" clip-path="url(#clip1)"/>
     <image xlink:href="<?php echo 'images/mastery/cm'.$podiumArray[1]["level"].'.png' ?>" x="225" y="65" height="50" width="50"/>
     <g class="goldchamp" transform="translate(210,112.5) scale(0.8)"><!--128 125.8-->
-        <?php require("parts/laurier.svg"); ?>
+        <?php require("parts/crest/laurier.svg"); ?>
         <text x="50" y="63" font-size="40" font-weight="600" fill="#DAA520" font-family="Verdana" text-anchor="middle">1</text>
         <text x="50" y="122" font-size="18" fill="#DAA520" font-family="Verdana" text-anchor="middle"><?php echo $podiumArray[1]["points"] ?></text>
     </g>
@@ -87,7 +87,7 @@ echo '<div id="mastery_podium" class="col-md-6 col-xs-12" style="text-align:cent
     <image xlink:href="<?php echo 'ddragon/'.$version.'/img/champion/'.$podiumArray[2]["name"].'.png' ?>" x="60" y="20" height="70" width="70" clip-path="url(#clip2)"/>
     <image xlink:href="<?php echo 'images/mastery/cm'.$podiumArray[2]["level"].'.png' ?>" x="75" y="70" height="40" width="40"/>
     <g class="silverchamp" transform="translate(60,122.5) scale(0.7)">
-        <?php require("parts/laurier.svg"); ?>
+        <?php require("parts/crest/laurier.svg"); ?>
         <text x="50" y="63" font-size="40" font-weight="600" class="silvertext" font-family="Verdana" text-anchor="middle">2</text>
         <text x="50" y="125" font-size="18" class="silvertext" font-family="Verdana" text-anchor="middle"><?php echo $podiumArray[2]["points"] ?></text>
     </g>
@@ -96,7 +96,7 @@ echo '<div id="mastery_podium" class="col-md-6 col-xs-12" style="text-align:cent
     <image xlink:href="<?php echo 'ddragon/'.$version.'/img/champion/'.$podiumArray[3]["name"].'.png' ?>" x="370" y="20" height="70" width="70" clip-path="url(#clip3)"/>
     <image xlink:href="<?php echo 'images/mastery/cm'.$podiumArray[3]["level"].'.png' ?>" x="385" y="70" height="40" width="40"/>
     <g class="bronzechamp" transform="translate(370,122.5) scale(0.7)">
-        <?php require("parts/laurier.svg"); ?>
+        <?php require("parts/crest/laurier.svg"); ?>
         <text x="50" y="63" font-size="40" font-weight="600" fill="#cd7f32" font-family="Verdana" text-anchor="middle">3</text>
         <text x="50" y="125" font-size="18" fill="#cd7f32" font-family="Verdana" text-anchor="middle"><?php echo $podiumArray[3]["points"] ?></text>
     </g>

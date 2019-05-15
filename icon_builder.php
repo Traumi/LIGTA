@@ -171,7 +171,7 @@
 	</head>
 	<body>
 		<?php require_once("parts/header.php"); ?>
-		<?php require_once("parts/$lang/footer.php"); ?>
+		<?php require_once("parts/footer.php"); ?>
 		<div style="width:500px;margin:auto;text-align:center;">
 			<div style="display:inline-block;width:100%;">
 				<h2>General</h2>

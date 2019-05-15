@@ -128,7 +128,7 @@
 	</head>
 	<body style="margin:0;padding:0;">
 		<?php require_once("parts/header.php"); ?>
-		<?php require_once("parts/$lang/footer.php"); ?>
+		<?php require_once("parts/footer.php"); ?>
 		<div class="container" style="width:90%;margin-bottom:25px;">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">

@@ -34,9 +34,9 @@
 	</head>
 	<body style="margin:0;padding:0;">
 		<?php require_once("parts/header.php"); ?>
-		<?php require_once("parts/$lang/footer.php"); ?>
+		<?php require_once("parts/footer.php"); ?>
 		<div class="container" style="width:100%;margin-top:15px;">
-			<?php require_once("parts/$lang/champs_detail.php"); ?>
+			<?php require_once("parts/champs_detail.php"); ?>
 		</div>
 		<div id="miniature" onclick="close_display()" style="width:100%;height:100vh;background:rgba(0,0,0,0.5);position:fixed;top:0;left:0;display:none;">
 			<div style="width:70%;background:#dfdfdf;margin:auto;margin-top:75px;display:block;text-align:right;padding-right:10px;border-top-left-radius:5px;border-top-right-radius:5px;">

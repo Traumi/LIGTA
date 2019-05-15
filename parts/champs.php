@@ -1,4 +1,4 @@
-<div style="font-size:30px;text-align:center;margin:20px;">Lista de los campeones</div>
+<div style="font-size:30px;text-align:center;margin:20px;"><?php echo $translations["CHAMP_LIST"] ?></div>
 <?php 
 	foreach($champions->data as $key => $value){ 
 		$act_champ = json_decode(file_get_contents('./ddragon/'.$version.'/data/'.$lang.'/champion/'.$key.'.json'));

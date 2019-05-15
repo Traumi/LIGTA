@@ -1,4 +1,5 @@
 <?php 
+	//var_dump($champion->$idchampignon->name);
 	$value = $champion->data->$idchampignon;
 	$key = $idchampignon;
 ?>
@@ -29,7 +30,7 @@
 			</div>
 			<div style="margin-top:20px;">
 				<div style="display:inline-block;width:100px;font-size:18px">
-					Ataque : 
+					<?php echo $translations["ATK"]; ?> : 
 				</div>
 				<div class="xpbar">
 					<div style="height:16px;width:<?php echo ($value->info->attack/10)*100; ?>%;background:#A00;"></div>
@@ -37,7 +38,7 @@
 			</div>
 			<div>
 				<div style="display:inline-block;width:100px;font-size:18px">
-					Defensa : 
+					<?php echo $translations["DEF"]; ?> : 
 				</div>
 				<div class="xpbar">
 					<div style="height:16px;width:<?php echo ($value->info->defense/10)*100; ?>%;background:#0A0;"></div>
@@ -45,7 +46,7 @@
 			</div>
 			<div>
 				<div style="display:inline-block;width:100px;font-size:18px">
-					Magia : 
+					<?php echo $translations["MAG"]; ?> : 
 				</div>
 				<div class="xpbar">
 					<div style="height:16px;width:<?php echo ($value->info->magic/10)*100; ?>%;background:#44C;"></div>
@@ -53,7 +54,7 @@
 			</div>
 			<div>
 				<div style="display:inline-block;width:100px;font-size:18px">
-					Dificultad : 
+					<?php echo $translations["DIF"]; ?> : 
 				</div>
 				<div class="xpbar">
 					<div style="height:16px;width:<?php echo ($value->info->difficulty/10)*100; ?>%;background:#A07;"></div>
@@ -66,7 +67,7 @@
 		<div class="col-md-12 col-xs-12" style="margin-top:25px;margin-bottom:25px;">
 			<div>
 				<?php
-					echo '<h4>Astuce en tant que '.$champion->data->$key->name.'</h4>'; 
+					echo '<h4>'.$translations["TIPS_AS"].' '.$champion->data->$key->name.'</h4>'; 
 					echo '<ul>';
 					foreach($champion->data->$key->allytips as $aaa => $content){
 						echo '<li>'.$content.'</li>';
@@ -76,7 +77,7 @@
 			</div>
 			<div>
 				<?php 
-					echo '<h4>Astuce contre '.$champion->data->$key->name.'</h4>'; 
+					echo '<h4>'.$translations["TIPS_AGAINST"].' '.$champion->data->$key->name.'</h4>'; 
 					echo '<ul>';
 					foreach($champion->data->$key->enemytips as $aaa => $content){
 						echo '<li>'.$content.'</li>';
@@ -98,6 +99,7 @@
 			</style>
 			<div>
 				<?php 
+					//var_dump($champion->data->$key->passive);
 					echo '<div style="border:solid black 2px;width:100%;padding:0;margin:0;">';
 					echo '<span style="padding:4px;border-bottom:solid black 2px;border-right:solid black 2px;">Passive</span>';
 					echo '<div style="margin-left:10px;margin-top:5px;"><img src="./ddragon/'.$version.'/img/passive/'.$champion->data->$key->passive->image->full.'" style="margin-top:10px;width:64px;"/>';
@@ -106,6 +108,7 @@
 					echo '</div>';
 					echo '<br/>';
 					foreach($champion->data->$key->spells as $aaa => $content){
+						//echo '<li>'.$aaa.' :-: '.$content->description.'</li>';
 						switch($aaa){
 							case 0 :
 								$touche = "Q";
@@ -121,12 +124,45 @@
 								break;
 						}
 
+						/*foreach($content as $aaaa => $aaab){
+							echo $aaaa." : ";
+							print_r($aaab);
+							echo '<br/>';
+						}*///http://ddragon.leagueoflegends.com/cdn/8.21.1/img/spell/FlashFrost.png
 						echo '<div style="border:solid black 2px;">';
 						echo '<span style="padding:4px;border-bottom:solid black 2px;border-right:solid black 2px;">'.$touche.' Spell</span>';
 						echo '<div style="margin-left:10px;margin-top:5px;"><img src="./ddragon/'.$version.'/img/spell/'.$content->image->full.'" style="margin-top:10px;width:64px;"/>';
 						echo '<h4 style="position:relative;display:inline-block;margin-left:10px;top:6px;">'.$content->name.'</h4></div>';
+						/*$spelltext = $content->tooltip;
+						foreach($content->vars as $aaac => $valeurs){
+							//print_r($valeurs);
+							$class = "";
+							$nomratio = $valeurs->link;
+							switch($valeurs->link){
+								case "attackdamage" :
+									$class = "ad";
+									$nomratio = "AD";
+									break;
+								case "bonusattackdamage" :
+									$class = "ad";
+									$nomratio = "AD Bonus";
+									break;
+								case "spelldamage" :
+									$class = "ap";
+									$nomratio = "AP";
+									break;
+							}
+							$spelltext = str_replace("{{ ".$valeurs->key." }}", '<span class="'.$class.'">'.$valeurs->coeff.' '.$nomratio.'</span>', $spelltext);
+						}
+						foreach($content->effectBurn as $aaac => $valeurs){
+							//print_r($valeurs);
+							$spelltext = str_replace("{{ e".$aaac." }}", $valeurs, $spelltext);
+						}*/
 						echo '<h5 style="margin-left:10px;">'.$content->description.'</h5>';
+						//echo '<h5 style="margin-left:10px;">'.$spelltext.'</h5>';
 						echo '</div>';
+						//echo $content->name.':'.$content->tooltip;
+						//var_dump($content->vars);
 						echo '<br/>';
 					};
 				?>
@@ -147,3 +183,4 @@
 			<?php } ?>
 		</div>
 	</div>
+<?php //} ?>
