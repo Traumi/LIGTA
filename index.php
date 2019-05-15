@@ -29,7 +29,7 @@
 		<meta name="copyright" content="© Traumination All right reserved" />
 		<!--<meta name="og:site_name" content="VCT Stats">
 		<meta name="og:type" content="object">
-		<meta name="og:image" content="http://http://89.156.31.147/vct/ddragon/img/champion/splash/Aatrox_1.jpg">
+		<meta name="og:image" content="http://89.156.31.147/vct/ddragon/img/champion/splash/Aatrox_1.jpg">
 		<meta name="og:title" content="Champs">
 		<meta name="og:url" content="https://89.156.31.147/vct/">
 		<meta name="og:description" content="Champions list">-->

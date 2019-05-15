@@ -30,6 +30,12 @@
 		<li>
 			Code optimization
 		</li>
+		<li>
+			Ajout icone du site
+		</li>
+		<li>
+			Nouvelle langue : Anglais (GB)
+		</li>
 	</ul>
 	<h4>0.9.4</h4>
 	<ul>

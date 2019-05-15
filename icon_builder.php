@@ -86,10 +86,6 @@
 				color:white;
 			}
 
-			*{
-				vertical-align: middle;
-			}
-
 			#download-link{
 				display:none;
 				background:#ccc;
