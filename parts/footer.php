@@ -92,7 +92,6 @@
           border-radius: 50%;
         }
     </style>
-    <!--<div style="color:white;">Mode sombre</div>-->
     <div id="copyright"><a href="patchnotes.php" target="_blank"><?php echo $translations["SITE_PATCH_NOTES"]; ?></a> - <?php echo $translations["COPYRIGHT"]; ?></div>
     <i class="sun">☼</i>
     <label class="switch">
@@ -102,14 +101,12 @@
     <i class="moon">☾</i>
     <script>
     	function toggleswitch(a){
-    		//a.checked = !a.checked;
     		setCookie("dark",a.checked,7);
         if(a.checked){
           document.getElementsByTagName("body")[0].classList.add("dark");
         }else{
           document.getElementsByTagName("body")[0].classList.remove("dark");
         }
-    		//alert(getCookie("dark"))
     	}
 
       if(getCookie("dark") == "true"){

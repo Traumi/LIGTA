@@ -1,5 +1,6 @@
 <head>
 	<title>Patch notes</title>
+	<link rel="icon" type="image/png" href="images/favicon.png" />
 	<style>
 	
 		.etiquette{
@@ -24,6 +25,12 @@
 	<div>
 		<p>Ce module est développé par Traumination, pour toute suggestion merci de passer par le discord de la VCT : <a href="https://discord.gg/cqPUDC7">https://discord.gg/cqPUDC7</a></p>
 	</div>
+	<h4>0.9.4.1</h4>
+	<ul>
+		<li>
+			Code optimization
+		</li>
+	</ul>
 	<h4>0.9.4</h4>
 	<ul>
 		<li>

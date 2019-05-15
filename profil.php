@@ -103,10 +103,10 @@
 <html>
 	<head>
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	    <!--<link href="V/css/style.css" rel="stylesheet">-->
-	    <script src="bootstrap/js/jquery-3.2.1.min.js"></script>
+		<link rel="icon" type="image/png" href="images/favicon.png" />
+	  <script src="bootstrap/js/jquery-3.2.1.min.js"></script>
 		<script src="bootstrap/js/bootstrap.js"></script>
-	    <script>
+	  <script>
 			$(function () {
 				$('[data-toggle="tooltip"]').tooltip()
 			})
@@ -199,7 +199,6 @@
 				$lastMaj = file_get_contents('data/players/'.$pseudo.'/date.txt'); 
 			?>
 			<div style="text-align:center;font-size:12px;margin-bottom:15px;">Dernière mise à jour : <?php echo $lastMaj; ?></div>
-			<!--<img style="width:100%;left:0;" src="images/prestige/Level_<?php echo $index_lvl ?>_Prestige_Emote.png" />-->
 
 			<style>
 				#menu_principal{
@@ -525,10 +524,7 @@
 			</div>
 			<div id="games">
 				<?php 
-					//var_dump($matches); 
 				$index = 1;
-					/*foreach($matches->matches as $num => $infos){
-					}*/
 					for($i = 0 ; $i < 10 ; $i++){
 						try{
 							$infos = $matches->matches[$i];
@@ -549,7 +545,6 @@
 							echo '<td>'.date('Y-m-d H:i:s', ($infos->timestamp/1000)).'</td>';//echo date('l jS \of F Y h:i:s A', (1546270479481/1000));
 							echo '<td>'.$infos->role.'</td>';
 							echo '<td>'.$infos->lane.'</td>';*/
-							//var_dump($infos);
 							foreach($game->participantIdentities as $idpi => $pi){
 								if($pi->player->summonerId == $id){
 									$id_stock = $pi->participantId;
@@ -577,21 +572,17 @@
 							}
 
 							echo '<div style="background:'.$bg_col.';width:75%;margin:auto;border-radius:10px;overflow:hidden;margin-bottom:10px;color:black;">';
-							//var_dump($gamer);
-							//echo '<br/>';
 							foreach($gametype->type as $num_gt => $gt){
 								if($num_gt == $game->queueId){
 									$gtype = $gt;
 									break;
 								}
 							}
-							//echo $gtype;
 							foreach($champions->data as $idch => $ch){
 								if($ch->key == $gamer->championId){
 									$gchamp = $ch->id;
 								}
 							}
-							//echo $gchamp;
 							/*
 							echo $gamer->stats->kills.'/'.$gamer->stats->deaths.'/'.$gamer->stats->assists;
 							echo date('Y-m-d H:i:s', ($infos->timestamp/1000));
@@ -681,7 +672,6 @@
 						$a_totalfarm = $g_totalfarm = ($gamer->stats->totalMinionsKilled + $gamer->stats->neutralMinionsKilled);
 						$a_totalheal = $g_totalheal = $gamer->stats->totalHeal;
 						$a_totalvs = $g_totalvs = $gamer->stats->visionScore;
-						//var_dump($gamer->stats);
 
 						foreach($game->participants as $idpart => $part){
 							if($part->stats->totalDamageDealtToChampions > $a_totaldmg){
@@ -1181,7 +1171,6 @@
 					<?php  
 						$request = file_get_contents('./ddragon/'.$version.'/data/'.$lang.'/champion/'.$podiumArray[1]['name'].'.json');
 						$champ = json_decode($request, true);
-						//var_dump($champ);
 					?>
 					<div class="form-group">
 						<select class="form-control" id="mainSkin">

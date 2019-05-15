@@ -89,8 +89,6 @@
 	$lvlmastery = 0;
 	$lvlmasterymax = 0;
 	foreach($masteries as $aaa => $infochamp){
-		
-		//var_dump($infochamp);
 		foreach($champions->data as $champname => $champ ){
 			if($champ->key == $infochamp->championId){
 				if($podium == 1){

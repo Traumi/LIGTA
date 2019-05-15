@@ -14,7 +14,7 @@
 	</style>
 	<head>
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	    <!--<link href="V/css/style.css" rel="stylesheet">-->
+		<link rel="icon" type="image/png" href="images/favicon.png" />
 	    <script src="bootstrap/js/jquery-3.2.1.min.js"></script>
 		<script src="bootstrap/js/bootstrap.js"></script>
 	    <script>

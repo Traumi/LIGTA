@@ -22,7 +22,7 @@
 <html>
 	<head>
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	    <!--<link href="V/css/style.css" rel="stylesheet">-->
+		<link rel="icon" type="image/png" href="images/favicon.png" />
 	    <script src="bootstrap/js/jquery-3.2.1.min.js"></script>
 		<script src="bootstrap/js/bootstrap.js"></script>
 	    <script>
@@ -285,8 +285,6 @@
 
 				$availableSummoners = [];
 				$summoners = [];
-
-				//var_dump($spells["data"]);
 
 				foreach($spells["data"] as $key => $spell){
 					if(in_array("CLASSIC" , $spell["modes"])){

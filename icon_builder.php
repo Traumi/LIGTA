@@ -4,15 +4,15 @@
 <html>
 	<head>
 		<title>Icon Builder</title>
+		<link rel="icon" type="image/png" href="images/favicon.png" />
 		<meta property="og:title" content="Icon Builder By Traumination" />
 		<meta property="og:description" content="Build your ranked icon easily" />
 		<meta property="og:image" content="http://89.156.31.147/ligta/images/rank/ranks_glow/challenger.png" />
 		<meta name="theme-color" content="#992A2A">
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	    <!--<link href="V/css/style.css" rel="stylesheet">-->
-	    <script src="bootstrap/js/jquery-3.2.1.min.js"></script>
+	  <script src="bootstrap/js/jquery-3.2.1.min.js"></script>
 		<script src="bootstrap/js/bootstrap.js"></script>
-	    <script>
+	  <script>
 			$(function () {
 				$('[data-toggle="tooltip"]').tooltip()
 			})
@@ -101,13 +101,6 @@
 				margin-top: 15px;
 			}
 
-			/*.select label{
-				display: inline-block;
-				width:80px;
-				text-align: left;
-
-			}*/
-
 			select:active, select:hover,select:focus, button:focus {
 			  outline: none
 			}
@@ -128,7 +121,6 @@
 				overflow: hidden;
 				text-align:center;
 				color:black;
-			    /*background: url(./images/dropdown.png) no-repeat right transparent;*/
 			}
 
 			canvas{
@@ -152,20 +144,6 @@
 				background:#828282;
 				border:solid #5f5f5f 2px;
 				transition: 1s all;
-				/*transform:scale(1.1, 1.1);;*/
-			}
-
-			progress {
-				/* ici les styles généraux */
-			}
-			progress::-webkit-progress-bar { 
-				/* ici les styles généraux pour Webkit */
-			}
-			progress::-webkit-progress-value {  
-				/* styles de barre d'avancement pour Webkit */
-			}  
-			progress::-moz-progress-bar { 
-				/* styles de barre d'avancement pour Firefox */
 			}
 		</style>
 	</head>
@@ -297,7 +275,7 @@
 	    imageObj.onload = function() {
 	    	context.drawImage(imageObj, 0, 0, canvas.width, canvas.height);
 	    };
-	    imageObj.src = path;//'./images/rank/project/parts/iron/iron_base.png';
+	    imageObj.src = path;
 	}
 	function clear(){
 		var canvas = document.getElementById('icon');
@@ -541,8 +519,6 @@
 		document.getElementById("download-link").download = type+'_'+rank+'_'+div;
 		document.getElementById("download-link").style.display = "inline-block";
 		document.getElementById("text-status").style.display = "none";
-    	//document.write('<img src="'+img+'"/>');
-		//document.getElementById("download-button").innerHTML = '<button onclick="downloadCanvas(this, \'icon\', \''+rank+division+'.png\');">Download</button>';
 		if(bool){
 			update(false);
 		}

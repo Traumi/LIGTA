@@ -5,8 +5,6 @@ $ptsmastery = 0;
 $lvlmastery = 0;
 $lvlmasterymax = 0;
 foreach($masteries as $aaa => $infochamp){
-    
-    //var_dump($infochamp);
     foreach($champions->data as $champname => $champ ){
         if($champ->key == $infochamp->championId){
             if($podium == 1){
@@ -24,7 +22,6 @@ foreach($masteries as $aaa => $infochamp){
             $ptsmastery += $infochamp->championPoints;
             $lvlmastery += $infochamp->championLevel;
         }
-
     }
 }
 
@@ -34,10 +31,7 @@ foreach($champions->data as $champname => $champ ){
 
 echo '<div id="mastery_infos" class="col-md-6 col-xs-12" style="text-align:center;margin-bottom:5px;position:relative;margin-bottom:25px;">';
 echo '<div class="infotb">';
-    //echo "<div>Score de maîtrise : $lvlmastery / $lvlmasterymax</div>";
-    //echo "<div>Points de maîtrise : $ptsmastery</div>";
-
-    $percent = $lvlmastery / $lvlmasterymax * 100;
+$percent = $lvlmastery / $lvlmasterymax * 100;
 ?>
 
 <svg style="max-height:350px;" viewBox="0 0 42 50" class="donut">
@@ -76,7 +70,7 @@ echo '<div id="mastery_podium" class="col-md-6 col-xs-12" style="text-align:cent
     <use xlink:href="#rect1" stroke-width="4" stroke="#DAA520"/>
     <image xlink:href="<?php echo 'ddragon/'.$version.'/img/champion/'.$podiumArray[1]["name"].'.png' ?>" x="210" y="10" height="80" width="80" clip-path="url(#clip1)"/>
     <image xlink:href="<?php echo 'images/mastery/cm'.$podiumArray[1]["level"].'.png' ?>" x="225" y="65" height="50" width="50"/>
-    <g class="goldchamp" transform="translate(210,112.5) scale(0.8)"><!--128 125.8-->
+    <g class="goldchamp" transform="translate(210,112.5) scale(0.8)">
         <?php require("parts/crest/laurier.svg"); ?>
         <text x="50" y="63" font-size="40" font-weight="600" fill="#DAA520" font-family="Verdana" text-anchor="middle">1</text>
         <text x="50" y="122" font-size="18" fill="#DAA520" font-family="Verdana" text-anchor="middle"><?php echo $podiumArray[1]["points"] ?></text>
@@ -116,7 +110,6 @@ foreach($masteries as $aaa => $infochamp){
         }
     }
 }
-//var_dump($masteriesArray);
 
 for($i = 7 ; $i > 0 ; $i--){
     echo '<div class="col-md-12 col-xs-12 mastery" style="padding:0;margin-bottom:20px;border-radius:10px;">';

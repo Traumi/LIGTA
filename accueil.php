@@ -1,5 +1,7 @@
 <html>
 	<head>
+		<title>Accueil</title>
+		<link rel="icon" type="image/png" href="images/favicon.png" />
 		<style>
 			.link-out{
 				border:solid black 10px;

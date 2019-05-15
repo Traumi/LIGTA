@@ -88,9 +88,7 @@
 
         if(count($ranks) >= 1){
         	foreach($ranks as $index => $infos){
-        		//var_dump($infos);
         		$act_max = $rank_values[$infos->tier] + $division_values[$infos->rank] + ($infos->leaguePoints/150);
-        		//$act_max = $tmp_max;
         		$rank = $infos->tier;
         		$division = $infos->rank;
         		$lp = $infos->leaguePoints;
@@ -143,9 +141,6 @@
 	        	$allranks[2]["queue"] = "Flex 5v5";
 	        }
         }
-
-        //return array("tier" => $rank, "rank" => $division, "queue" => $queue);
-        //var_dump($allranks);
         return $allranks;
 	}
 
@@ -170,7 +165,6 @@
 						}
 						echo '</div>';
 					echo '</div>';
-					//var_dump($profil);
 					echo '<div style="position:relative;display:inline-block;width:calc(100% - 64px);bottom:30px;text-align:center;font-size:20px;"><span class="pseudo-match"><a href="profil.php?pseudo='.$infos->summonerName.'">'.$infos->summonerName.'</a></span></div>';
 				echo '</div>';
 			}
@@ -178,7 +172,6 @@
 		
 
 		$bestrank = playerRank($infos->summonerName, $key);
-		//$rank = explode ( "_" , $bestrank );
 		echo '<hr/>';
 		echo '<div style="text-align:center;">';
 			echo '<div style="width:29%;display:inline-block;text-align:center;">';
@@ -200,10 +193,7 @@
 					echo '<div style="font-weight:bold;">'.$bestrank[0]["tier"].' '.$bestrank[0]["rank"].'</div>';
 					echo '<div style="font-weight:bold;">'.$bestrank[0]["lp"].' LP</div>';
 					echo '<div style="font-size:12px;">('.$bestrank[0]["wins"].' W - '.$bestrank[0]["losses"].' L)</div>';
-					//echo '<div style="font-size:15px;">'.$bestrank[0]["tier"].' '.$bestrank[0]["rank"].'</div>';
 				}
-				//echo '<div style="font-weight:bold;">'.$bestrank[0]["tier"].' '.$bestrank[0]["rank"].'</div>';
-				
 				
 				echo '<div style="font-weight:bold;font-size:18px;">'.$bestrank[0]["queue"].'</div>';
 			echo '</div>';
@@ -223,9 +213,7 @@
 				foreach ($perkinfo->slots as $slotid => $slotinfo) {
 					foreach ($slotinfo->runes as $runeid => $runeinfo) {
 						if($runeinfo->id == $pperkinfo){
-							//echo ($runeinfo->id).' : '.$runeinfo->icon.'<br/>';
 							$player_perks[] = $runeinfo->icon;
-							//echo '<img src="./ddragon/img/'.$runeinfo->icon.'"/>';
 							break 3;
 						}
 					}
@@ -253,7 +241,6 @@
 
 	echo '<button class="btn btn-success" onclick="currentGame()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button><br/>';
 	try{
-		//echo 'https://euw1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/'.$_GET["id"].'?api_key='.$_GET["key"];
 
 		$result = file_get_contents('https://euw1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/'.$_GET["id"].'?api_key='.$key);
 		$match = json_decode($result);
@@ -269,16 +256,11 @@
 			}
 		}
 
-		/*foreach($team1 as $num => $infos){
-			var_dump($infos->summonerName);
-		}*/
-
 		echo '<div>';
 			echo '<div class="col-md-12 col-xs-12">';
 				foreach($gametype->type as $index => $name){
 					if($match->gameQueueConfigId == $index){
 						echo '<h1>'.$name.'</h1>';
-						//echo $gametype->type->$match->gameQueueConfigId;
 					}
 				}
 				
@@ -316,7 +298,6 @@
 				echo '</div>';
 				echo '<div class="col-md-5 col-xs-12">';
 				echo '</div>';
-				//var_dump($match->bannedChampions);
 			echo '</div>';
 
 			echo '<div class="col-md-12 col-xs-12">';
@@ -346,11 +327,8 @@
 			echo '</div>';
 			
 		echo '</div>';
-		
-		//var_dump($match);
 	}catch(Exception $e){
 		echo "<h3>Pas de partie en cours</h3>";
-		//echo $e;
 	}
 	
 	sleep(0.25);

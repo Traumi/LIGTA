@@ -9,12 +9,9 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="index.php" data-toggle="tooltip" data-placement="bottom" title="LoL Informations Gathering Technology Artefact">LIGTA<sup>V <?php echo $ver_log ?></sup></a><!--LoL Informations Gathering Technology Artefact-->
-      <!--<a  href="index.php"><img class="navbar-brand" src="V/img/logo.png" style="margin:-5px;height:60px;"/></a>-->
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <!--<li><a href="index.php">Accueil</a></li>-->
-        <!--<li><a href="index.php?c=C_Vitrine&a=afficher">Vitrine</a></li>-->
         <li><form class="navbar-form navbar-right" action="profil.php" method="get">
           <div class="input-group">
             <input placeholder="<?php echo $translations['SEARCH_PLAYER'] ?>" name="pseudo" class="form-control" type="text">
@@ -56,7 +53,7 @@
           </ul>
         </li>
       </ul>
-    </div><!--/.nav-collapse -->
+    </div>
   </div>
 </nav>
 <div style="height:50px;"></div>

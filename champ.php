@@ -3,7 +3,6 @@
 	require_once("parts/init.php");
 
 	//Champion
-	//http://ddragon.leagueoflegends.com/cdn/8.19.1/data/en_US/champion.json
 	$idchampignon = $_GET['c'];
 	$result = file_get_contents('./ddragon/'.$version.'/data/'.$lang.'/champion/'.$_GET['c'].'.json');
 	$champion = json_decode($result);
@@ -12,7 +11,7 @@
 <html>
 	<head>
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	    <!--<link href="V/css/style.css" rel="stylesheet">-->
+		<link rel="icon" type="image/png" href="images/favicon.png" />
 	    <script src="bootstrap/js/jquery-3.2.1.min.js"></script>
 		<script src="bootstrap/js/bootstrap.js"></script>
 	    <script>

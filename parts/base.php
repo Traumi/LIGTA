@@ -33,7 +33,6 @@
 			$lp = $value->leaguePoints;
 		}
 	} 
-	//var_dump($value);
 	echo '<img style="width:80%" src="images/rank/ranks_glow/'.$rank.$roman_trade[$division].'.png" />';
 	echo '<div>'.$rank_trad[$rank].' '.$division.'</div>';
 	echo '<div>'.$lp.' LP</div>';
