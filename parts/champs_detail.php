@@ -14,12 +14,20 @@
 			display:inline-block;
 			height:16px;
 			width:200px;
-			background:#333;
+			background:#7F7F7F;
 			border-radius:100px;
 			overflow:hidden;
+			position:relative;
 		}
-		body.dark .xpbar{
-			background:#ccc;
+		.valueDisplay{
+			height:100%;
+			position:absolute;
+			top:0;
+			width:100%;
+			font-size:12px;
+			color:#F2F2F2;
+			text-align:center;
+			font-weight:bold;
 		}
 	</style>
 	
@@ -33,6 +41,7 @@
 			</div>
 			<div class="xpbar">
 				<div style="height:16px;width:<?php echo ($value->info->attack/10)*100; ?>%;background:#A00;"></div>
+				<div class="valueDisplay"><?php echo $value->info->attack; ?>/10</div>
 			</div>
 		</div>
 		<div>
@@ -41,6 +50,7 @@
 			</div>
 			<div class="xpbar">
 				<div style="height:16px;width:<?php echo ($value->info->defense/10)*100; ?>%;background:#0A0;"></div>
+				<div class="valueDisplay"><?php echo $value->info->defense; ?>/10</div>
 			</div>
 		</div>
 		<div>
@@ -49,6 +59,7 @@
 			</div>
 			<div class="xpbar">
 				<div style="height:16px;width:<?php echo ($value->info->magic/10)*100; ?>%;background:#44C;"></div>
+				<div class="valueDisplay"><?php echo $value->info->magic; ?>/10</div>
 			</div>
 		</div>
 		<div>
@@ -57,6 +68,7 @@
 			</div>
 			<div class="xpbar">
 				<div style="height:16px;width:<?php echo ($value->info->difficulty/10)*100; ?>%;background:#A07;"></div>
+				<div class="valueDisplay"><?php echo $value->info->difficulty; ?>/10</div>
 			</div>
 		</div>
 	</div>
@@ -146,4 +158,7 @@
 			
 		<?php } ?>
 	</div>
+</div>
+<div class="text-center">
+	<button class="btn btn-success" onclick="history.back()"><?php echo $translations["BACK"]; ?></button>
 </div>

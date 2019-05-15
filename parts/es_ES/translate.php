@@ -24,6 +24,7 @@
     $translations['SEARCH_PLAYER'] = "Search a player";
     $translations["OPTIONS"] = "Opciones";
     $translations["ACCUEIL"] = "Bienvenida";
+    $translations["BACK"] = "Regreso";
 
     $translations["GENERAL"] = "General";
     $translations["MASTERY"] = "Maestría";

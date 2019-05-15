@@ -49,6 +49,7 @@
             <li role="separator" class="divider"></li>
             <li class="dropdown-header"><?php echo $translations["OPTIONS"] ?></li>
             <li><a href="index.php"><?php echo $translations["ACCUEIL"] ?></a></li>
+            <li><a href="champ_list.php"><?php echo $translations["CHAMP_LIST"] ?></a></li>
             <li><a href="icon_builder.php">Icon Builder</a></li>
             <li><a href="ultimatebravery.php">Ultimate Bravery</a></li>
           </ul>
