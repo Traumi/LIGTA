@@ -151,52 +151,56 @@
 	$mainqueue["TT"] = 0;
 	$mainqueue["HA"] = 0;
 	$mainqueue["RO"] = 0;
-	foreach($matches->matches as $key => $match){
-		switch(getQueueType($match->queue)){
-			case "SR":
-			$mainqueue["SR"]++;
-			break;
-			case "TT":
-			$mainqueue["TT"]++;
-			break;
-			case "HA":
-			$mainqueue["HA"]++;
-			break;
-			case "RO":
-			$mainqueue["RO"]++;
-			break;
-		}
-		if(isSRGame($match->queue)){
-			foreach($champions->data as $aa => $champion){
-				if($champion->key == $match->champion){
-					foreach($champroles[$aa] as $aaa => $lane){
-						switch($lane){
-							case "Top" :
-							$mainroles["Top"]++;
-							break;
-							case "Jun" :
-							$mainroles["Jun"]++;
-							break;
-							case "Mid" :
-							$mainroles["Mid"]++;
-							break;
-							case "Adc" :
-							$mainroles["Adc"]++;
-							break;
-							case "Sup" :
-							$mainroles["Sup"]++;
-							break;
+	if($matches != null){
+		foreach($matches->matches as $key => $match){
+			switch(getQueueType($match->queue)){
+				case "SR":
+				$mainqueue["SR"]++;
+				break;
+				case "TT":
+				$mainqueue["TT"]++;
+				break;
+				case "HA":
+				$mainqueue["HA"]++;
+				break;
+				case "RO":
+				$mainqueue["RO"]++;
+				break;
+			}
+			if(isSRGame($match->queue)){
+				foreach($champions->data as $aa => $champion){
+					if($champion->key == $match->champion){
+						foreach($champroles[$aa] as $aaa => $lane){
+							switch($lane){
+								case "Top" :
+								$mainroles["Top"]++;
+								break;
+								case "Jun" :
+								$mainroles["Jun"]++;
+								break;
+								case "Mid" :
+								$mainroles["Mid"]++;
+								break;
+								case "Adc" :
+								$mainroles["Adc"]++;
+								break;
+								case "Sup" :
+								$mainroles["Sup"]++;
+								break;
+							}
 						}
 					}
 				}
 			}
 		}
 	}
+	
 
-	$highest = "Top";
+	$highest = "Fill";
 	$second = "";
-	$val = $mainroles["Top"];
+	$val = 0;
 	$sval = 0;
+	if($mainroles["Top"]>$val){$highest = "Top";$val = $mainroles["Top"];}
 	if($mainroles["Jun"]>$val){$highest = "Jungle";$val = $mainroles["Jun"];}
 	if($mainroles["Mid"]>$val){$highest = "Mid";$val = $mainroles["Mid"];}
 	if($mainroles["Adc"]>$val){$highest = "Bot";$val = $mainroles["Adc"];}
@@ -219,7 +223,7 @@
 
 
 	$my_file = 'images/svgrecap/'.$profil->name.'.svg';
-	$handle = fopen($my_file, 'w') or die('Cannot open file:  '.$my_file);
+	$handle = fopen($my_file, 'w');
 	$data = "";
 	$data .= '<?xml version="1.0" encoding="UTF-8"?>';
 	$data .= '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
@@ -255,7 +259,12 @@
 
 	//Base icon
 	$data .= '<use xlink:href="#rect" stroke-width="2" stroke="black"/>';
-	$data .= '<image href="'.imgToBase64('./ddragon/img/champion/splash/'.$podiumArray[1]["name"].'_'.$skin.'.jpg').'" x="0" y="-10%" width="100%"/>';
+	if(isset($podiumArray[1])){
+		$data .= '<image href="'.imgToBase64('./ddragon/img/champion/splash/'.$podiumArray[1]["name"].'_'.$skin.'.jpg').'" x="0" y="-10%" width="100%"/>';
+	}else{
+		$data .= '<image href="'.imgToBase64('./ddragon/img/champion/splash/Gnar_0.jpg').'" x="0" y="-10%" width="100%"/>';
+	}
+	
 	$data .= '<rect x="0" y="0" height="400" width="800" fill="#333333BC" />';
 	$data .= '<image href="'.imgToBase64('./ddragon/'.$version.'/img/profileicon/'.$profil->profileIconId.'.png').'" clip-path="url(#clip)" y="39.375" x="39.375" height="96.25"/>';
 	$data .= '<image href="'.imgToBase64('./images/border/Level_'.$index_lvl.'.png').'" x="0" y="0" height="175"/>';
@@ -275,33 +284,48 @@
 	$data .= '<line x1="800" y1="400" x2="0" y2="400" stroke-width="2" stroke="#C9C9C9"/>';
 	$data .= '<line x1="800" y1="400" x2="800" y2="0" stroke-width="2" stroke="#C9C9C9"/>';
 	$data .= '<line x1="175" y1="0" x2="175" y2="400" stroke="#C9C9C9"/>';
-	$data .= '<line x1="175" y1="305" x2="290" y2="305" stroke="#C9C9C9"/>';
-	$data .= '<line x1="375" y1="305" x2="440" y2="305" stroke="#C9C9C9"/>';
-	$data .= '<line x1="600" y1="305" x2="535" y2="305" stroke="#C9C9C9"/>';
-	$data .= '<line x1="800" y1="305" x2="685" y2="305" stroke="#C9C9C9"/>';
+	$data .= '<line x1="175" y1="315" x2="290" y2="315" stroke="#C9C9C9"/>';
+	$data .= '<line x1="375" y1="315" x2="440" y2="315" stroke="#C9C9C9"/>';
+	$data .= '<line x1="600" y1="315" x2="535" y2="315" stroke="#C9C9C9"/>';
+	$data .= '<line x1="800" y1="315" x2="685" y2="315" stroke="#C9C9C9"/>';
+	$data .= '<line x1="775" y1="150" x2="625" y2="150" stroke="#C9C9C9"/>';
 
 	//Podium
-	$data .= '<g transform="scale(1 1) translate(237.5 250)">';
+	$data .= '<g transform="scale(1 1) translate(237.5 260)">';
 
 	$data .= '<use xlink:href="#rect1b" stroke-width="4" stroke="#DAA520"/>';
-	$data .= '<image href="'.imgToBase64('./ddragon/img/champion/tiles/'.$podiumArray[1]["name"].'_0.jpg').'" x="210" y="10" height="80" width="80" clip-path="url(#clip1b)"/>';
-	$data .= '<image href="'.imgToBase64('./images/mastery/cm'.$podiumArray[1]["level"].'.png').'" x="225" y="65" height="50" width="50"/>';
-	$data .= '<text x="250" y="130" font-size="18" font-weight="600" fill="#DAA520" font-family="Verdana" text-anchor="middle">'.$podiumArray[1]["points"].'</text>';
+	if(isset($podiumArray[1])){
+		$data .= '<image href="'.imgToBase64('./ddragon/img/champion/tiles/'.$podiumArray[1]["name"].'_0.jpg').'" x="210" y="10" height="80" width="80" clip-path="url(#clip1b)"/>';
+		$data .= '<image href="'.imgToBase64('./images/mastery/cm'.$podiumArray[1]["level"].'.png').'" x="225" y="65" height="50" width="50"/>';
+		$data .= '<text x="250" y="130" font-size="18" font-weight="600" fill="#DAA520" font-family="Verdana" text-anchor="middle">'.$podiumArray[1]["points"].'</text>';
+	}else{
+		
+	}
+	
 
 	$data .= '<use xlink:href="#rect2b" stroke-width="4" stroke="#A9A9A9"/>';
-	$data .= '<image href="'.imgToBase64('./ddragon/img/champion/tiles/'.$podiumArray[2]["name"].'_0.jpg').'" x="60" y="20" height="70" width="70" clip-path="url(#clip2b)"/>';
-	$data .= '<image href="'.imgToBase64('./images/mastery/cm'.$podiumArray[2]["level"].'.png').'" x="75" y="70" height="40" width="40"/>';
-	$data .= '<text x="95" y="130" font-size="18" font-weight="600" fill="#A9A9A9" font-family="Verdana" text-anchor="middle">'.$podiumArray[2]["points"].'</text>';
+	if(isset($podiumArray[2])){
+		$data .= '<image href="'.imgToBase64('./ddragon/img/champion/tiles/'.$podiumArray[2]["name"].'_0.jpg').'" x="60" y="20" height="70" width="70" clip-path="url(#clip2b)"/>';
+		$data .= '<image href="'.imgToBase64('./images/mastery/cm'.$podiumArray[2]["level"].'.png').'" x="75" y="70" height="40" width="40"/>';
+		$data .= '<text x="95" y="130" font-size="18" font-weight="600" fill="#A9A9A9" font-family="Verdana" text-anchor="middle">'.$podiumArray[2]["points"].'</text>';
+	}else{
+		
+	}
+	
 
 	$data .= '<use xlink:href="#rect3b" stroke-width="4" stroke="#d6854C"/>';
-	$data .= '<image href="'.imgToBase64('./ddragon/img/champion/tiles/'.$podiumArray[3]["name"].'_0.jpg').'" x="370" y="20" height="70" width="70" clip-path="url(#clip3b)"/>';
-	$data .= '<image href="'.imgToBase64('./images/mastery/cm'.$podiumArray[3]["level"].'.png').'" x="385" y="70" height="40" width="40"/>';
-	$data .= '<text x="405" y="130" font-size="18" font-weight="600" fill="#d6854C" font-family="Verdana" text-anchor="middle">'.$podiumArray[3]["points"].'</text>';
+	if(isset($podiumArray[3])){
+		$data .= '<image href="'.imgToBase64('./ddragon/img/champion/tiles/'.$podiumArray[3]["name"].'_0.jpg').'" x="370" y="20" height="70" width="70" clip-path="url(#clip3b)"/>';
+		$data .= '<image href="'.imgToBase64('./images/mastery/cm'.$podiumArray[3]["level"].'.png').'" x="385" y="70" height="40" width="40"/>';
+		$data .= '<text x="405" y="130" font-size="18" font-weight="600" fill="#d6854C" font-family="Verdana" text-anchor="middle">'.$podiumArray[3]["points"].'</text>';
+	}else{
+		
+	}
 	$data .= '</g>';
 	
 	//Maitrise
-	$data .= '<text font-size="20" text-anchor="middle" x="285" y="110" fill="#DDD">Maîtrises</text>';
-	$data .= '<g transform="translate(225 110) scale(3 3)">';
+	$data .= '<text font-size="20" text-anchor="middle" x="285" y="90" fill="#DDD">Maîtrises</text>';
+	$data .= '<g transform="translate(225 90) scale(3 3)">';
 		$data .= '<circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#1D7A91" stroke-width="3"/>';
 		$data .= '<circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#7FEFFF" stroke-width="2.25" stroke-dasharray="'.$percent.' '.(100-$percent).'" stroke-dashoffset="25" stroke-linecap="round"/>';
 		$data .= '<text x="21" y="20" text-anchor="middle" style="font-size: 6px" fill="#7FEFFF">'.round($percent,1).'%</text>';
@@ -313,43 +337,91 @@
 
 	//Role
 	if($second != ""){
-		$data .= '<text font-size="20" text-anchor="middle" x="487.5" y="130" fill="#DDD">Roles principaux</text>';
-		$data .= '<image href="'.imgToBase64('./images/lanes/new/'.$highest.'-blue.png').'" x="437.5" y="145" height="50"/>';
-		$data .= '<image href="'.imgToBase64('./images/lanes/new/'.$second.'-blue.png').'" x="487.5" y="145" height="50"/>';
-		$data .= '<text font-size="16" text-anchor="middle" x="487.5" y="222" fill="#DDD">'.$highest.'/'.$second.'</text>';
+		$data .= '<text font-size="16" text-anchor="middle" x="700" y="180" fill="#DDD">Roles principaux</text>';
+		$data .= '<image href="'.imgToBase64('./images/lanes/new/'.$highest.'-blue.png').'" x="650" y="185" height="50"/>';
+		$data .= '<image href="'.imgToBase64('./images/lanes/new/'.$second.'-blue.png').'" x="700" y="185" height="50"/>';
+		$data .= '<text font-size="12" text-anchor="middle" x="700" y="250" fill="#DDD">'.$highest.'/'.$second.'</text>';
 	}else{
-		$data .= '<text font-size="20" text-anchor="middle" x="487.5" y="130" fill="#DDD">Role principal</text>';
-		$data .= '<image href="'.imgToBase64('./images/lanes/new/'.$highest.'-blue.png').'" x="462.5" y="145" height="50"/>';
-		$data .= '<text font-size="16" text-anchor="middle" x="487.5" y="222" fill="#DDD">'.$highest.'</text>';
-	}
-
-	//Banner
-	$region = $champinfos[$podiumArray[1]["name"]]["region"];
-	switch($region){
-		case "Demacia":
-			$data .= '<image href="'.imgToBase64('./images/banners/flag_demacia_3_inventory.png').'" x="739" y="1" width="60"/>';
-			break;
-		case "Freljord":
-			$data .= '<image href="'.imgToBase64('./images/banners/flag_freljord_3_inventory.png').'" x="739" y="1" width="60"/>';
-			break;
-		case "Piltover":
-			$data .= '<image href="'.imgToBase64('./images/banners/flag_piltover_3_inventory.png').'" x="739" y="1" width="60"/>';
-			break;
-		case "ShadowIsles":
-			$data .= '<image href="'.imgToBase64('./images/banners/flag_shadowisles_3_inventory.png').'" x="739" y="1" width="60"/>';
-			break;
-		case "Zaun":
-			$data .= '<image href="'.imgToBase64('./images/banners/flag_zaun_3_inventory.png').'" x="739" y="1" width="60"/>';
-			break;
-		default:
-			$data .= '<image href="'.imgToBase64('./images/banners/bannerflag_pilot_03_inventory.png').'" x="739" y="1" width="60"/>';
-			break;
+		$data .= '<text font-size="16" text-anchor="middle" x="700" y="180" fill="#DDD">Role principal</text>';
+		$data .= '<image href="'.imgToBase64('./images/lanes/new/'.$highest.'-blue.png').'" x="675" y="185" height="50"/>';
+		$data .= '<text font-size="12" text-anchor="middle" x="700" y="250" fill="#DDD">'.$highest.'</text>';
 	}
 
 	//Gamemode
-	$data .= '<text font-size="20" text-anchor="middle" x="680" y="130" fill="#DDD">Mode de jeu préféré</text>';
-	$data .= '<image href="'.imgToBase64('./images/queuetype/'.$highestQ.'.png').'" x="655" y="145" height="50"/>';
-	$data .= '<text font-size="16" text-anchor="middle" x="680" y="222" fill="#DDD">'.$nameQ.'</text>';
+	$data .= '<text font-size="16" text-anchor="middle" x="700" y="50" fill="#DDD">Mode de jeu préféré</text>';
+	$data .= '<image href="'.imgToBase64('./images/queuetype/'.$highestQ.'.png').'" x="675" y="65" height="50"/>';
+	$data .= '<text font-size="12" text-anchor="middle" x="700" y="135" fill="#DDD">'.$nameQ.'</text>';
+
+	//Banner
+	if(isset($_GET["clan"])){
+		$banner_region = $_GET["clan"];
+		foreach($masteries as $key => $mastery){
+			foreach($champions->data as $champname => $champ ){
+				if($champ->key == $mastery->championId){
+					if($champinfos[$champ->id]["region"] == $banner_region){
+						if($mastery->championLevel == 7){
+							$banner_level = 3;
+						}else if($mastery->championLevel == 6 || $mastery->championLevel == 5){
+							$banner_level = 2;
+						}else{
+							$banner_level = 1;
+						}
+						break 2;
+					}
+				}
+			}
+		}
+		isset($banner_level) ? $banner_level = $banner_level : $banner_level = 1;
+	}else{
+		if(isset($podiumArray[1])){
+			$banner_region = $champinfos[$podiumArray[1]["name"]]["region"];
+			if($podiumArray[1]["level"] == 7){
+				$banner_level = 3;
+			}else if($podiumArray[1]["level"] == 6 || $podiumArray[1]["level"] == 5){
+				$banner_level = 2;
+			}else{
+				$banner_level = 1;
+			}
+		}else{
+			$banner_region = "";
+			$banner_level = 1;
+		}
+		
+	}
+	
+	if($ptsmastery > 1500000){
+		$banner_frame = 5;
+	}else if($ptsmastery > 750000){
+		$banner_frame = 4;
+	}else if($ptsmastery > 375000){
+		$banner_frame = 3;
+	}else if($ptsmastery > 100000){
+		$banner_frame = 2;
+	}else{
+		$banner_frame = 1;
+	}
+	
+	switch($banner_region){
+		case "Demacia":
+			$data .= '<image href="'.imgToBase64('./images/banners/flag_demacia_'.$banner_level.'_inventory.png').'" x="437.5" y="80" width="100"/>';
+			break;
+		case "Freljord":
+			$data .= '<image href="'.imgToBase64('./images/banners/flag_freljord_'.$banner_level.'_inventory.png').'" x="437.5" y="80" width="100"/>';
+			break;
+		case "Piltover":
+			$data .= '<image href="'.imgToBase64('./images/banners/flag_piltover_'.$banner_level.'_inventory.png').'" x="437.5" y="80" width="100"/>';
+			break;
+		case "ShadowIsles":
+			$data .= '<image href="'.imgToBase64('./images/banners/flag_shadowisles_'.$banner_level.'_inventory.png').'" x="437.5" y="80" width="100"/>';
+			break;
+		case "Zaun":
+			$data .= '<image href="'.imgToBase64('./images/banners/flag_zaun_'.$banner_level.'_inventory.png').'" x="437.5" y="80" width="100"/>';
+			break;
+		default:
+			$data .= '<image href="'.imgToBase64('./images/banners/bannerflag_pilot_'.$banner_level.'_inventory.png').'" x="437.5" y="80" width="100"/>';
+			break;
+	}
+	$data .= '<image href="'.imgToBase64('./images/banners/frames/bannerframe_0'.$banner_frame.'_inventory.png').'" x="427.5" y="57.5" width="120"/>';
 
 	$data .= '</svg>';
 	fwrite($handle, $data);

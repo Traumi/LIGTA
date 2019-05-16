@@ -25,10 +25,28 @@
 	<div>
 		<p>Ce module est développé par Traumination, pour toute suggestion merci de passer par le discord de la VCT : <a href="https://discord.gg/cqPUDC7">https://discord.gg/cqPUDC7</a></p>
 	</div>
+	<h4>0.9.5</h4>
+	<ul>
+		<li>
+			Mise à jour : Patch 9.10
+		</li>
+		<li>
+			Plusieurs bug fix sur les profils
+		</li>
+		<li>
+			Nouveau design des résumés
+		</li>
+		<li>
+			Changement de page d'accueil
+		</li>
+		<li>
+			SOME EASTER EGGS :D
+		</li>
+	</ul>
 	<h4>0.9.4.1</h4>
 	<ul>
 		<li>
-			Code optimization
+			Optimisation de code
 		</li>
 		<li>
 			Ajout icone du site
