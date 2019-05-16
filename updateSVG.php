@@ -5,6 +5,7 @@
 
 	$pseudo = str_replace ( " " , "" , $_GET["id"]);
 	isset($_GET["skin"]) ? $skin = $_GET["skin"] : $skin = "0";
+	isset($_GET["reg"])? $reg = $_GET["reg"] : $reg = "euw1";
 
 	$result = file_get_contents('./ddragon/'.$version.'/data/'.$lang.'/champion.json');
 	$champions = json_decode($result);
@@ -22,22 +23,22 @@
 	$champinfos = json_decode($result,true);
 
 	//Summoner
-	$result = file_get_contents('data/players/'.$pseudo.'/summoner.json');
+	$result = file_get_contents('data/'.$reg.'/players/'.$pseudo.'/summoner.json');
 	$profil = json_decode($result);
 	
 	$id = $profil->id;
 	$accountId = $profil->accountId;
 
 	//Ranks
-	$result = file_get_contents('data/players/'.$pseudo.'/ranks.json');
+	$result = file_get_contents('data/'.$reg.'/players/'.$pseudo.'/ranks.json');
 	$ranks = json_decode($result);
 
 	//Masteries
-	$result = file_get_contents('data/players/'.$pseudo.'/masteries.json');
+	$result = file_get_contents('data/'.$reg.'/players/'.$pseudo.'/masteries.json');
 	$masteries = json_decode($result);
 
 	//Games
-	$result = file_get_contents('data/players/'.$pseudo.'/matches.json');
+	$result = file_get_contents('data/'.$reg.'/players/'.$pseudo.'/matches.json');
 	$matches = json_decode($result);
 
 	$level = $profil->summonerLevel;
@@ -222,7 +223,7 @@
 
 
 
-	$my_file = 'images/svgrecap/'.$profil->name.'.svg';
+	$my_file = 'images/svgrecap/'.$reg.'/'.$profil->name.'.svg';
 	$handle = fopen($my_file, 'w');
 	$data = "";
 	$data .= '<?xml version="1.0" encoding="UTF-8"?>';

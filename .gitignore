@@ -1,5 +1,11 @@
 ddragon/
 parts/init.php
-data/games/*
-data/players/*
-images/svgrecap/*.svg
+data/euw1/games/*
+data/na1/games/*
+data/eun1/games/*
+data/euw1/players/*
+data/na1/players/*
+data/eun1/players/*
+images/svgrecap/euw1/*.svg
+images/svgrecap/na1/*.svg
+images/svgrecap/eun1/*.svg

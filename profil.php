@@ -2,6 +2,8 @@
 	
 	require_once("parts/init.php");
 
+	isset($_GET["reg"])? $reg = $_GET["reg"] : $reg = "euw1";
+
 	$result = file_get_contents('./ddragon/'.$version.'/data/'.$lang.'/champion.json');
 	$champions = json_decode($result);
 
@@ -23,18 +25,18 @@
 
 		$pseudo = str_replace ( " " , "" , $_GET["pseudo"]);
 
-		if(!@file_get_contents('https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$pseudo.'?api_key='.$key)){
+		if(!@file_get_contents('https://'.$reg.'.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$pseudo.'?api_key='.$key)){
 			$sale_hop = false;
 		}else{
 			//Init
-			if (!file_exists('data/players/'.$pseudo)) {
-				mkdir('data/players/'.$pseudo, 0777, true);
-				$file = fopen("data/players/$pseudo/date.txt", "w");
+			if (!file_exists('data/'.$reg.'/players/'.$pseudo)) {
+				mkdir('data/'.$reg.'/players/'.$pseudo, 0777, true);
+				$file = fopen("data/$reg/players/$pseudo/date.txt", "w");
 				fwrite($file, "1990-01-01");
 				fclose($file);
 	    }
 
-	    $lastMaj = file_get_contents('data/players/'.$pseudo.'/date.txt');
+	    $lastMaj = file_get_contents('data/'.$reg.'/players/'.$pseudo.'/date.txt');
 			$now = date("Y-m-d H:i");
 			$datetime1 = new DateTime($lastMaj);
 			$datetime2 = new DateTime($now);
@@ -44,58 +46,58 @@
 
 		  if($sincelastupdate >= 30){
 				//Summoner
-				$result = file_get_contents('https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$pseudo.'?api_key='.$key);
-				$file = fopen("data/players/$pseudo/summoner.json", "w");
+				$result = file_get_contents('https://'.$reg.'.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$pseudo.'?api_key='.$key);
+				$file = fopen("data/$reg/players/$pseudo/summoner.json", "w");
 				fwrite($file, $result);
 				fclose($file);
-				$result = file_get_contents('data/players/'.$pseudo.'/summoner.json');
+				$result = file_get_contents('data/'.$reg.'/players/'.$pseudo.'/summoner.json');
 				$profil = json_decode($result);
 				$id = $profil->id;
 				$accountId = $profil->accountId;
 
 				//Rank
-				if($result = file_get_contents('https://euw1.api.riotgames.com/lol/league/v4/positions/by-summoner/'.$id.'?api_key='.$key)){
-					$file = fopen("data/players/$pseudo/ranks.json", "w");
+				if($result = file_get_contents('https://'.$reg.'.api.riotgames.com/lol/league/v4/positions/by-summoner/'.$id.'?api_key='.$key)){
+					$file = fopen("data/$reg/players/$pseudo/ranks.json", "w");
 					fwrite($file, $result);
 					fclose($file);
 				}
 
 				//Masteries
-				if($result = file_get_contents('https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/'.$id.'?api_key='.$key)){
-					$file = fopen("data/players/$pseudo/masteries.json", "w");
+				if($result = file_get_contents('https://'.$reg.'.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/'.$id.'?api_key='.$key)){
+					$file = fopen("data/$reg/players/$pseudo/masteries.json", "w");
 					fwrite($file, $result);
 					fclose($file);
 				}
 				
 				//Games 
-				if($result = @file_get_contents('https://euw1.api.riotgames.com/lol/match/v4/matchlists/by-account/'.$accountId.'?api_key='.$key)){
-					$file = fopen("data/players/$pseudo/matches.json", "w");
+				if($result = @file_get_contents('https://'.$reg.'.api.riotgames.com/lol/match/v4/matchlists/by-account/'.$accountId.'?api_key='.$key)){
+					$file = fopen("data/$reg/players/$pseudo/matches.json", "w");
 					fwrite($file, $result);
 					fclose($file);
 				}
 			
-				$file = fopen("data/players/$pseudo/date.txt", "w");
+				$file = fopen("data/$reg/players/$pseudo/date.txt", "w");
 				fwrite($file, $now);
 				fclose($file);
 			}
 
 			//Summoner
-			$result = file_get_contents('data/players/'.$pseudo.'/summoner.json');
+			$result = file_get_contents('data/'.$reg.'/players/'.$pseudo.'/summoner.json');
 			$profil = json_decode($result);
 	
 			$id = $profil->id;
 			$accountId = $profil->accountId;
 
 			//Ranks
-			$result = file_get_contents('data/players/'.$pseudo.'/ranks.json');
+			$result = file_get_contents('data/'.$reg.'/players/'.$pseudo.'/ranks.json');
 			$ranks = json_decode($result);
 
 			//Masteries
-			$result = file_get_contents('data/players/'.$pseudo.'/masteries.json');
+			$result = file_get_contents('data/'.$reg.'/players/'.$pseudo.'/masteries.json');
 			$masteries = json_decode($result);
 
 			//Games
-			$result = @file_get_contents('data/players/'.$pseudo.'/matches.json');
+			$result = @file_get_contents('data/'.$reg.'/players/'.$pseudo.'/matches.json');
 			$matches = json_decode($result);
 		}
 		
@@ -199,7 +201,7 @@
 			</div>
 			<div style="text-align:center;margin-top:5px;font-size:30px;margin-bottom:5px;"><?php echo $profil->name; ?></div>
 			<?php 
-				$lastMaj = file_get_contents('data/players/'.$pseudo.'/date.txt'); 
+				$lastMaj = file_get_contents('data/'.$reg.'/players/'.$pseudo.'/date.txt'); 
 			?>
 			<div style="text-align:center;font-size:12px;margin-bottom:15px;">Dernière mise à jour : <?php echo $lastMaj; ?></div>
 
@@ -532,13 +534,13 @@
 						try{
 							if(!isset($matches->matches[$i])) break;
 							$infos = $matches->matches[$i];
-							if (!file_exists("data/games/".$infos->gameId.".json")) {
-								$result = file_get_contents('https://euw1.api.riotgames.com/lol/match/v4/matches/'.$infos->gameId.'?api_key='.$key);
-								$file = fopen("data/games/".$infos->gameId.".json", "w");
+							if (!file_exists("data/$reg/games/".$infos->gameId.".json")) {
+								$result = file_get_contents('https://'.$reg.'.api.riotgames.com/lol/match/v4/matches/'.$infos->gameId.'?api_key='.$key);
+								$file = fopen("data/$reg/games/".$infos->gameId.".json", "w");
 								fwrite($file, $result);
 								fclose($file);
 							}
-							$result = file_get_contents("data/games/".$infos->gameId.".json");
+							$result = file_get_contents("data/$reg/games/".$infos->gameId.".json");
 							$game = json_decode($result);
 							/*echo '<td>'.$index++.'</td>';
 							echo '<td>'.$infos->platformId.'</td>';
@@ -1058,8 +1060,8 @@
 					?>
 
 				<?php
-					if(!file_exists('images/svgrecap/'.$profil->name.'.svg')){
-						$my_file = 'images/svgrecap/'.$profil->name.'.svg';
+					if(!file_exists('images/svgrecap/'.$reg.'/'.$profil->name.'.svg')){
+						$my_file = 'images/svgrecap/'.$reg.'/'.$profil->name.'.svg';
 						$handle = fopen($my_file, 'w') or die('Cannot open file:  '.$my_file);
 						$data = "";
 						$data .= '<?xml version="1.0" encoding="UTF-8"?>';
@@ -1307,19 +1309,20 @@
 					var skin = document.getElementById("mainSkin").value;
 					var clan = document.getElementById("clan").value;
 					$.ajax({
-					  url: "<?php echo 'updateSVG.php?id='.$pseudo.'&skin='; ?>"+skin+"&clan="+clan,
+					  url: "<?php echo 'updateSVG.php?reg='.$reg.'&id='.$pseudo.'&skin='; ?>"+skin+"&clan="+clan,
 					  success: function(data) {
+							console.log(data);
 					    var canvas = document.querySelector("canvas"),
-						context = canvas.getContext("2d");
+							context = canvas.getContext("2d");
 
-						var image = new Image;
-						var date = new Date();
-						image.src = "images/svgrecap/<?php echo $profil->name; ?>.svg?"+date.getTime();
-						image.onload = function() {
-							context.drawImage(image, 0, 0);
-							document.getElementById("imgSVG").src = canvas.toDataURL("image/png");
-							document.getElementById("loading").style.display = "none";
-						};
+							var image = new Image;
+							var date = new Date();
+							image.src = "images/svgrecap/<?php echo $reg.'/'.$profil->name; ?>.svg?"+date.getTime();
+							image.onload = function() {
+								context.drawImage(image, 0, 0);
+								document.getElementById("imgSVG").src = canvas.toDataURL("image/png");
+								document.getElementById("loading").style.display = "none";
+							};
 					  }
 					});
 				}
@@ -1330,7 +1333,8 @@
 					context = canvas.getContext("2d");
 
 				var image = new Image;
-				image.src = "images/svgrecap/<?php echo $profil->name; ?>.svg";
+				var date = new Date();
+				image.src = "images/svgrecap/<?php echo $reg.'/'.$profil->name; ?>.svg?"+date.getTime();
 				image.onload = function() {
 					context.drawImage(image, 0, 0);
 					document.getElementById("imgSVG").src = canvas.toDataURL("image/png");

@@ -22,10 +22,10 @@
             </div>
 
           </div>
-          <select class="form-control" name="server" disabled>
-            <option value="euw">EUW</option>
-            <option value="eune" disabled>EUNE</option>
-            <option value="na" disabled>NA</option>
+          <select class="form-control" name="reg">
+            <option value="euw1">EUW</option>
+            <option value="eun1">EUNE</option>
+            <option value="na1">NA</option>
           </select>
         </form></li>
       </ul>
