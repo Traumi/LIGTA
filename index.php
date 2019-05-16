@@ -8,7 +8,7 @@
 			color:#ccc;
 		}
 		#logo{
-			transition: 8s all;
+			transition: 8s filter, 2s transform;
 		}
 	</style>
 	<head>
@@ -34,9 +34,9 @@
 		<?php require_once("parts/footer.php"); ?>
 		<div class="container" style="width:100%;">
 			<div class="col-md-12 col-xs-12 text-center">
-				<img id="logo" style="filter: drop-shadow(0 0 15px #A20C0C);margin-top:50px;" width="20%" src="./images/favicon.png"/>
+				<img id="logo" style="filter: drop-shadow(0 0 15px #A20C0C);margin-top:50px;" onclick="doABarrelRoll()" width="20%" src="./images/favicon.png"/>
 				<h1>LIGTA</h1>
-				<div class="col-md-6 col-md-offset-3 col-xs-12">
+				<div class="col-md-6 col-md-offset-3 col-xs-12" style="margin-top:20px;">
 					<form action="profil.php" method="get">
 						<div class="input-group">
 							<input placeholder="<?php echo $translations['SEARCH_PLAYER'] ?>" name="pseudo" class="form-control" type="text">
@@ -66,6 +66,10 @@
 					color += letters[Math.floor(Math.random() * 16)];
 				}
 				return color;
+			}
+			function doABarrelRoll(){
+				logo.style.transform = "rotate3d(0, 1, 0, 360deg)";
+				setTimeout(function(){logo.style.transform = "rotate3d(0, 0, 0, 0deg)";}, 1500);
 			}
 			setTimeout(shine, 1);
 			var timer = setInterval(shine, 4000);
