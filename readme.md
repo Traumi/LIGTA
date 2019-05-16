@@ -19,4 +19,5 @@ You just have to run an Apache server with that project
 ## Patch notes
 |Version|Date|Content|
 |:---:|:---:|:---:|
+|0.10|16/05/2019|Regionnal endpoint implementation|
 |0.9.4.1|15/05/2019|Code optimization|

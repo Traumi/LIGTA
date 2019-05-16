@@ -3,6 +3,7 @@
 	require_once("parts/init.php");
 
 	isset($_GET["reg"])? $reg = $_GET["reg"] : $reg = "euw1";
+	setcookie("reg", $reg, time() + (86400 * 30));
 
 	$result = file_get_contents('./ddragon/'.$version.'/data/'.$lang.'/champion.json');
 	$champions = json_decode($result);

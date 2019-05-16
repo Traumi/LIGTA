@@ -22,7 +22,7 @@
             </div>
 
           </div>
-          <select class="form-control" name="reg">
+          <select class="form-control" name="reg" id="reg">
             <option value="euw1">EUW</option>
             <option value="eun1">EUNE</option>
             <option value="na1">NA</option>
@@ -91,6 +91,11 @@
   if(getCookie("lang") != ""){
     console.log(getCookie("lang"));
     document.getElementById("lang").value = getCookie("lang");
+  }
+
+  if(getCookie("reg") != ""){
+    console.log(getCookie("reg"));
+    document.getElementById("reg").value = getCookie("reg");
   }
 </script>
 </header>
