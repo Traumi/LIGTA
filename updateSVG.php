@@ -228,7 +228,7 @@
 	$data = "";
 	$data .= '<?xml version="1.0" encoding="UTF-8"?>';
 	$data .= '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
-	$data .= '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" xmlns:xlink="http://www.w3.org/1999/xlink">';
+	$data .= '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="2400px" height="1200px" xmlns:xlink="http://www.w3.org/1999/xlink">';
 
 	//Style
 	$data .= '<style>text{font-family : "Helvetica Neue", Helvetica, Arial, sans-serif;}</style>';
@@ -272,7 +272,38 @@
 	$data .= '<text text-anchor="middle" font-size="12" fill="white" x="87.5" y="144" font-weight="600">'.$profil->summonerLevel.'</text>';
 
 	//Pseudo
-	$data .= '<text text-anchor="middle" alignment-baseline="middle" font-size="30" fill="#e5e5e5" x="487.5" y="25">'.$profil->name.'</text>';
+	//https://www.commentcamarche.net/contents/489-caracteres-speciaux-html
+	$pseudo = $profil->name;
+	$pseudo = str_replace("ÿ","&#255;",$pseudo);
+	$pseudo = str_replace("þ","&#254;",$pseudo);
+	$pseudo = str_replace("ý","&#253;",$pseudo);
+	$pseudo = str_replace("ü","&#252;",$pseudo);
+	$pseudo = str_replace("û","&#251;",$pseudo);
+	$pseudo = str_replace("û","&#251;",$pseudo);
+	$pseudo = str_replace("ú","&#250;",$pseudo);
+	$pseudo = str_replace("ù","&#249;",$pseudo);
+	$pseudo = str_replace("ø","&#248;",$pseudo);
+	$pseudo = str_replace("÷","&#247;",$pseudo);
+	$pseudo = str_replace("ö","&#246;",$pseudo);
+	$pseudo = str_replace("õ","&#245;",$pseudo);
+	$pseudo = str_replace("ô","&#244;",$pseudo);
+	$pseudo = str_replace("ó","&#243;",$pseudo);
+	$pseudo = str_replace("ò","&#242;",$pseudo);
+	$pseudo = str_replace("ñ","&#241;",$pseudo);
+	$pseudo = str_replace("ð","&#240;",$pseudo);
+	$pseudo = str_replace("ï","&#239;",$pseudo);
+	$pseudo = str_replace("î","&#238;",$pseudo);
+	$pseudo = str_replace("í","&#237;",$pseudo);
+	$pseudo = str_replace("ì","&#236;",$pseudo);
+	$pseudo = str_replace("ë","&#235;",$pseudo);
+	$pseudo = str_replace("ê","&#234;",$pseudo);
+	$pseudo = str_replace("é","&#233;",$pseudo);
+	$pseudo = str_replace("è","&#232;",$pseudo);
+	$pseudo = str_replace("ç","&#231;",$pseudo);
+	$pseudo = str_replace("æ","&#230;",$pseudo);
+	
+	//$pseudo = urlencode($profil->name);
+	$data .= '<text text-anchor="middle" alignment-baseline="middle" font-size="30" fill="#e5e5e5" x="487.5" y="25">'.$pseudo.'</text>';
 	$data .= '<image href="'.imgToBase64('./images/queuetype/underline_gold.png').'" x="400" y="35" width="175"/>';
 
 	//Rank
@@ -325,7 +356,7 @@
 	$data .= '</g>';
 	
 	//Maitrise
-	$data .= '<text font-size="20" text-anchor="middle" x="285" y="90" fill="#DDD">Maîtrises</text>';
+	$data .= '<text font-size="20" text-anchor="middle" x="285" y="90" fill="#DDD">Masteries</text>';
 	$data .= '<g transform="translate(225 90) scale(3 3)">';
 		$data .= '<circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#1D7A91" stroke-width="3"/>';
 		$data .= '<circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#7FEFFF" stroke-width="2.25" stroke-dasharray="'.$percent.' '.(100-$percent).'" stroke-dashoffset="25" stroke-linecap="round"/>';
@@ -338,18 +369,18 @@
 
 	//Role
 	if($second != ""){
-		$data .= '<text font-size="16" text-anchor="middle" x="700" y="180" fill="#DDD">Roles principaux</text>';
+		$data .= '<text font-size="16" text-anchor="middle" x="700" y="180" fill="#DDD">Main roles</text>';
 		$data .= '<image href="'.imgToBase64('./images/lanes/new/'.$highest.'-blue.png').'" x="650" y="185" height="50"/>';
 		$data .= '<image href="'.imgToBase64('./images/lanes/new/'.$second.'-blue.png').'" x="700" y="185" height="50"/>';
 		$data .= '<text font-size="12" text-anchor="middle" x="700" y="250" fill="#DDD">'.$highest.'/'.$second.'</text>';
 	}else{
-		$data .= '<text font-size="16" text-anchor="middle" x="700" y="180" fill="#DDD">Role principal</text>';
+		$data .= '<text font-size="16" text-anchor="middle" x="700" y="180" fill="#DDD">Main role</text>';
 		$data .= '<image href="'.imgToBase64('./images/lanes/new/'.$highest.'-blue.png').'" x="675" y="185" height="50"/>';
 		$data .= '<text font-size="12" text-anchor="middle" x="700" y="250" fill="#DDD">'.$highest.'</text>';
 	}
 
 	//Gamemode
-	$data .= '<text font-size="16" text-anchor="middle" x="700" y="50" fill="#DDD">Mode de jeu préféré</text>';
+	$data .= '<text font-size="16" text-anchor="middle" x="700" y="50" fill="#DDD">Prefered game mode</text>';
 	$data .= '<image href="'.imgToBase64('./images/queuetype/'.$highestQ.'.png').'" x="675" y="65" height="50"/>';
 	$data .= '<text font-size="12" text-anchor="middle" x="700" y="135" fill="#DDD">'.$nameQ.'</text>';
 

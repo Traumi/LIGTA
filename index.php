@@ -10,6 +10,15 @@
 		#logo{
 			transition: 8s filter, 2s transform;
 		}
+		.whatsup{
+			border:solid lightgrey 1px;
+		}
+		.whatsup > ul > li{
+			list-style-type:none;
+		}
+		.whatsup > ul{
+			padding:0;
+		}
 	</style>
 	<head>
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -22,7 +31,7 @@
 			})
 		</script>
 		<title>LIGTA</title>
-		<meta name="theme-color" content="#912A2A">
+		<meta name="theme-color" content="#00c9c2">
 		<meta name="author" content="Traumination">
 		<meta name="copyright" content="© Traumination All right reserved" />
 		<meta name="og:image" content="http://89.156.31.147/ligta/images/favicon.png" />
@@ -34,20 +43,37 @@
 		<?php require_once("parts/footer.php"); ?>
 		<div class="container" style="width:100%;">
 			<div class="col-md-12 col-xs-12 text-center">
-				<img id="logo" style="filter: drop-shadow(0 0 15px #A20C0C);margin-top:50px;" onclick="doABarrelRoll()" width="20%" src="./images/favicon.png"/>
+				<img id="logo" style="filter: drop-shadow(0 0 15px #A20C0C);margin-top:50px;width:250px;" onclick="doABarrelRoll()" src="./images/favicon.png"/>
 				<h1>LIGTA</h1>
-				<div class="col-md-6 col-md-offset-3 col-xs-12" style="margin-top:20px;">
-					<form action="profil.php" method="get">
-						<div class="input-group">
-							<input placeholder="<?php echo $translations['SEARCH_PLAYER'] ?>" name="pseudo" class="form-control" type="text">
-							<div class="input-group-btn">
-							<button class="btn btn-default" type="submit" style="">
-								&nbsp;<i class="glyphicon glyphicon-search"></i>&nbsp;
-							</button>
-							</div>
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3 col-xs-12" style="margin-top:20px;">
+						<form action="profil.php" method="get">
+							<div class="input-group">
+								<input placeholder="<?php echo $translations['SEARCH_PLAYER'] ?>" name="pseudo" class="form-control" type="text">
+								<div class="input-group-btn">
+								<button class="btn btn-default" type="submit" style="">
+									&nbsp;<i class="glyphicon glyphicon-search"></i>&nbsp;
+								</button>
+								</div>
 
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3 col-xs-12">
+						<div class="whatsup">
+							<h2>Quoi de neuf ?</h2>
+							<h3>Version 0.10</h3>
+							<ul>
+								<li>Ajout des régions</li>
+								<li>Mise à jour des données vers le patch 9.10</li>
+								<li>Nouvelle page d'accueil</li>
+								<li>Mise à jour des résumés de joueurs</li>
+								<li>Quelques bug fix</li>
+							</ul>
 						</div>
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>

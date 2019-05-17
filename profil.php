@@ -1111,7 +1111,8 @@
 						$data .= '<text text-anchor="middle" font-size="12" fill="white" x="87.5" y="144" font-weight="600">'.$profil->summonerLevel.'</text>';
 
 						//Pseudo
-						$data .= '<text text-anchor="middle" alignment-baseline="middle" font-size="30" fill="#e5e5e5" x="487.5" y="25">'.$profil->name.'</text>';
+						$pseudo = htmlentities($profil->name, ENT_QUOTES);
+						$data .= '<text text-anchor="middle" alignment-baseline="middle" font-size="30" fill="#e5e5e5" x="487.5" y="25">'.$pseudo.'</text>';
 						$data .= '<image href="'.imgToBase64('./images/queuetype/underline_gold.png').'" x="400" y="35" width="175"/>';
 
 						//Rank
@@ -1156,7 +1157,7 @@
 						$data .= '</g>';
 						
 						//Maitrise
-						$data .= '<text font-size="20" text-anchor="middle" x="285" y="90" fill="#DDD">Maîtrises</text>';
+						$data .= '<text font-size="20" text-anchor="middle" x="285" y="90" fill="#DDD">Masteries</text>';
 						$data .= '<g transform="translate(225 90) scale(3 3)">';
 							$data .= '<circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#1D7A91" stroke-width="3"/>';
 							$data .= '<circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#7FEFFF" stroke-width="2.25" stroke-dasharray="'.$percent.' '.(100-$percent).'" stroke-dashoffset="25" stroke-linecap="round"/>';
@@ -1169,18 +1170,18 @@
 
 						//Role
 						if($second != ""){
-							$data .= '<text font-size="16" text-anchor="middle" x="700" y="180" fill="#DDD">Roles principaux</text>';
+							$data .= '<text font-size="16" text-anchor="middle" x="700" y="180" fill="#DDD">Main roles</text>';
 							$data .= '<image href="'.imgToBase64('./images/lanes/new/'.$highest.'-blue.png').'" x="650" y="185" height="50"/>';
 							$data .= '<image href="'.imgToBase64('./images/lanes/new/'.$second.'-blue.png').'" x="700" y="185" height="50"/>';
 							$data .= '<text font-size="12" text-anchor="middle" x="700" y="250" fill="#DDD">'.$highest.'/'.$second.'</text>';
 						}else{
-							$data .= '<text font-size="16" text-anchor="middle" x="700" y="180" fill="#DDD">Role principal</text>';
+							$data .= '<text font-size="16" text-anchor="middle" x="700" y="180" fill="#DDD">Main role</text>';
 							$data .= '<image href="'.imgToBase64('./images/lanes/new/'.$highest.'-blue.png').'" x="675" y="185" height="50"/>';
 							$data .= '<text font-size="12" text-anchor="middle" x="700" y="250" fill="#DDD">'.$highest.'</text>';
 						}
 
 						//Gamemode
-						$data .= '<text font-size="16" text-anchor="middle" x="700" y="50" fill="#DDD">Mode de jeu préféré</text>';
+						$data .= '<text font-size="16" text-anchor="middle" x="700" y="50" fill="#DDD">Prefered game mode</text>';
 						$data .= '<image href="'.imgToBase64('./images/queuetype/'.$highestQ.'.png').'" x="675" y="65" height="50"/>';
 						$data .= '<text font-size="12" text-anchor="middle" x="700" y="135" fill="#DDD">'.$nameQ.'</text>';
 
@@ -1312,7 +1313,6 @@
 					$.ajax({
 					  url: "<?php echo 'updateSVG.php?reg='.$reg.'&id='.$pseudo.'&skin='; ?>"+skin+"&clan="+clan,
 					  success: function(data) {
-							console.log(data);
 					    var canvas = document.querySelector("canvas"),
 							context = canvas.getContext("2d");
 
