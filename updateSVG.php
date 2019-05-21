@@ -1,5 +1,4 @@
 <?php
-
 	require_once("parts/init.php");
 	require_once("parts/utils.php");
 
@@ -21,6 +20,66 @@
 
 	$result = file_get_contents('./data/champinfos.json');
 	$champinfos = json_decode($result,true);
+
+	if(!@file_get_contents('https://'.$reg.'.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$pseudo.'?api_key='.$key)){
+		$pseudo = utf8_encode($pseudo);
+		if(!@file_get_contents('https://'.$reg.'.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$pseudo.'?api_key='.$key)){
+			die('error');
+		}
+	}
+
+	//Init
+	if (!file_exists('data/'.$reg.'/players/'.$pseudo)) {
+		mkdir('data/'.$reg.'/players/'.$pseudo, 0777, true);
+		$file = fopen("data/$reg/players/$pseudo/date.txt", "w");
+		fwrite($file, "1990-01-01");
+		fclose($file);
+	}
+
+	$lastMaj = file_get_contents('data/'.$reg.'/players/'.$pseudo.'/date.txt');
+	$now = date("Y-m-d H:i");
+	$datetime1 = new DateTime($lastMaj);
+	$datetime2 = new DateTime($now);
+	$interval = $datetime1->diff($datetime2);
+
+	$sincelastupdate = ($interval->format("%a"))*24*60 + ($interval->h)*60 + ($interval->i);
+
+	if($sincelastupdate >= 30){
+		//Summoner
+		$result = file_get_contents('https://'.$reg.'.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$pseudo.'?api_key='.$key);
+		$file = fopen("data/$reg/players/$pseudo/summoner.json", "w");
+		fwrite($file, $result);
+		fclose($file);
+		$result = file_get_contents('data/'.$reg.'/players/'.$pseudo.'/summoner.json');
+		$profil = json_decode($result);
+		$id = $profil->id;
+		$accountId = $profil->accountId;
+
+		//Rank
+		if($result = file_get_contents('https://'.$reg.'.api.riotgames.com/lol/league/v4/positions/by-summoner/'.$id.'?api_key='.$key)){
+			$file = fopen("data/$reg/players/$pseudo/ranks.json", "w");
+			fwrite($file, $result);
+			fclose($file);
+		}
+
+		//Masteries
+		if($result = file_get_contents('https://'.$reg.'.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/'.$id.'?api_key='.$key)){
+			$file = fopen("data/$reg/players/$pseudo/masteries.json", "w");
+			fwrite($file, $result);
+			fclose($file);
+		}
+		
+		//Games 
+		if($result = @file_get_contents('https://'.$reg.'.api.riotgames.com/lol/match/v4/matchlists/by-account/'.$accountId.'?api_key='.$key)){
+			$file = fopen("data/$reg/players/$pseudo/matches.json", "w");
+			fwrite($file, $result);
+			fclose($file);
+		}
+	
+		$file = fopen("data/$reg/players/$pseudo/date.txt", "w");
+		fwrite($file, $now);
+		fclose($file);
+	}
 
 	//Summoner
 	$result = file_get_contents('data/'.$reg.'/players/'.$pseudo.'/summoner.json');
@@ -97,6 +156,15 @@
 			if($champ->key == $infochamp->championId){
 				if($podium == 1){
 					$podiumArray[1] = ["name" => $champname, "level" => $infochamp->championLevel, "points" => $infochamp->championPoints];
+					$result = file_get_contents('./ddragon/'.$version.'/data/en_US/champion/'.$champ->id.'.json');
+					$res = json_decode($result,true);
+					$final = 0;
+					foreach($res["data"][$champ->id]["skins"] as $key => $value){
+						if($value["num"] == $skin){
+							$final = $value["num"];
+						}
+					}
+					$skin = $final;
 					$podium++;
 				}
 				else if($podium == 2){
@@ -124,7 +192,7 @@
 	//SVG DATAS
 	$rank_values = array("IRON" => 0 , "BRONZE" => 4 , "SILVER" => 8 , "GOLD" => 12 , "PLATINUM" => 16 , "DIAMOND" => 20 , "MASTER" => 24 , "GRANDMASTER" => 28 , "CHALLENGER" => 32);
 	$division_values = array("IV" => 1 , "III" => 2 , "II" => 3 , "I" => 4);
-	$rank_trad = ["UNRANKED" => "Non Classé", "IRON" => "Fer", "BRONZE" => "Bronze", "SILVER" => "Argent", "GOLD" => "Or", "PLATINUM" => "Platine", "DIAMOND" => "Diamant", "MASTER" => "Maître", "GRANDMASTER" => "Grand Maître", "CHALLENGER" => "Challenger"]; 
+	$rank_trad = ["UNRANKED" => "Unranked", "IRON" => "Iron", "BRONZE" => "Bronze", "SILVER" => "Silver", "GOLD" => "Gold", "PLATINUM" => "Platinum", "DIAMOND" => "Diamond", "MASTER" => "Master", "GRANDMASTER" => "Grandmaster", "CHALLENGER" => "Challenger"]; 
 	$roman_trade = ["V" => "_5", "IV" => "_4", "III" => "_3", "II" => "_2", "I" => "_1", "" => ""];
 	$highestR = "UNRANKED";
 	$palier = "";
@@ -458,4 +526,5 @@
 	$data .= '</svg>';
 	fwrite($handle, $data);
 	fclose($handle);
+	
 ?>
