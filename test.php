@@ -10,6 +10,8 @@
 
 	require_once("parts/init.php");
 
+	isset($_GET["reg"])? $reg = $_GET["reg"] : $reg = "euw1";
+
 	$result = file_get_contents('./ddragon/'.$version.'/data/'.$lang.'/champion.json');
 	$champions = json_decode($result);
 
@@ -22,56 +24,56 @@
 	$result = file_get_contents('./data/gametype.json');
 	$gametype = json_decode($result);
 
-	function updatePlayer($pseudo, $key){
+	function updatePlayer($pseudo, $key, $reg){
 		$pseudo = str_replace ( " " , "" , $pseudo);
-		if (!file_exists('data/players/'.$pseudo)) {
-          	mkdir('data/players/'.$pseudo, 0777, true);
-          	$file = fopen("data/players/$pseudo/date.txt", "w");
+		if (!file_exists('data/'.$reg.'/players/'.$pseudo)) {
+          	mkdir('data/'.$reg.'/players/'.$pseudo, 0777, true);
+          	$file = fopen("data/$reg/players/$pseudo/date.txt", "w");
 	      	fwrite($file, "1990-01-01 00:00");
 	      	fclose($file);
 
 	      	//Summoner
-	        $result = file_get_contents('https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$pseudo.'?api_key='.$key);
-	        $file = fopen("data/players/$pseudo/summoner.json", "w");
+	        $result = file_get_contents('https://'.$reg.'.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$pseudo.'?api_key='.$key);
+	        $file = fopen("data/$reg/players/$pseudo/summoner.json", "w");
 	        fwrite($file, $result);
 	        fclose($file);
-	        $result = file_get_contents('data/players/'.$pseudo.'/summoner.json');
+	        $result = file_get_contents('data/'.$reg.'/players/'.$pseudo.'/summoner.json');
 	        $profil = json_decode($result);
 			
 			$id = $profil->id;
 			$accountId = $profil->accountId;
 
 			//Rank
-			$result = file_get_contents('https://euw1.api.riotgames.com/lol/league/v4/positions/by-summoner/'.$id.'?api_key='.$key);
-	        $file = fopen("data/players/$pseudo/ranks.json", "w");
+			$result = file_get_contents('https://'.$reg.'.api.riotgames.com/lol/league/v4/positions/by-summoner/'.$id.'?api_key='.$key);
+	        $file = fopen("data/$reg/players/$pseudo/ranks.json", "w");
 	        fwrite($file, $result);
 	        fclose($file);
 
 			//Masteries
-	        $result = file_get_contents('https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/'.$id.'?api_key='.$key);
-	        $file = fopen("data/players/$pseudo/masteries.json", "w");
+	        $result = file_get_contents('https://'.$reg.'.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/'.$id.'?api_key='.$key);
+	        $file = fopen("data/$reg/players/$pseudo/masteries.json", "w");
 	        fwrite($file, $result);
 	        fclose($file);
 
-	        $result = file_get_contents('https://euw1.api.riotgames.com/lol/match/v4/matchlists/by-account/'.$accountId.'?api_key='.$key);
-	        $file = fopen("data/players/$pseudo/matches.json", "w");
+	        $result = file_get_contents('https://'.$reg.'.api.riotgames.com/lol/match/v4/matchlists/by-account/'.$accountId.'?api_key='.$key);
+	        $file = fopen("data/$reg/players/$pseudo/matches.json", "w");
 	        fwrite($file, $result);
 	        fclose($file);
 
-	        $file = fopen("data/players/$pseudo/date.txt", "w");
+	        $file = fopen("data/$reg/players/$pseudo/date.txt", "w");
 	        fwrite($file, date("Y-m-d H:i"));
 	        fclose($file);
         }
 	}
 
-	function playerRank($pseudo, $key){
+	function playerRank($pseudo, $key, $reg){
 
 		$rank_values = array("IRON" => 0 , "BRONZE" => 4 , "SILVER" => 8 , "GOLD" => 12 , "PLATINUM" => 16 , "DIAMOND" => 20 , "MASTER" => 24 , "GRANDMASTER" => 28 , "CHALLENGER" => 32);
 		$division_values = array("IV" => 1 , "III" => 2 , "II" => 3 , "I" => 4);
 
 		$pseudo = str_replace ( " " , "" , $pseudo);
-		if (file_exists('data/players/'.$pseudo)) {
-          	$result = file_get_contents('data/players/'.$pseudo.'/ranks.json');
+		if (file_exists('data/'.$reg.'/players/'.$pseudo)) {
+          	$result = file_get_contents('data/'.$reg.'/players/'.$pseudo.'/ranks.json');
 	        $ranks = json_decode($result);
         }
 
@@ -144,9 +146,9 @@
         return $allranks;
 	}
 
-	function displayPlayer($infos, $key, $champions, $spells, $perks, $version){
-		updatePlayer($infos->summonerName, $key);
-		$result = file_get_contents('data/players/'.str_replace ( " " , "" , $infos->summonerName).'/summoner.json');
+	function displayPlayer($infos, $key, $champions, $spells, $perks, $version, $reg){
+		updatePlayer($infos->summonerName, $key, $reg);
+		$result = file_get_contents('data/'.$reg.'/players/'.str_replace ( " " , "" , $infos->summonerName).'/summoner.json');
 	    $profil = json_decode($result);
 		echo '<div class="col-md-2 col-xs-2" style="text-align:left;padding:5px;"><div class="game-profil">';
 		foreach($champions->data as $champname => $champ ){
@@ -171,7 +173,7 @@
 		}
 		
 
-		$bestrank = playerRank($infos->summonerName, $key);
+		$bestrank = playerRank($infos->summonerName, $key, $reg);
 		echo '<hr/>';
 		echo '<div style="text-align:center;">';
 			echo '<div style="width:29%;display:inline-block;text-align:center;">';
@@ -242,7 +244,7 @@
 	echo '<button class="btn btn-success" onclick="currentGame()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button><br/>';
 	try{
 
-		$result = file_get_contents('https://euw1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/'.$_GET["id"].'?api_key='.$key);
+		$result = file_get_contents('https://'.$reg.'.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/'.$_GET["id"].'?api_key='.$key);
 		$match = json_decode($result);
 
 		$team1 = array();
@@ -285,7 +287,7 @@
 			}
 			echo '</div>';
 			foreach($team1 as $num => $infos){
-				displayPlayer($infos, $key, $champions, $spells, $perks, $version);
+				displayPlayer($infos, $key, $champions, $spells, $perks, $version, $reg);
 			}
 			echo '<div class="col-md-1 col-xs-1"></div>';
 			echo '</div>';
@@ -321,13 +323,14 @@
 			}
 			echo '</div>';
 			foreach($team2 as $num => $infos){
-				displayPlayer($infos, $key, $champions, $spells, $perks, $version);
+				displayPlayer($infos, $key, $champions, $spells, $perks, $version, $reg);
 			}
 			echo '<div class="col-md-1 col-xs-1"></div>';
 			echo '</div>';
 			
 		echo '</div>';
 	}catch(Exception $e){
+		echo $e;
 		echo "<h3>Pas de partie en cours</h3>";
 	}
 	

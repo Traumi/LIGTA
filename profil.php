@@ -1302,6 +1302,7 @@
 					$.ajax({
 					  url: "<?php echo 'test.php?id='.$id; ?>",
 					  success: function(data) {
+							console.log(data);
 					    document.getElementById("inprogress").innerHTML = data;
 					  }
 					});
