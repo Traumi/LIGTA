@@ -1,6 +1,7 @@
 <?php
 
     require_once("parts/init.php");
+    require_once("parts/utils.php");
 
     isset($_GET["reg"])? $reg = $_GET["reg"] : $reg = "euw1";
 
@@ -18,6 +19,13 @@
 
     $pseudo = str_replace(" ","",$_GET["pseudo"]);
 
+    if(!@file_get_contents('https://'.$reg.'.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$pseudo.'?api_key='.$key)){
+		$pseudo = utf8_encode($pseudo);
+		if(!@file_get_contents('https://'.$reg.'.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$pseudo.'?api_key='.$key)){
+			die('error');
+		}
+	}
+
     $result = file_get_contents('https://'.$reg.'.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$pseudo.'?api_key='.$key);
     $profil = json_decode($result,true);
     //var_dump($profil);
@@ -25,6 +33,9 @@
     $result = @file_get_contents('https://'.$reg.'.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/'.$profil["id"].'?api_key='.$key);
     $match = json_decode($result,true);
     //var_dump($match);
+    if($match == null){
+        die("nomatch");
+    }
 
     $team1 = array();
     $team2 = array();
@@ -49,10 +60,12 @@
     
 
     echo '{"blue":[';
-    for($i = 0 ; $i < 4 ; ++$i){
+    for($i = 0 ; $i < sizeof($blueteam)-1 ; ++$i){
         echo '{';
         echo '"champion":"'.$blueteam[$i]["champion"].'",';
         echo '"champ_name":"'.$blueteam[$i]["champion_name"].'",';
+        echo '"champ_mastery":"'.$blueteam[$i]["champ_mastery"].'",';
+        echo '"champ_points":"'.$blueteam[$i]["champ_points"].'",';
         echo '"level":'.$blueteam[$i]["level"].',';
         echo '"pseudo":"'.$blueteam[$i]["pseudo"].'",';
         echo '"division":"'.$blueteam[$i]["division"].'",';
@@ -60,18 +73,22 @@
         echo '},';
     }
     echo '{';
-    echo '"champion":"'.$blueteam[4]["champion"].'",';
-    echo '"champ_name":"'.$blueteam[4]["champion_name"].'",';
-    echo '"level":'.$blueteam[4]["level"].',';
-    echo '"pseudo":"'.$blueteam[4]["pseudo"].'",';
-    echo '"division":"'.$blueteam[4]["division"].'",';
-    echo '"palier":"'.$blueteam[4]["palier"].'"';
+    echo '"champion":"'.$blueteam[sizeof($blueteam)-1]["champion"].'",';
+    echo '"champ_name":"'.$blueteam[sizeof($blueteam)-1]["champion_name"].'",';
+    echo '"champ_mastery":"'.$blueteam[sizeof($blueteam)-1]["champ_mastery"].'",';
+    echo '"champ_points":"'.$blueteam[sizeof($blueteam)-1]["champ_points"].'",';
+    echo '"level":'.$blueteam[sizeof($blueteam)-1]["level"].',';
+    echo '"pseudo":"'.$blueteam[sizeof($blueteam)-1]["pseudo"].'",';
+    echo '"division":"'.$blueteam[sizeof($blueteam)-1]["division"].'",';
+    echo '"palier":"'.$blueteam[sizeof($blueteam)-1]["palier"].'"';
     echo '}';
     echo '],"red":[';
-    for($i = 0 ; $i < 4 ; ++$i){
+    for($i = 0 ; $i < sizeof($blueteam)-1 ; ++$i){
         echo '{';
         echo '"champion":"'.$redteam[$i]["champion"].'",';
         echo '"champ_name":"'.$redteam[$i]["champion_name"].'",';
+        echo '"champ_mastery":"'.$redteam[$i]["champ_mastery"].'",';
+        echo '"champ_points":"'.$redteam[$i]["champ_points"].'",';
         echo '"level":'.$redteam[$i]["level"].',';
         echo '"pseudo":"'.$redteam[$i]["pseudo"].'",';
         echo '"division":"'.$redteam[$i]["division"].'",';
@@ -79,28 +96,40 @@
         echo '},';
     }
     echo '{';
-    echo '"champion":"'.$redteam[4]["champion"].'",';
-    echo '"champ_name":"'.$redteam[4]["champion_name"].'",';
-    echo '"level":'.$redteam[4]["level"].',';
-    echo '"pseudo":"'.$redteam[4]["pseudo"].'",';
-    echo '"division":"'.$redteam[4]["division"].'",';
-    echo '"palier":"'.$redteam[4]["palier"].'"';
+    echo '"champion":"'.$redteam[sizeof($blueteam)-1]["champion"].'",';
+    echo '"champ_name":"'.$redteam[sizeof($blueteam)-1]["champion_name"].'",';
+    echo '"champ_mastery":"'.$redteam[sizeof($blueteam)-1]["champ_mastery"].'",';
+    echo '"champ_points":"'.$redteam[sizeof($blueteam)-1]["champ_points"].'",';
+    echo '"level":'.$redteam[sizeof($blueteam)-1]["level"].',';
+    echo '"pseudo":"'.$redteam[sizeof($blueteam)-1]["pseudo"].'",';
+    echo '"division":"'.$redteam[sizeof($blueteam)-1]["division"].'",';
+    echo '"palier":"'.$redteam[sizeof($blueteam)-1]["palier"].'"';
     echo '}],';
     foreach($gametype["type"] as $index => $name){
         if($match["gameQueueConfigId"] == $index){
-            echo '"gametype":"'.$name.'"';
+            echo '"gametype":"'.$name.'",';
         }
     }
+    echo '"map":"'.getQueueType($match["gameQueueConfigId"]).'"';
     echo "}";
 
 	function updatePlayer($pseudo, $key, $reg){
-		$pseudo = str_replace ( " " , "" , $pseudo);
-		if (!file_exists('data/'.$reg.'/players/'.$pseudo)) {
-          	mkdir('data/'.$reg.'/players/'.$pseudo, 0777, true);
-          	$file = fopen("data/$reg/players/$pseudo/date.txt", "w");
-	      	fwrite($file, "1990-01-01 00:00");
-	      	fclose($file);
+        $pseudo = str_replace ( " " , "" , $pseudo);
+        if (!file_exists('data/'.$reg.'/players/'.$pseudo)) {
+            mkdir('data/'.$reg.'/players/'.$pseudo, 0777, true);
+            $file = fopen("data/$reg/players/$pseudo/date.txt", "w");
+            fwrite($file, "1990-01-01");
+            fclose($file);
+        }
 
+        $lastMaj = file_get_contents('data/'.$reg.'/players/'.$pseudo.'/date.txt');
+        $now = date("Y-m-d H:i");
+        $datetime1 = new DateTime($lastMaj);
+        $datetime2 = new DateTime($now);
+        $interval = $datetime1->diff($datetime2);
+
+        $sincelastupdate = ($interval->format("%a"))*24*60 + ($interval->h)*60 + ($interval->i);
+		if ($sincelastupdate >= 120) {
 	      	//Summoner
 	        $result = file_get_contents('https://'.$reg.'.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$pseudo.'?api_key='.$key);
 	        $file = fopen("data/$reg/players/$pseudo/summoner.json", "w");
@@ -131,7 +160,9 @@
 
 	        $file = fopen("data/$reg/players/$pseudo/date.txt", "w");
 	        fwrite($file, date("Y-m-d H:i"));
-	        fclose($file);
+            fclose($file);
+            
+            sleep(0.5);
         }
 	}
 
@@ -217,8 +248,13 @@
 
 	function displayPlayer($infos, $key, $champions, $spells, $perks, $version, $reg){
         updatePlayer($infos["summonerName"], $key, $reg);
+
         $result = file_get_contents('data/'.$reg.'/players/'.str_replace ( " " , "" , $infos["summonerName"]).'/summoner.json');
         $profil = json_decode($result, true);
+
+        $result = file_get_contents('data/'.$reg.'/players/'.str_replace ( " " , "" , $infos["summonerName"]).'/masteries.json');
+        $masteries = json_decode($result, true);
+
         $joueur = [];
         foreach($champions["data"] as $champname => $champ ){
 			if($champ["key"] == $infos["championId"]){
@@ -231,7 +267,14 @@
         $bestrank = playerRank($infos["summonerName"], $key, $reg);
         $joueur["division"] = $bestrank[0]["tier"];
         $joueur["palier"] = $bestrank[0]["rank"];
+
+        foreach($masteries as $index => $mastery){
+            if($infos["championId"] == $mastery["championId"]){
+                $joueur["champ_mastery"] = $mastery["championLevel"];
+                $joueur["champ_points"] = $mastery["championPoints"];
+            }
+        }
+
         return $joueur;
-        //echo "<br/>";
 	}
 ?>

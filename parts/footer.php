@@ -112,6 +112,7 @@
       if(getCookie("dark") == "true"){
         document.getElementById("darkmode").checked = true;
         document.getElementsByTagName("body")[0].classList.add("dark");
+        setCookie("dark",a.checked,7);
       }
     </script>
     

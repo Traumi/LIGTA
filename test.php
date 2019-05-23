@@ -330,7 +330,6 @@
 			
 		echo '</div>';
 	}catch(Exception $e){
-		echo $e;
 		echo "<h3>Pas de partie en cours</h3>";
 	}
 	
