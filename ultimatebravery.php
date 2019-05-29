@@ -160,7 +160,7 @@
 									}else{
 										echo '<input style="display:none;" type="checkbox" id="'.$key.'" name="'.$key.'" value="1"/>';
 									}
-									echo '<label for="'.$key.'" style="margin:0;"><img width="48px" src="./ddragon/9.9.1/img/champion/'.$key.'.png"/></label>';
+									echo '<label for="'.$key.'" style="margin:0;"><img width="48px" src="./ddragon/'.$version.'/img/champion/'.$key.'.png"/></label>';
 								}
 							?>
 							
@@ -311,7 +311,7 @@
 
 
 				echo '<div class="text-center col-md-8 col-md-offset-2" style="border:solid lightgrey 1px;padding:10px 0 15px 0;border-radius:5px;">';
-				echo '<img width="92px" src="./ddragon/9.9.1/img/champion/'.$champions["data"][$champ]["id"].'.png"/>';
+				echo '<img width="92px" src="./ddragon/'.$version.'/img/champion/'.$champions["data"][$champ]["id"].'.png"/>';
 				echo '<h4 style="margin:5px 0 15px 0;">'.$champions["data"][$champ]["name"].'</h4>';
 				echo '<div style="margin-bottom : 20px;">';
 				foreach($summoners as $key => $summoner){
@@ -320,7 +320,7 @@
 					$stringbuilder .= '<summonerName>'.$spells["data"][$summoner]["name"].'</summonerName>';
 					$stringbuilder .= '<br/><br/>';
 					$stringbuilder .= $spells["data"][$summoner]["description"];
-					echo '<img width="64px" src="./ddragon/9.9.1/img/spell/'.$summoner.'.png" data-html="true" data-toggle="tooltip" data-placement="top" title="'.$stringbuilder.'"/>';
+					echo '<img width="64px" src="./ddragon/'.$version.'/img/spell/'.$summoner.'.png" data-html="true" data-toggle="tooltip" data-placement="top" title="'.$stringbuilder.'"/>';
 					echo '</div>';
 				}
 				echo '</div>';
@@ -333,7 +333,7 @@
 					$stringbuilder .= $items["data"][$item]["description"];
 					$stringbuilder .= '<br/><br/>';
 					$stringbuilder .= '<itemCost>'.$items["data"][$item]["gold"]["total"].' ('.$items["data"][$item]["gold"]["base"].')</itemCost>';
-					echo '<img width="64px" src="./ddragon/9.9.1/img/item/'.$item.'.png" data-html="true" data-toggle="tooltip" data-placement="top" title="'.$stringbuilder.'"/>';
+					echo '<img width="64px" src="./ddragon/'.$version.'/img/item/'.$item.'.png" data-html="true" data-toggle="tooltip" data-placement="top" title="'.$stringbuilder.'"/>';
 					echo '</div>';
 				}
 				echo '</div>';
