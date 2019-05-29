@@ -1111,7 +1111,8 @@
 						$data .= '<text text-anchor="middle" font-size="12" fill="white" x="87.5" y="144" font-weight="600">'.$profil->summonerLevel.'</text>';
 
 						//Pseudo
-						$pseudo = htmlentities($profil->name, ENT_QUOTES);
+						$pseudo = $profil->name;
+						$pseudo = cleanWord($pseudo);
 						$data .= '<text text-anchor="middle" alignment-baseline="middle" font-size="30" fill="#e5e5e5" x="487.5" y="25">'.$pseudo.'</text>';
 						$data .= '<image href="'.imgToBase64('./images/queuetype/underline_gold.png').'" x="400" y="35" width="175"/>';
 

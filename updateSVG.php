@@ -340,35 +340,8 @@
 	$data .= '<text text-anchor="middle" font-size="12" fill="white" x="87.5" y="144" font-weight="600">'.$profil->summonerLevel.'</text>';
 
 	//Pseudo
-	//https://www.commentcamarche.net/contents/489-caracteres-speciaux-html
 	$pseudo = $profil->name;
-	$pseudo = str_replace("ÿ","&#255;",$pseudo);
-	$pseudo = str_replace("þ","&#254;",$pseudo);
-	$pseudo = str_replace("ý","&#253;",$pseudo);
-	$pseudo = str_replace("ü","&#252;",$pseudo);
-	$pseudo = str_replace("û","&#251;",$pseudo);
-	$pseudo = str_replace("û","&#251;",$pseudo);
-	$pseudo = str_replace("ú","&#250;",$pseudo);
-	$pseudo = str_replace("ù","&#249;",$pseudo);
-	$pseudo = str_replace("ø","&#248;",$pseudo);
-	$pseudo = str_replace("÷","&#247;",$pseudo);
-	$pseudo = str_replace("ö","&#246;",$pseudo);
-	$pseudo = str_replace("õ","&#245;",$pseudo);
-	$pseudo = str_replace("ô","&#244;",$pseudo);
-	$pseudo = str_replace("ó","&#243;",$pseudo);
-	$pseudo = str_replace("ò","&#242;",$pseudo);
-	$pseudo = str_replace("ñ","&#241;",$pseudo);
-	$pseudo = str_replace("ð","&#240;",$pseudo);
-	$pseudo = str_replace("ï","&#239;",$pseudo);
-	$pseudo = str_replace("î","&#238;",$pseudo);
-	$pseudo = str_replace("í","&#237;",$pseudo);
-	$pseudo = str_replace("ì","&#236;",$pseudo);
-	$pseudo = str_replace("ë","&#235;",$pseudo);
-	$pseudo = str_replace("ê","&#234;",$pseudo);
-	$pseudo = str_replace("é","&#233;",$pseudo);
-	$pseudo = str_replace("è","&#232;",$pseudo);
-	$pseudo = str_replace("ç","&#231;",$pseudo);
-	$pseudo = str_replace("æ","&#230;",$pseudo);
+	$pseudo = cleanWord($pseudo);
 	
 	//$pseudo = urlencode($profil->name);
 	$data .= '<text text-anchor="middle" alignment-baseline="middle" font-size="30" fill="#e5e5e5" x="487.5" y="25">'.$pseudo.'</text>';

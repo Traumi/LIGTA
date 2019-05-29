@@ -35,4 +35,77 @@
         return 'data:image/' . $type . ';base64,' . base64_encode($imgdata);
     }
 
+    //https://www.commentcamarche.net/contents/489-caracteres-speciaux-html
+    function cleanWord($pseudo){
+        $pseudo = str_replace("ÿ","&#255;",$pseudo);
+        $pseudo = str_replace("þ","&#254;",$pseudo);
+        $pseudo = str_replace("ý","&#253;",$pseudo);
+        $pseudo = str_replace("ü","&#252;",$pseudo);
+        $pseudo = str_replace("û","&#251;",$pseudo);
+        $pseudo = str_replace("û","&#251;",$pseudo);
+        $pseudo = str_replace("ú","&#250;",$pseudo);
+        $pseudo = str_replace("ù","&#249;",$pseudo);
+        $pseudo = str_replace("ø","&#248;",$pseudo);
+        $pseudo = str_replace("÷","&#247;",$pseudo);
+        $pseudo = str_replace("ö","&#246;",$pseudo);
+        $pseudo = str_replace("õ","&#245;",$pseudo);
+        $pseudo = str_replace("ô","&#244;",$pseudo);
+        $pseudo = str_replace("ó","&#243;",$pseudo);
+        $pseudo = str_replace("ò","&#242;",$pseudo);
+        $pseudo = str_replace("ñ","&#241;",$pseudo);
+        $pseudo = str_replace("ð","&#240;",$pseudo);
+        $pseudo = str_replace("ï","&#239;",$pseudo);
+        $pseudo = str_replace("î","&#238;",$pseudo);
+        $pseudo = str_replace("í","&#237;",$pseudo);
+        $pseudo = str_replace("ì","&#236;",$pseudo);
+        $pseudo = str_replace("ë","&#235;",$pseudo);
+        $pseudo = str_replace("ê","&#234;",$pseudo);
+        $pseudo = str_replace("é","&#233;",$pseudo);
+        $pseudo = str_replace("è","&#232;",$pseudo);
+        $pseudo = str_replace("ç","&#231;",$pseudo);
+        $pseudo = str_replace("æ","&#230;",$pseudo);
+        $pseudo = str_replace("å","&#229;",$pseudo);
+        $pseudo = str_replace("ä","&#228;",$pseudo);
+        $pseudo = str_replace("ã","&#227;",$pseudo);
+        $pseudo = str_replace("â","&#226;",$pseudo);
+        $pseudo = str_replace("á","&#225;",$pseudo);
+        $pseudo = str_replace("à","&#224;",$pseudo);
+        $pseudo = str_replace("ß","&#223;",$pseudo);
+        $pseudo = str_replace("Þ","&#222;",$pseudo);
+        $pseudo = str_replace("Ý","&#221;",$pseudo);
+        $pseudo = str_replace("Ü","&#220;",$pseudo);
+        $pseudo = str_replace("Û","&#219;",$pseudo);
+        $pseudo = str_replace("Ú","&#218;",$pseudo);
+        $pseudo = str_replace("Ù","&#217;",$pseudo);
+        $pseudo = str_replace("Ø","&#216;",$pseudo);
+        $pseudo = str_replace("×","&#215;",$pseudo);
+        $pseudo = str_replace("Ö","&#214;",$pseudo);
+        $pseudo = str_replace("Õ","&#213;",$pseudo);
+        $pseudo = str_replace("Ô","&#212;",$pseudo);
+        $pseudo = str_replace("Ó","&#211;",$pseudo);
+        $pseudo = str_replace("Ò","&#210;",$pseudo);
+        $pseudo = str_replace("Ñ","&#209;",$pseudo);
+        $pseudo = str_replace("Ð","&#208;",$pseudo);
+        $pseudo = str_replace("Ï","&#207;",$pseudo);
+        $pseudo = str_replace("Î","&#206;",$pseudo);
+        $pseudo = str_replace("Í","&#205;",$pseudo);
+        $pseudo = str_replace("Ì","&#204;",$pseudo);
+        $pseudo = str_replace("Ë","&#203;",$pseudo);
+        $pseudo = str_replace("Ê","&#202;",$pseudo);
+        $pseudo = str_replace("É","&#201;",$pseudo);
+        $pseudo = str_replace("È","&#200;",$pseudo);
+        $pseudo = str_replace("Ç","&#199;",$pseudo);
+        $pseudo = str_replace("Æ","&#198;",$pseudo);
+        $pseudo = str_replace("Å","&#197;",$pseudo);
+        $pseudo = str_replace("Ä","&#196;",$pseudo);
+        $pseudo = str_replace("Ã","&#195;",$pseudo);
+        $pseudo = str_replace("Â","&#194;",$pseudo);
+        $pseudo = str_replace("Á","&#193;",$pseudo);
+        $pseudo = str_replace("À","&#192;",$pseudo);
+        $pseudo = str_replace("¿","&#191;",$pseudo);
+        $pseudo = str_replace("¾","&#190;",$pseudo);
+
+        return $pseudo;
+    }
+
 ?>
