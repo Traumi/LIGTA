@@ -45,7 +45,7 @@
 
 		  $sincelastupdate = ($interval->format("%a"))*24*60 + ($interval->h)*60 + ($interval->i);
 
-		  if($sincelastupdate >= 30){
+		  if($sincelastupdate >= 0){
 				//Summoner
 				$result = file_get_contents('https://'.$reg.'.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$pseudo.'?api_key='.$key);
 				$file = fopen("data/$reg/players/$pseudo/summoner.json", "w");
@@ -57,7 +57,7 @@
 				$accountId = $profil->accountId;
 
 				//Rank
-				if($result = file_get_contents('https://'.$reg.'.api.riotgames.com/lol/league/v4/positions/by-summoner/'.$id.'?api_key='.$key)){
+				if($result = file_get_contents('https://'.$reg.'.api.riotgames.com/lol/league/v4/entries/by-summoner/'.$id.'?api_key='.$key)){
 					$file = fopen("data/$reg/players/$pseudo/ranks.json", "w");
 					fwrite($file, $result);
 					fclose($file);
